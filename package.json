@@ -9,8 +9,12 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.5",
     "core-js": "^3.8.2",
-    "nuxt": "^2.14.12"
+    "moment": "^2.29.1",
+    "nuxt": "^2.14.12",
+    "papaparse": "^5.3.0"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^3.4.2"
