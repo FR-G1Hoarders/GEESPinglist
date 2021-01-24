@@ -21,15 +21,15 @@
 
     <DragonRow v-for="(dragon, i) in dragons" :key="i" :dragon="dragon" @remove="() => dragons = [...dragons.slice(0, i), ...dragons.slice(i+1)]"></DragonRow>
 
-    <div v-if="status === STATUS.LOADING" class="w-full rounded-lg bg-indigo-800 text-indigo-300 p-2 my-3 text-lg">
+    <div v-if="status === STATUS.LOADING" class="w-full rounded-lg bg-indigo-800 text-indigo-300 p-5 my-3 text-lg">
       <span class="animate-spin inline-block font-bold mr-5">.</span>
       Loading
     </div>
-    <div v-if="status === STATUS.GENERATING" class="w-full rounded-lg bg-indigo-800 text-indigo-300 p-2 my-3 text-lg">
+    <div v-if="status === STATUS.GENERATING" class="w-full rounded-lg bg-indigo-800 text-indigo-300 p-5 my-3 text-lg">
       <span class="animate-spin inline-block font-bold mr-5">.</span>
       Generating
     </div>
-    <button @click="generate" v-if="canGenerate" class="w-full rounded-lg bg-indigo-800 text-indigo-300 p-2 my-3 text-lg">
+    <button @click="generate" v-if="canGenerate" class="w-full rounded-lg bg-indigo-800 text-indigo-300 p-5 my-3 text-lg">
       Generate Pinglist
     </button>
 

@@ -96,7 +96,7 @@ function GeneralPinglistItem(data) {
     });
 
     ['Multi-Gaze', 'Primal'].forEach((eyeType, ii) => {
-      const idxOffset = !i ? 19 : 31;
+      const idxOffset = !ii ? 19 : 31;
       const wants = data[idxOffset + i].search('specifics') !== -1;
       const wantsMatching = data[idxOffset + i].search('Matching') !== -1;
       if (wants) wantedEyeTypes.push(flight ? `${flight} ${eyeType}` : eyeType);
@@ -104,14 +104,14 @@ function GeneralPinglistItem(data) {
     });
   });
 
-  const multiGazeBlackList = [];
+  const multiGazeBlacklist = [];
   ['', ...FLIGHTS].forEach((flight, i) => {
-    if (data[19 + i].search('Do not ping') !== -1) multiGazeBlackList.push(flight);
+    if (data[19 + i].search('Do not ping') !== -1) multiGazeBlacklist.push(flight);
   });
 
-  const primalBlackList = [];
+  const primalBlacklist = [];
   ['', ...FLIGHTS].forEach((flight, i) => {
-    if (data[31 + i].search('Do not ping') !== -1) multiGazeBlackList.push(flight);
+    if (data[31 + i].search('Do not ping') !== -1) primalBlacklist.push(flight);
   });
 
   let wantedColorPatterns = [];
@@ -135,10 +135,10 @@ function GeneralPinglistItem(data) {
     data,
     ...PinglistItem(),
     multiGazeBlacklist() {
-      return multiGazeBlackList;
+      return multiGazeBlacklist;
     },
     primalBlacklist() {
-      return primalBlackList;
+      return primalBlacklist;
     },
     wantedEyeTypes() {
       return wantedEyeTypes;
