@@ -1,14 +1,14 @@
 <template>
-  <div class="bg-indigo-200 rounded-lg  p-3 text-left ring-4 ring-indigo-300">
-    <h1 class="text-2xl text-indigo-600 font-light">Select Dragon</h1>
+  <div class="bg-indigo-300 rounded-lg  p-3 text-left ring-4 ring-indigo-300">
+    <h1 class="text-2xl text-indigo-800 font-light">Select Dragons</h1>
     <ol class="list-decimal ml-5 mb-3">
       <li>
         Go to your lair tab, hibden tab, or to the dragon's page.
       </li>
       <li>
         Add "view-source:" to the beginning of the url and follow the link, eg:
-        <div class="ml-5"><u class="text-indigo-600">view-source:https://www1.flightrising.com/dragon/14833010</u></div>
-        <div class="ml-5"><u class="text-indigo-600">view-source:https://www1.flightrising.com/lair/318564/1720336/1</u></div>
+        <div class="ml-5"><u class="text-indigo-800">view-source:https://www1.flightrising.com/dragon/14833010</u></div>
+        <div class="ml-5"><u class="text-indigo-800">view-source:https://www1.flightrising.com/lair/318564/1720336/1</u></div>
       </li>
       <li>
         Select the ENTIRE PAGE and copy paste it into the textbox below.

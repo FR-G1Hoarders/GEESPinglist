@@ -1,6 +1,14 @@
 <template>
   <div>
     <h1 class="text-3xl text-indigo-500 font-light">G1 Pinglist</h1>
+
+    <div class="w-full rounded-lg bg-indigo-300 text-indigo-800 p-3 my-3 text-left">
+      <h2 class="text-2xl font-light">Select sale type:</h2>
+      <select v-model="saleType" class="w-full rounded-lg text-lg p-5 mt-3 cursor-pointer">
+        <option v-for="(saleType, i) in SALE_TYPES" :key="i">{{saleType}}</option>
+      </select>
+    </div>
+
     <DragonSelector @loaded="addDragons"></DragonSelector>
 
     <Alert>
@@ -13,20 +21,20 @@
 
     <DragonRow v-for="(dragon, i) in dragons" :key="i" :dragon="dragon" @remove="() => dragons = [...dragons.slice(0, i), ...dragons.slice(i+1)]"></DragonRow>
 
-    <div v-if="status === STATUS.LOADING" class="w-full rounded-lg bg-indigo-800 text-indigo-300 p-2 my-5 text-lg">
+    <div v-if="status === STATUS.LOADING" class="w-full rounded-lg bg-indigo-800 text-indigo-300 p-2 my-3 text-lg">
       <span class="animate-spin inline-block font-bold mr-5">.</span>
       Loading
     </div>
-    <div v-if="status === STATUS.GENERATING" class="w-full rounded-lg bg-indigo-800 text-indigo-300 p-2 my-5 text-lg">
+    <div v-if="status === STATUS.GENERATING" class="w-full rounded-lg bg-indigo-800 text-indigo-300 p-2 my-3 text-lg">
       <span class="animate-spin inline-block font-bold mr-5">.</span>
       Generating
     </div>
-    <button @click="generate" v-if="canGenerate" class="w-full rounded-lg bg-indigo-800 text-indigo-300 p-2 my-5 text-lg">
+    <button @click="generate" v-if="canGenerate" class="w-full rounded-lg bg-indigo-800 text-indigo-300 p-2 my-3 text-lg">
       Generate Pinglist
     </button>
 
     <div v-if="status === STATUS.GENERATED">
-      <h1 class="text-3xl text-indigo-500 font-light">Pinglist for {{ dragons.length }} Dragons</h1>
+      <h1 class="text-3xl text-indigo-500 font-light">Pinglist for {{ dragons.length }} Dragons [{{ saleType }}]</h1>
       <div class="w-full rounded-lg bg-indigo-300 text-indigo-800 p-5" v-if="status === STATUS.GENERATED">
         <div v-if="pings.size">
           <span v-for="(ping, i) in pings" :key="i">{{ ping }} </span>
@@ -55,7 +63,13 @@
               {{ item.dragonCache('PING', 'OK').map(x => x.displayName()).join(', ') }}
             </div>
           </td>
-          <td>{{ item.saleTypes() }}</td>
+          <td>
+            {{ item.wantedSaleTypes() ? item.wantedSaleTypes() : 'Any Sale Type' }}
+            <hr/>
+            <div class="bg-red-500 text-white p-1" v-if="!item.wantsSaleType(saleType)">
+              IGNORE
+            </div>
+          </td>
           <td>
             {{ item.wantedGender() || 'Any Gender' }}
             <hr/>
@@ -134,7 +148,13 @@
               {{ item.dragonCache('PING', 'OK').map(x => x.displayName()).join(', ') }}
             </div>
           </td>
-          <td>{{ item.saleTypes() }}</td>
+          <td>
+            {{ item.wantedSaleTypes() ? item.wantedSaleTypes() : 'Any Sale Type' }}
+            <hr/>
+            <div class="bg-red-500 text-white p-1" v-if="!item.wantsSaleType(saleType)">
+              IGNORE
+            </div>
+          </td>
           <td>
             {{ item.wantedGender() || 'Any Gender' }}
             <hr/>
@@ -185,7 +205,13 @@
               {{ item.dragonCache('PING', 'OK').map(x => x.displayName()).join(', ') }}
             </div>
           </td>
-          <td>{{ item.saleTypes() }}</td>
+          <td>
+            {{ item.wantedSaleTypes() ? item.wantedSaleTypes() : 'Any Sale Type' }}
+            <hr/>
+            <div class="bg-red-500 text-white p-1" v-if="!item.wantsSaleType(saleType)">
+              IGNORE
+            </div>
+          </td>
           <td>
             {{ item.wantedGender() || 'Any Gender' }}
             <hr/>
@@ -247,6 +273,7 @@
   import Alert from "../components/common/Alert";
   import Pinglist from "@/src/Pinglist";
 
+  const SALE_TYPES = ['Flat sale', 'Auction', 'Offer', 'Interest check', 'Mass hatch', 'Contest', 'Raffle', 'Grab bags and other RNG'];
   const STATUS = {LOADING: 0, WAITING: 1, GENERATING: 2, GENERATED: 3};
   const DEBUG_TAB = {GENERAL: 0, DATES: 1, SPECIFICS: 2};
 
@@ -266,7 +293,15 @@
 
         status: STATUS.LOADING,
         STATUS,
+
+        saleType: SALE_TYPES[0],
+        SALE_TYPES,
       };
+    },
+    watch: {
+      saleType() {
+        if (this.status === STATUS.GENERATED) this.status = STATUS.WAITING;
+      }
     },
     computed: {
       canGenerate() {
@@ -282,9 +317,9 @@
         this.status = STATUS.GENERATING;
 
         this.pings = new Set([
-          ...this.generalPinglist.pingsForDragons(this.dragons),
-          ...this.datesPinglist.pingsForDragons(this.dragons),
-          ...this.specificsPinglist.pingsForDragons(this.dragons),
+          ...this.generalPinglist.pingsForDragons(this.saleType, this.dragons),
+          ...this.datesPinglist.pingsForDragons(this.saleType, this.dragons),
+          ...this.specificsPinglist.pingsForDragons(this.saleType, this.dragons),
         ]);
 
         this.status = STATUS.GENERATED;

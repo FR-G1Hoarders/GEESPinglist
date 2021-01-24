@@ -14,9 +14,6 @@ function PinglistItem() {
     user() {
       return User({name: this.data[1]});
     },
-    saleTypes() {
-      return this.data[3];
-    },
     wantedGender() {
       if (this.data[4] === 'Female only') return 'Female';
       if (this.data[4] === 'Male only') return 'Male';
@@ -62,8 +59,12 @@ function PinglistItem() {
       if (dragonCache[step][status] === undefined) return [];
       return dragonCache[step][status];
     },
-    shouldBePingedForSale(saleType) {
-      return this.saleTypes().search(saleType) !== -1;
+    wantedSaleTypes() {
+      return this.data[3].substr(0, 10) === 'Everything' ? '' : this.data[3];
+    },
+    wantsSaleType(saleType) {
+      if (!this.wantedSaleTypes()) return true;
+      return this.wantedSaleTypes().search(saleType) !== -1;
     },
     toPing() {
       return this.user().toPing();
@@ -190,7 +191,7 @@ function GeneralPinglistItem(data) {
 
       return false;
     },
-    shouldBePingedForDragon(dragon) {
+    wantsDragon(dragon) {
       if (!this.wantsGender(dragon)) return this.dragonCacheFail(dragon, 'GENDER');
       if (!this.wantsUnbred(dragon)) return this.dragonCacheFail(dragon, 'BRED');
       if (!this.wantsSilhouette(dragon)) return this.dragonCacheFail(dragon, 'SILHOUETTE');
@@ -248,7 +249,7 @@ function DatesPinglistItem(data) {
 
       return false;
     },
-    shouldBePingedForDragon(dragon) {
+    wantsDragon(dragon) {
       if (!this.wantsGender(dragon)) return this.dragonCacheFail(dragon, 'GENDER');
       if (!this.wantsUnbred(dragon)) return this.dragonCacheFail(dragon, 'BRED');
       if (!this.wantsSilhouette(dragon)) return this.dragonCacheFail(dragon, 'SILHOUETTE');
@@ -309,7 +310,7 @@ function SpecificsPinglistItem(COLORS, data) {
     wantedFlights() {
       return wantedFlights;
     },
-    shouldBePingedForDragon(dragon) {
+    wantsDragon(dragon) {
       if (!this.wantsGender(dragon)) return this.dragonCacheFail(dragon, 'GENDER');
       if (!this.wantsUnbred(dragon)) return this.dragonCacheFail(dragon, 'BRED');
       if (!this.wantsFlight(dragon)) return this.dragonCacheFail(dragon, 'FLIGHT');
@@ -324,13 +325,13 @@ function SpecificsPinglistItem(COLORS, data) {
 
 function Pinglist() {
   return {
-    itemsForDragon(dragon) {
-      return this.items().filter(x => x.shouldBePingedForDragon(dragon));
+    itemsForDragon(salesType, dragon) {
+      return this.items().filter(x => x.wantsSaleType(salesType)).filter(x => x.wantsDragon(dragon));
     },
-    pingsForDragons(dragons) {
+    pingsForDragons(salesType, dragons) {
       this.resetItems();
       const pings = new Set;
-      dragons.forEach(dragon => this.itemsForDragon(dragon).forEach(x => pings.add(x.toPing())));
+      dragons.forEach(dragon => this.itemsForDragon(salesType, dragon).forEach(x => pings.add(x.toPing())));
       return pings;
     },
   };
