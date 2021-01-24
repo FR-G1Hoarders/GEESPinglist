@@ -91,8 +91,7 @@ function importDragonFromDragonBlob($) {
   };
 
   const idSelector = $('.dragon-profile-header-number').html();
-
-  return Dragon({
+  const dragon = Dragon({
     id: parseInt(idSelector.substr(0, idSelector.length - 1).substr(2)),
     name: $('.dragon-profile-header-name').html(),
     gender: $('[data-tooltip-source="#dragon-profile-icon-sex-tooltip"] img').attr('src').search('female') === -1 ? 'Male' : 'Female',
@@ -112,6 +111,22 @@ function importDragonFromDragonBlob($) {
     dateOfBirth: moment($('strong', stat(3, true)).html(), 'MMM DD, YYYY').format('YYYY-MM-DD'),
     tags: [],
   });
+
+  /************************************************
+   * Adding additional tags
+   ************************************************/
+  if ($('.dragon-profile-lineage-parents em')[0]) {
+    if (dragon.colorPattern() === 'XXX') dragon.pushTag('Roundsey triples');
+    if (dragon.colorPattern() !== 'XYZ') dragon.pushTag('Roundsey doubles');
+    if (dragon.eyes() === 'Primal') dragon.pushTag('Roundsey primals');
+    if (dragon.colorPattern() === 'XYZ' && dragon.eyes() !== 'Primal') dragon.pushTag('Roundsey others');
+  }
+
+  if (dragon.name().length < 3) {
+    dragon.pushTag('2 Letter names');
+  }
+
+  return dragon;
 }
 
 function importDragonsFromLairBlob($) {
@@ -121,7 +136,7 @@ function importDragonsFromLairBlob($) {
 function importDragonFromLairBlob($, det) {
   const tipId = $('.lair-page-dragon-tumbnail', det).attr('rel');
   const tip = $(tipId);
-  return Dragon({
+  const dragon = Dragon({
     id: parseInt(tipId.split('-')[1]),
     name: $('div', tip).eq(1).text(),
     gender: $('div', tip).eq(2).text().split(' ')[1],
@@ -141,6 +156,15 @@ function importDragonFromLairBlob($, det) {
     dateOfBirth: null,
     tags: [],
   });
+
+  /************************************************
+   * Adding additional tags
+   ************************************************/
+  if (dragon.name().length < 3) {
+    dragon.pushTag('2 Letter names');
+  }
+
+  return dragon;
 };
 
 function colorPattern(prim, sec, tert) {

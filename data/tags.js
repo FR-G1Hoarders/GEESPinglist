@@ -28,4 +28,6 @@ module.exports = [
   "Roundsey primals",
   "Roundsey others",
   "Near miss",
+  "Matching eyes",
+  "Lunar/solar events",
 ];
