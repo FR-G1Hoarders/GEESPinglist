@@ -87,7 +87,7 @@ function Dragon(data) {
 function importDragonFromDragonBlob($) {
   const stat = (index, take_first) => {
     const item = $('.dragon-profile-stat-icon-value')[index];
-    return take_first ? $(item).html().split('<br>')[0].trim() : $('strong', item).html();
+    return take_first ? $(item).html().split('<')[0].trim() : $('strong', item).html();
   };
 
   const idSelector = $('.dragon-profile-header-number').html();
@@ -115,7 +115,7 @@ function importDragonFromDragonBlob($) {
   /************************************************
    * Adding additional tags
    ************************************************/
-  if ($('.dragon-profile-lineage-parents em')[0]) {
+  if ($('.dragon-profile-lineage-parents em')[0] && $('.dragon-profile-lineage-parents em').text() === 'none (Raffle Prize)') {
     if (dragon.colorPattern() === 'XXX') dragon.pushTag('Roundsey triples');
     if (dragon.colorPattern() !== 'XYZ') dragon.pushTag('Roundsey doubles');
     if (dragon.eyes() === 'Primal') dragon.pushTag('Roundsey primals');
