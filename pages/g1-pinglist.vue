@@ -11,14 +11,6 @@
 
     <DragonSelector @loaded="addDragons"></DragonSelector>
 
-    <Alert>
-      <ul>
-        <li>Lair/Den view will not load bred status or birth date.</li>
-        <li><b>Check</b> your bred dragons.</li>
-        <li><b>Fill in</b> birth date if you want special date pinglists.</li>
-      </ul>
-    </Alert>
-
     <DragonRow v-for="(dragon, i) in dragons" :key="i" :dragon="dragon" @remove="() => dragons = [...dragons.slice(0, i), ...dragons.slice(i+1)]"></DragonRow>
 
     <div v-if="status === STATUS.LOADING" class="w-full rounded-lg bg-indigo-800 text-indigo-300 p-5 my-3 text-lg">
@@ -270,7 +262,6 @@
 <script>
   import DragonSelector from "../components/dragon/DragonSelector/DragonSelector";
   import DragonRow from "../components/dragon/DragonRow";
-  import Alert from "../components/common/Alert";
   import PinglistLoader from "@/src/Pinglist/PinglistLoader";
 
   const SALE_TYPES = ['Flat sale', 'Auction', 'Offer', 'Interest check', 'Mass hatch', 'Contest', 'Raffle', 'Grab bags and other RNG'];
@@ -278,7 +269,7 @@
   const DEBUG_TAB = {GENERAL: 0, DATES: 1, SPECIFICS: 2};
 
   export default {
-    components: {DragonRow, DragonSelector, Alert},
+    components: {DragonRow, DragonSelector},
     data() {
       return {
         dragons: [],

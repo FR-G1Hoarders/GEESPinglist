@@ -1,13 +1,16 @@
 <template>
-  <div class="bg-indigo-300 rounded-lg  p-3 text-left ring-4 ring-indigo-300">
-    <div class="rounded-lg bg-pink-300 text-pink-800 p-3 my-2 border-4 border-pink-400 text-center">
+  <div class="bg-indigo-300 rounded-lg p-3 text-left ring-4 ring-indigo-300">
+    <br/>
+    <Alert>
       <h4 class="text-2xl">WARNING!</h4>
-      You are in SOURCE SELECTOR mode.<br/>
-      This can be used for bulk imports, but is more difficult to use.<br/>
-      Unless you know what you're doing, we recommend use of the STANDARD SELECTOR.<br/>
-      <button class="cursor-pointer bg-pink-800 text-pink-300 p-2 mt-2 rounded-lg" @click="$emit('swapSelectorMode')">Swap Back!</button>
-    </div>
-    <h1 class="text-2xl text-indigo-800 font-light">Select Dragons (Source Selector Mode)</h1>
+      <ul>
+        <li>You are in SOURCE SELECTOR mode.</li>
+        <li>This can be used for bulk imports, but is more difficult to use.</li>
+        <li>Unless you know what you're doing, we recommend use of the STANDARD SELECTOR.</li>
+      </ul>
+      <button class="cursor-pointer bg-pink-800 text-pink-300 p-2 mt-2 font-bold rounded-lg px-5 block" @click="$emit('swapSelectorMode')">Swap Back!</button>
+    </Alert>
+    <h1 class="text-2xl text-indigo-800 font-light mt-2">Select Dragons (Source Selector Mode)</h1>
     <ol class="list-decimal ml-5 mb-3">
       <li>
         Go to your lair tab, hibden tab, or to the dragon's page.
@@ -24,13 +27,23 @@
       <textarea ref="dragonImportTextarea" rows="2" class="flex-1 rounded-lg rounded-r-none p-2" @paste="loadDragons" @input="e => e.target.value = ''"></textarea>
     </div>
     <div v-if="error" class="rounded-lg bg-pink-300 text-pink-800 p-3 mt-2 border-4 border-pink-400" v-html="error"></div>
+
+    <Alert>
+      <ul>
+        <li>Lair/Den view will not load bred status or birth date.</li>
+        <li><b>Check</b> your bred dragons.</li>
+        <li><b>Fill in</b> birth date if you want special date pinglists.</li>
+      </ul>
+    </Alert>
   </div>
 </template>
 
 <script>
+  import Alert from "@/components/common/Alert";
   import {dragonLookup} from "@/src/Dragon";
   export default {
     name: 'DragonSelectorSource',
+    components: {Alert},
     data() {
       return {
         error: '',

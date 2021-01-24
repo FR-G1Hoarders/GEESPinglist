@@ -27,6 +27,8 @@
     },
     methods: {
       loadDragon(e) {
+        this.error = '';
+
         let pastedText = '';
         if (window.clipboardData && window.clipboardData.getData) { // IE
           pastedText = window.clipboardData.getData('Text');

@@ -1,6 +1,6 @@
 <template>
-  <div class="mt-3 bg-indigo-300 text-indigo-800 text-left rounded-lg flex">
-    <div class="text-2xl bg-indigo-800 text-indigo-300 rounded-lg rounded-r-none font-bold p-5 flex items-center">
+  <div class="mt-3 bg-pink-700 text-pink-200 text-left rounded-lg flex border-pink-800">
+    <div class="text-2xl bg-pink-800 text-pink-300 rounded-lg rounded-r-none font-bold p-5 flex items-center">
       <span>!</span>
     </div>
     <div class="p-3 flex-1">
