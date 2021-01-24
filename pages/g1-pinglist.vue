@@ -271,7 +271,7 @@
   import DragonSelector from "../components/dragon/DragonSelector";
   import DragonRow from "../components/dragon/DragonRow";
   import Alert from "../components/common/Alert";
-  import Pinglist from "@/src/Pinglist";
+  import PinglistLoader from "@/src/Pinglist/PinglistLoader";
 
   const SALE_TYPES = ['Flat sale', 'Auction', 'Offer', 'Interest check', 'Mass hatch', 'Contest', 'Raffle', 'Grab bags and other RNG'];
   const STATUS = {LOADING: 0, WAITING: 1, GENERATING: 2, GENERATED: 3};
@@ -326,7 +326,7 @@
       }
     },
     mounted() {
-      Promise.all([Pinglist.generalPinglist(), Pinglist.datesPinglist(), Pinglist.specificsPinglist()]).then(([generalPingList, datesPinglist, specificsPinglist]) => {
+      Promise.all([PinglistLoader.generalPinglist(), PinglistLoader.datesPinglist(), PinglistLoader.specificsPinglist()]).then(([generalPingList, datesPinglist, specificsPinglist]) => {
         this.generalPinglist = generalPingList;
         this.datesPinglist = datesPinglist;
         this.specificsPinglist = specificsPinglist;
