@@ -268,7 +268,7 @@
 </template>
 
 <script>
-  import DragonSelector from "../components/dragon/DragonSelector";
+  import DragonSelector from "../components/dragon/DragonSelector/DragonSelector";
   import DragonRow from "../components/dragon/DragonRow";
   import Alert from "../components/common/Alert";
   import PinglistLoader from "@/src/Pinglist/PinglistLoader";

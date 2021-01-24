@@ -90,14 +90,16 @@ function importDragonFromDragonBlob($) {
     return take_first ? $(item).html().split('<br>')[0].trim() : $('strong', item).html();
   };
 
+  const idSelector = $('.dragon-profile-header-number').html();
+
   return Dragon({
-    id: parseInt($('meta[property="og:url"]').attr('content').split('/')[4]),
+    id: parseInt(idSelector.substr(0, idSelector.length - 1).substr(2)),
     name: $('.dragon-profile-header-name').html(),
-    gender: $('#dragon-profile-icon-sex-tooltip strong').html(),
+    gender: $('[data-tooltip-source="#dragon-profile-icon-sex-tooltip"] img').attr('src').search('female') === -1 ? 'Male' : 'Female',
     isFirstGen: !$('.dragon-profile-lineage-parents a')[0],
     isBred: !!$('.dragon-profile-lineage-offspring a')[0],
-    hasSilhouette: !!$('#dragon-profile-icon-silhouette-tooltip')[0],
-    isPermababy: !!$('#dragon-profile-icon-eternal-youth-tooltip')[0],
+    hasSilhouette: !!$('[data-tooltip-source="#dragon-profile-icon-silhouette-tooltip"]')[0],
+    isPermababy: !!$('[data-tooltip-source="#dragon-profile-icon-eternal-youth-tooltip"]')[0],
     primaryColor: stat(0, true),
     primaryGene: stat(0, false),
     secondaryColor: stat(1, true),
@@ -119,8 +121,6 @@ function importDragonsFromLairBlob($) {
 function importDragonFromLairBlob($, det) {
   const tipId = $('.lair-page-dragon-tumbnail', det).attr('rel');
   const tip = $(tipId);
-
-  console.log($('[data-tooltip-source="#icon-eternal-youth-tooltip"]', det).length);
   return Dragon({
     id: parseInt(tipId.split('-')[1]),
     name: $('div', tip).eq(1).text(),
@@ -163,7 +163,10 @@ module.exports = {
       dragons.push(importDragonFromDragonBlob($));
     } else if ($('#lair-view-page')[0]) {
       dragons = dragons.concat(importDragonsFromLairBlob($));
-    } else {
+    } else if ($('#dragon-profile-header')[0]) {
+      console.log('thru');
+      dragons.push(importDragonFromDragonBlob($));
+    }  else {
       return null;
     }
 
