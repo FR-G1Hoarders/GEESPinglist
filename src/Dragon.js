@@ -108,7 +108,7 @@ function importDragonFromDragonBlob($) {
     breed: stat(4, false),
     flight: stat(5, true),
     eyes: stat(5, false),
-    dateOfBirth: moment($('strong', stat(3, true)).html(), 'MMM DD, YYYY').format('YYYY-MM-DD'),
+    dateOfBirth: moment(stat(3, false), 'MMM DD, YYYY').format('YYYY-MM-DD'),
     tags: [],
   });
 
