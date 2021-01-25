@@ -26,13 +26,12 @@
 
     <div v-if="status === STATUS.GENERATED">
       <h1 class="text-3xl text-indigo-500 font-light">Pinglist for {{ dragons.length }} Dragons [{{ saleType }}]</h1>
-      <div class="w-full rounded-lg bg-indigo-300 text-indigo-800 p-5" v-if="status === STATUS.GENERATED">
-        <div v-if="pings.size">
-          <span v-for="(ping, i) in pings" :key="i">{{ ping }} </span>
-        </div>
-        <div v-if="!pings.size">
-          Noone to ping.
-        </div>
+      <textarea v-if="status === STATUS.GENERATED && pings.size"
+          class="w-full rounded-lg bg-indigo-300 text-indigo-800 text-left p-1 overflow-auto h-32 text-sm cursor-pointer"
+          @focus="selectPinglist"
+          ref="pinglistTextarea">{{ formattedPinglist }}</textarea>
+      <div v-if="status === STATUS.GENERATED && !pings.size" class="w-full rounded-lg bg-indigo-300 text-indigo-800 p-5">
+        Noone to ping.
       </div>
 
       <label class="block w-full rounded-lg bg-indigo-100 text-indigo-500 p-2 mt-5 text-sm cursor-pointer">
@@ -306,10 +305,28 @@
           ...this.specificsPings,
         ]);
       },
+      formattedPinglist() {
+        if (this.status !== STATUS.GENERATED) return '';
+        let str = `[b]General pinglists:[/b] Everything, ${this.saleType}[br]`;
+        str += `-Pings auto hidden-[br]`;
+        str += `[size=0][size=0][size=0][size=0][size=0][size=0]`;
+        this.generalPings.forEach(x => str += x + ' ');
+        str += `[/size][/size][/size][/size][/size][/size][br][br]`;
+        str += `[b]Color and Date specifics:[/b][br]`;
+        this.dragons.forEach(dragon => str += `[b]${dragon.name()} #${dragon.id()}[/b] (${dragon.flight()} ${dragon.eyes()}) (${dragon.primaryColor()}/${dragon.secondaryColor()}/${dragon.tertiaryColor()}) ${dragon.dateOfBirth()}[br]`);
+        this.datesPings.forEach(x => str += x + ' ');
+        this.specificsPings.forEach(x => str += x + ' ');
+        str += '[br][br]';
+        str += '[b]Please do not copy/paste pings from this post. (v3.1)[/b][br]';
+        str += '[url=https://www1.flightrising.com/forums/drs/2942468#post_2942468]Click here for the full thread[/url][br]';
+        str += '[url=https://docs.google.com/spreadsheets/d/15PsHGvicOsOdqOsntk1mZYfQx_C3ePp12JcJLqjh5yI/edit?usp=sharing]Click here for the pinglist generator[/url]';
+        return str;
+      },
+    },
     methods: {
       addDragons(dragons) {
         if (this.status === STATUS.GENERATED) this.status = STATUS.WAITING;
-        dragons.forEach(x => this.dragons.push(x));
+        dragons.filter(x => !this.dragons.map(x => x.id()).includes(x.id())).forEach(x => this.dragons.push(x));
       },
       generate() {
         this.status = STATUS.GENERATING;
@@ -325,6 +342,10 @@
         }
 
         this.status = STATUS.GENERATED;
+      },
+      selectPinglist() {
+        this.$refs.pinglistTextarea.select();
+        document.execCommand('copy');
       }
     },
     mounted() {
