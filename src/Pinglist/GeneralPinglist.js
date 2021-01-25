@@ -107,6 +107,7 @@ function GeneralPinglistItem(data) {
       return false;
     },
     wantsDragon(dragon) {
+      if (this.wantsEverything()) return this.dragonCacheOk(dragon, 'PING');
       if (!this.wantsGender(dragon)) return this.dragonCacheFail(dragon, 'GENDER');
       if (!this.wantsUnbred(dragon)) return this.dragonCacheFail(dragon, 'BRED');
       if (!this.wantsSilhouette(dragon)) return this.dragonCacheFail(dragon, 'SILHOUETTE');

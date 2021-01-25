@@ -5,12 +5,11 @@
     <div class="w-full rounded-lg bg-indigo-300 text-indigo-800 p-3 my-3 text-left">
       <h2 class="text-2xl font-light">Select sale type:</h2>
       <select v-model="saleType" class="w-full rounded-lg text-lg p-5 mt-3 cursor-pointer">
-        <option v-for="(saleType, i) in SALE_TYPES" :key="i">{{saleType}}</option>
+        <option v-for="(saleType, i) in SALE_TYPES.map(x => x.name)" :key="i">{{saleType}}</option>
       </select>
     </div>
 
     <DragonSelector @loaded="addDragons"></DragonSelector>
-
     <DragonRow v-for="(dragon, i) in dragons" :key="i" :dragon="dragon" @remove="() => dragons = [...dragons.slice(0, i), ...dragons.slice(i+1)]"></DragonRow>
 
     <div v-if="status === STATUS.LOADING" class="w-full rounded-lg bg-indigo-800 text-indigo-300 p-5 my-3 text-lg">
@@ -59,11 +58,9 @@
             </div>
           </td>
           <td>
-            {{ item.wantedSaleTypes() ? item.wantedSaleTypes() : 'Any Sale Type' }}
-            <hr/>
-            <div class="bg-red-500 text-white p-1" v-if="!item.wantsSaleType(saleType)">
-              IGNORE
-            </div>
+            {{ item.wantsEverything() ? 'Everything' : item.wantedSaleTypes() }}
+            <div class="bg-red-500 text-white p-1" v-if="!item.wantsSaleType(saleType)">IGNORE</div>
+            <div class="bg-green-500 text-white p-1" v-else>OK</div>
           </td>
           <td>
             {{ item.wantedGender() || 'Any Gender' }}
@@ -266,8 +263,7 @@
   import DragonSelector from "../components/dragon/DragonSelector/DragonSelector";
   import DragonRow from "../components/dragon/DragonRow";
   import PinglistLoader from "@/src/Pinglist/PinglistLoader";
-
-  const SALE_TYPES = ['Flat sale', 'Auction', 'Offer', 'Interest check', 'Mass hatch', 'Contest', 'Raffle', 'Grab bags and other RNG'];
+  import SALE_TYPES from "@/data/sale_types";
   const STATUS = {LOADING: 0, WAITING: 1, GENERATING: 2, GENERATED: 3};
   const DEBUG_TAB = {GENERAL: 0, DATES: 1, SPECIFICS: 2};
 
@@ -280,7 +276,9 @@
         generalPinglist: null,
         datesPinglist: null,
         specificsPinglist: null,
-        pings: new Set,
+        generalPings: new Set,
+        datesPings: new Set,
+        specificsPings: new Set,
 
         debugTab: DEBUG_TAB.GENERAL,
         DEBUG_TAB,
@@ -288,7 +286,7 @@
         status: STATUS.LOADING,
         STATUS,
 
-        saleType: SALE_TYPES[0],
+        saleType: SALE_TYPES[0].name,
         SALE_TYPES,
       };
     },
@@ -301,7 +299,13 @@
       canGenerate() {
         return [STATUS.WAITING, STATUS.GENERATED].includes(this.status);
       },
-    },
+      pings() {
+        return new Set([
+          ...this.generalPings,
+          ...this.datesPings,
+          ...this.specificsPings,
+        ]);
+      },
     methods: {
       addDragons(dragons) {
         if (this.status === STATUS.GENERATED) this.status = STATUS.WAITING;
@@ -310,11 +314,15 @@
       generate() {
         this.status = STATUS.GENERATING;
 
-        this.pings = new Set([
-          ...this.generalPinglist.pingsForDragons(this.saleType, this.dragons),
-          ...this.datesPinglist.pingsForDragons(this.saleType, this.dragons),
-          ...this.specificsPinglist.pingsForDragons(this.saleType, this.dragons),
-        ]);
+        if (SALE_TYPES.find(x => x.name === this.saleType).do_require_dragons) {
+          this.generalPings = this.generalPinglist.pingsForDragons(this.saleType, this.dragons);
+          this.datesPings = this.datesPinglist.pingsForDragons(this.saleType, this.dragons);
+          this.specificsPings = this.specificsPinglist.pingsForDragons(this.saleType, this.dragons);
+        } else {
+          this.generalPings = this.generalPinglist.pingsForSaleType(this.saleType);
+          this.datesPings = this.datesPinglist.pingsForSaleType(this.saleType);
+          this.specificsPings = this.specificsPinglist.pingsForSaleType(this.saleType);
+        }
 
         this.status = STATUS.GENERATED;
       }

@@ -52,11 +52,14 @@ function PinglistItem() {
       if (dragonCache[step][status] === undefined) return [];
       return dragonCache[step][status];
     },
+    wantsEverything() {
+      return this.wantedSaleTypes().substr(0, 10) === 'Everything';
+    },
     wantedSaleTypes() {
-      return this.data[3].substr(0, 10) === 'Everything' ? '' : this.data[3];
+      return this.data[3];
     },
     wantsSaleType(saleType) {
-      if (!this.wantedSaleTypes()) return true;
+      if (this.wantsEverything()) return true;
       return this.wantedSaleTypes().search(saleType) !== -1;
     },
     toPing() {
@@ -82,13 +85,22 @@ function PinglistItem() {
 
 function Pinglist() {
   return {
-    itemsForDragon(salesType, dragon) {
-      return this.items().filter(x => x.wantsSaleType(salesType)).filter(x => x.wantsDragon(dragon));
+    itemsForSaleType(saleType) {
+      return this.items().filter(x => x.wantsSaleType(saleType));
     },
-    pingsForDragons(salesType, dragons) {
+    pingsForSaleType(saleType) {
       this.resetItems();
       const pings = new Set;
-      dragons.forEach(dragon => this.itemsForDragon(salesType, dragon).forEach(x => pings.add(x.toPing())));
+      this.itemsForSaleType(saleType).forEach(x => pings.add(x.toPing()));
+      return pings;
+    },
+    itemsForDragon(saleType, dragon) {
+      return this.items().filter(x => x.wantsSaleType(saleType)).filter(x => x.wantsDragon(dragon));
+    },
+    pingsForDragons(saleType, dragons) {
+      this.resetItems();
+      const pings = new Set;
+      dragons.forEach(dragon => this.itemsForDragon(saleType, dragon).forEach(x => pings.add(x.toPing())));
       return pings;
     },
   };
