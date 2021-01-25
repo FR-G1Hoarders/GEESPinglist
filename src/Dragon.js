@@ -47,6 +47,9 @@ function Dragon(data) {
     dateOfBirth() {
       return this.data.dateOfBirth;
     },
+    isFirstGen() {
+      return this.data.isFirstGen;
+    },
     isBred() {
       return this.data.isBred;
     },
@@ -178,22 +181,26 @@ function colorPattern(prim, sec, tert) {
 module.exports = {
   Dragon,
   dragonLookup: (payload) => {
-    const $ = cheerio.load(payload);
-    let dragons = [];
+    try {
+      const $ = cheerio.load(payload);
 
-    if ($('#error-404')[0]) {
-      return null;
-    } else if ($('meta[property="og:url"]')[0] && $('meta[property="og:url"]').attr('content').substr(0, 37) === 'https://www1.flightrising.com/dragon/') {
-      dragons.push(importDragonFromDragonBlob($));
-    } else if ($('#lair-view-page')[0]) {
-      dragons = dragons.concat(importDragonsFromLairBlob($));
-    } else if ($('#dragon-profile-header')[0]) {
-      console.log('thru');
-      dragons.push(importDragonFromDragonBlob($));
-    }  else {
-      return null;
-    }
+      let dragons = [];
 
-    return dragons;
+      if ($('#error-404')[0]) {
+        return null;
+      } else if ($('meta[property="og:url"]')[0] && $('meta[property="og:url"]').attr('content').substr(0, 37) === 'https://www1.flightrising.com/dragon/') {
+        dragons.push(importDragonFromDragonBlob($));
+      } else if ($('#lair-view-page')[0]) {
+        dragons = dragons.concat(importDragonsFromLairBlob($));
+      } else if ($('.dragon-profile-header-title')[0] && $('.dragon-profile-lineage-offspring')[0]) {
+        dragons.push(importDragonFromDragonBlob($));
+      }  else {
+        return null;
+      }
+
+      return dragons;
+    } catch (e) {}
+
+    return null;
   },
 };

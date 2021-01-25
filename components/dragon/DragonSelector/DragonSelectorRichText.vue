@@ -17,6 +17,11 @@
 
 <script>
   import {dragonLookup} from "@/src/Dragon";
+  const ERRORS = {
+    GENERAL: "This does not look like a valid source. Please make sure you've followed the listed directions.<br/> It is possible you have not selected enough of the page - please click the question mark above for a guide.<br/> You can also copy paste the entire dragon's page.",
+    G1: "This isn't a g1 :(",
+  };
+
   export default {
     name: 'DragonSelectorRichText',
     data() {
@@ -30,19 +35,26 @@
         this.error = '';
 
         let pastedText = '';
-        if (window.clipboardData && window.clipboardData.getData) { // IE
-          pastedText = window.clipboardData.getData('Text');
-        } else if (e.clipboardData && e.clipboardData.getData) {
-          pastedText = e.clipboardData.getData('text/html');
+        try {
+          if (window.clipboardData && window.clipboardData.getData) { // IE
+            pastedText = window.clipboardData.getData('Text');
+          } else if (e.clipboardData && e.clipboardData.getData) {
+            pastedText = e.clipboardData.getData('text/html');
+          }
+
+          const [dragon] = dragonLookup(pastedText);
+          if (!dragon) {
+            this.error = ERRORS.GENERAL;
+          } else if (!dragon.isFirstGen()) {
+            this.error = ERRORS.G1;
+          } else {
+            this.$emit('loaded', [dragon]);
+            this.$refs.dragonImportTextarea.value = '';
+          }
+        } catch(e) {
+          this.error = ERRORS.GENERAL;
         }
 
-        const dragons = dragonLookup(pastedText);
-        if (dragons) {
-          this.$emit('loaded', dragons);
-          this.$refs.dragonImportTextarea.value = '';
-        } else {
-          this.error = "This does not look like a valid source. Please make sure you've followed the listed directions.";
-        }
       }
     }
   }
