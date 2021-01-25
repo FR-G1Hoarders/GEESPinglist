@@ -1,6 +1,7 @@
 const cheerio = require('cheerio');
 const moment = require('moment');
 const BREEDS = require('@/data/breeds');
+const NORMAL_EYES = ['Common', 'Dark Sclera', 'Glowing', 'Innocent', 'Swirl', 'Uncommon', 'Unusual'];
 
 function Dragon(data) {
   return {
@@ -25,6 +26,9 @@ function Dragon(data) {
     },
     eyes() {
       return this.data.eyes;
+    },
+    hasNormalEyes() {
+      return NORMAL_EYES.includes(this.eyes());
     },
     primaryColor() {
       return this.data.primaryColor;

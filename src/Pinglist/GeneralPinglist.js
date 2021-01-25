@@ -1,5 +1,4 @@
 const FLIGHTS = ['Arcane', 'Earth', 'Fire', 'Ice', 'Light', 'Lightning', 'Nature', 'Plague', 'Shadow', 'Water', 'Wind'];
-const NORMAL_EYES = ['Common', 'Dark Sclera', 'Glowing', 'Innocent', 'Swirl', 'Uncommon', 'Unusual'];
 const {parseCsv, Pinglist, PinglistItem} = require('./CommonPinglist');
 
 function GeneralPinglistItem(data) {
@@ -62,7 +61,7 @@ function GeneralPinglistItem(data) {
       const wantedEyeTypes = this.wantedEyeTypes();
       if (!wantedEyeTypes.length) return true;
 
-      const eyeType = `${dragon.flight()} ${NORMAL_EYES.includes(dragon.eyes()) ? 'Normal' : dragon.eyes()}`;
+      const eyeType = `${dragon.flight()} ${dragon.hasNormalEyes() ? 'Normal' : dragon.eyes()}`;
 
       for (let i = 0; i < wantedEyeTypes.length; i++) {
         if (wantedEyeTypes[i] === 'Matching eyes' && dragon.hasTag('Matching Eyes')) return true;
