@@ -139,7 +139,7 @@ function GeneralPinglist(blob) {
   return {
     ...Pinglist(),
     resetItems() {
-      items = parseCsv(blob).map(x => GeneralPinglistItem(x));
+      items = parseCsv(blob).map(x => GeneralPinglistItem(x)).filter(x => x.user().name());
     },
     items() {
       return items;

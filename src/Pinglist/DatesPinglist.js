@@ -68,7 +68,7 @@ function DatesPinglist(blob) {
   return {
     ...Pinglist(),
     resetItems() {
-      items = parseCsv(blob).map(x => DatesPinglistItem(x));
+      items = parseCsv(blob).map(x => DatesPinglistItem(x)).filter(x => x.user().name());
     },
     items() {
       return items;

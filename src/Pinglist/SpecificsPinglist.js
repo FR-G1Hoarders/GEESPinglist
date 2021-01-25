@@ -116,7 +116,7 @@ function SpecificsPinglist(blob) {
   return {
     ...Pinglist(),
     resetItems() {
-      items = csv.map(x => SpecificsPinglistItem(COLORS, x));
+      items = csv.map(x => SpecificsPinglistItem(COLORS, x)).filter(x => x.user().name());
     },
     items() {
       return items;
