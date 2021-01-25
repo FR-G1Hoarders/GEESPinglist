@@ -44,216 +44,10 @@
         <button :class="{'rounded-lg': true, 'bg-indigo-800': debugTab === DEBUG_TAB.SPECIFICS, 'bg-indigo-100': debugTab !== DEBUG_TAB.SPECIFICS, 'text-indigo-300': true, 'p-2': true,}" @click="debugTab = DEBUG_TAB.SPECIFICS">Specifics</button>
       </div>
 
-      <table class="text-left text-sm" v-if="isDebugMode && debugTab === DEBUG_TAB.GENERAL">
-        <tr v-for="(item, i) in this.generalPinglist.items()" :key="i" class="border-b-4 border-b-indigo-200">
-          <td>
-            {{ item.user().name() }}
-            <hr/>
-            <div class="bg-red-500 text-white p-1">
-              {{ item.dragonCache('PING', 'FAIL').map(x => x.displayName()).join(', ') }}
-            </div>
-            <div class="bg-green-500 text-white p-1">
-              {{ item.dragonCache('PING', 'OK').map(x => x.displayName()).join(', ') }}
-            </div>
-          </td>
-          <td>
-            {{ item.wantsEverything() ? 'Everything' : item.wantedSaleTypes() }}
-            <div class="bg-red-500 text-white p-1" v-if="!item.wantsSaleType(saleType)">IGNORE</div>
-            <div class="bg-green-500 text-white p-1" v-else>OK</div>
-          </td>
-          <td>
-            {{ item.wantedGender() || 'Any Gender' }}
-            <hr/>
-            <div class="bg-red-500 text-white p-1">
-              {{ item.dragonCache('GENDER', 'FAIL').map(x => x.displayName()).join(', ') }}
-            </div>
-          </td>
-          <td>
-            {{ item.wantedUnbred() ? 'Unbred' : 'Bred/Unbred' }}
-            <hr/>
-            <div class="bg-red-500 text-white p-1">
-              {{ item.dragonCache('BRED', 'FAIL').map(x => x.displayName()).join(', ') }}
-            </div>
-          </td>
-          <td>
-            {{ item.wantedSilhouette() === false ? 'No Silhouette' : 'Any Silhouette'}}
-            <hr/>
-            <div class="bg-red-500 text-white p-1">
-              {{ item.dragonCache('SILHOUETTE', 'FAIL').map(x => x.displayName()).join(', ') }}
-            </div>
-          </td>
-          <td>
-            {{ item.wantedColorPatterns().length ? item.wantedColorPatterns().join(', ') : 'Any Pattern' }}
-            <hr/>
-            <div class="bg-green-500 text-white p-1">
-              {{ item.dragonCache('COLOR_PATTERN', 'OK').map(x => x.displayName()).join(', ') }}
-            </div>
-          </td>
-          <td>
-            <div>
-              <strong>Desired Eyes:</strong> {{ item.wantedEyeTypes().join(', ') }}
-              <hr/>
-              <div class="bg-green-500 text-white p-1">
-                {{ item.dragonCache('EYES', 'OK').map(x => x.displayName()).join(', ') }}
-              </div>
-            </div>
-            <div v-if="item.multiGazeBlacklist().length">
-              <strong>MultiGaze DNP:</strong> {{ item.multiGazeBlacklist().join(', ') }}
-              <hr/>
-              <div class="bg-red-500 text-white p-1">
-                {{ item.dragonCache('MULTIGAZE_BLACKLIST', 'FAIL').map(x => x.displayName()).join(', ') }}
-              </div>
-            </div>
-            <div v-if="item.primalBlacklist().length">
-              <strong>Primal DNP:</strong> {{ item.primalBlacklist().join(', ') }}
-              <hr/>
-              <div class="bg-red-500 text-white p-1">
-                {{ item.dragonCache('PRIMAL_BLACKLIST', 'FAIL').map(x => x.displayName()).join(', ') }}
-              </div>
-            </div>
-          </td>
-          <td>
-            {{ item.wantedBreeds().length ? item.wantedBreeds().join(', ') : 'Any Breed' }}
-            <hr/>
-            <div class="bg-green-500 text-white p-1">
-              {{ item.dragonCache('BREED', 'OK').map(x => x.displayName()).join(', ') }}
-            </div>
-          </td>
-          <td>
-            <strong>Tags:</strong>
-            {{ item.wantedTags().length ? item.wantedTags().join(', ') : 'None' }}
-            <hr/>
-            <div class="bg-green-500 text-white p-1">
-              {{ item.dragonCache('TAGS', 'OK').map(x => x.displayName()).join(', ') }}
-            </div>
-          </td>
-        </tr>
-      </table>
 
-      <table class="text-left text-sm" v-if="isDebugMode && debugTab === DEBUG_TAB.DATES">
-        <tr v-for="(item, i) in this.datesPinglist.items()" :key="i" class="border-b-4 border-b-indigo-200">
-          <td>
-            {{ item.user().name() }}
-            <hr/>
-            <div class="bg-green-500 text-white p-1">
-              {{ item.dragonCache('PING', 'OK').map(x => x.displayName()).join(', ') }}
-            </div>
-          </td>
-          <td>
-            {{ item.wantedSaleTypes() ? item.wantedSaleTypes() : 'Any Sale Type' }}
-            <hr/>
-            <div class="bg-red-500 text-white p-1" v-if="!item.wantsSaleType(saleType)">
-              IGNORE
-            </div>
-          </td>
-          <td>
-            {{ item.wantedGender() || 'Any Gender' }}
-            <hr/>
-            <div class="bg-red-500 text-white p-1">
-              {{ item.dragonCache('GENDER', 'FAIL').map(x => x.displayName()).join(', ') }}
-            </div>
-          </td>
-          <td>
-            {{ item.wantedUnbred() ? 'Unbred' : 'Bred/Unbred' }}
-            <hr/>
-            <div class="bg-red-500 text-white p-1">
-              {{ item.dragonCache('BRED', 'FAIL').map(x => x.displayName()).join(', ') }}
-            </div>
-          </td>
-          <td>
-            {{ item.wantedSilhouette() === false ? 'No Silhouette' : 'Any Silhouette'}}
-            <hr/>
-            <div class="bg-red-500 text-white p-1">
-              {{ item.dragonCache('SILHOUETTE', 'FAIL').map(x => x.displayName()).join(', ') }}
-            </div>
-          </td>
-          <td>
-            {{ item.wantedFlights().length ? item.wantedFlights().join(', ') : 'Any Flight' }}
-            <hr/>
-            <div class="bg-red-500 text-white p-1">
-              {{ item.dragonCache('FLIGHT', 'FAIL').map(x => x.displayName()).join(', ') }}
-            </div>
-          </td>
-          <td>
-            {{ item.wantedHolidays().join(', ') }}
-            <hr/>
-            {{ item.wantedDate() ? item.wantedDate().format('YYYY-MM-DD') : '--' }}
-            ({{ item.wantedDateYear() ? 'Year Specific' : 'Any Year' }})
-            <hr/>
-            <div class="bg-red-500 text-white p-1">
-              {{ item.dragonCache('DATE', 'FAIL').map(x => x.displayName()).join(', ') }}
-            </div>
-          </td>
-        </tr>
-      </table>
-
-      <table class="text-left text-sm" v-if="isDebugMode && debugTab === DEBUG_TAB.SPECIFICS">
-        <tr v-for="(item, i) in this.specificsPinglist.items()" :key="i" class="border-b-4 border-b-indigo-200">
-          <td>
-            {{ item.user().name() }}
-            <hr/>
-            <div class="bg-green-500 text-white p-1">
-              {{ item.dragonCache('PING', 'OK').map(x => x.displayName()).join(', ') }}
-            </div>
-          </td>
-          <td>
-            {{ item.wantedSaleTypes() ? item.wantedSaleTypes() : 'Any Sale Type' }}
-            <hr/>
-            <div class="bg-red-500 text-white p-1" v-if="!item.wantsSaleType(saleType)">
-              IGNORE
-            </div>
-          </td>
-          <td>
-            {{ item.wantedGender() || 'Any Gender' }}
-            <hr/>
-            <div class="bg-red-500 text-white p-1">
-              {{ item.dragonCache('GENDER', 'FAIL').map(x => x.displayName()).join(', ') }}
-            </div>
-          </td>
-          <td>
-            {{ item.wantedUnbred() ? 'Unbred' : 'Bred/Unbred' }}
-            <hr/>
-            <div class="bg-red-500 text-white p-1">
-              {{ item.dragonCache('BRED', 'FAIL').map(x => x.displayName()).join(', ') }}
-            </div>
-          </td>
-          <td>
-            {{ item.wantedFlights().length ? item.wantedFlights().join(', ') : 'Any Flight' }}
-            <hr/>
-            <div class="bg-red-500 text-white p-1">
-              {{ item.dragonCache('FLIGHT', 'FAIL').map(x => x.displayName()).join(', ') }}
-            </div>
-          </td>
-          <td>
-            {{ item.wantedColorPatterns().length ? item.wantedColorPatterns().join(', ') : 'Any Color Pattern' }}
-            <hr/>
-            <div class="bg-red-500 text-white p-1">
-              {{ item.dragonCache('COLOR_PATTERN', 'FAIL').map(x => x.displayName()).join(', ') }}
-            </div>
-          </td>
-          <td>
-            {{ item.wantedPrimaries().length ? item.wantedPrimaries().join(', ') : 'Any Primary' }}
-            <hr/>
-            <div class="bg-red-500 text-white p-1">
-              {{ item.dragonCache('PRIMARY', 'FAIL').map(x => x.displayName()).join(', ') }}
-            </div>
-          </td>
-          <td>
-            {{ item.wantedSecondaries().length ? item.wantedSecondaries().join(', ') : 'Any Secondary' }}
-            <hr/>
-            <div class="bg-red-500 text-white p-1">
-              {{ item.dragonCache('SECONDARY', 'FAIL').map(x => x.displayName()).join(', ') }}
-            </div>
-          </td>
-          <td>
-            {{ item.wantedTertiaries().length ? item.wantedTertiaries().join(', ') : 'Any Tertiary' }}
-            <hr/>
-            <div class="bg-red-500 text-white p-1">
-              {{ item.dragonCache('TERTIARY', 'FAIL').map(x => x.displayName()).join(', ') }}
-            </div>
-          </td>
-        </tr>
-      </table>
+      <GeneralPinglistDebugger :pinglist="generalPinglist" :dragons="dragons" v-if="isDebugMode && debugTab === DEBUG_TAB.GENERAL"></GeneralPinglistDebugger>
+      <DatesPinglistDebugger :pinglist="datesPinglist" :dragons="dragons" v-if="isDebugMode && debugTab === DEBUG_TAB.DATES"></DatesPinglistDebugger>
+      <SpecificsPinglistDebugger :pinglist="specificsPinglist" :dragons="dragons" v-if="isDebugMode && debugTab === DEBUG_TAB.SPECIFICS"></SpecificsPinglistDebugger>
     </div>
   </div>
 </template>
@@ -261,13 +55,16 @@
 <script>
   import DragonSelector from "../components/dragon/DragonSelector/DragonSelector";
   import DragonRow from "../components/dragon/DragonRow";
+  import GeneralPinglistDebugger from "../components/pinglist/GeneralPinglistDebugger";
+  import DatesPinglistDebugger from "../components/pinglist/DatesPinglistDebugger";
+  import SpecificsPinglistDebugger from "../components/pinglist/SpecificsPinglistDebugger";
   import PinglistLoader from "@/src/Pinglist/PinglistLoader";
   import SALE_TYPES from "@/data/sale_types";
   const STATUS = {LOADING: 0, WAITING: 1, GENERATING: 2, GENERATED: 3};
   const DEBUG_TAB = {GENERAL: 0, DATES: 1, SPECIFICS: 2};
 
   export default {
-    components: {DragonRow, DragonSelector},
+    components: {GeneralPinglistDebugger, DatesPinglistDebugger, SpecificsPinglistDebugger, DragonRow, DragonSelector},
     data() {
       return {
         dragons: [],
@@ -307,15 +104,34 @@
       },
       formattedPinglist() {
         if (this.status !== STATUS.GENERATED) return '';
-        let str = `[b]General pinglists:[/b] Everything, ${this.saleType}[br]`;
+        let str = '';
+        str = `[b]General pinglists:[/b] Everything, ${this.saleType}[br][b]Ping for:[/b] `;
+
+        const includedColorPatterns = [...new Set(this.dragons.map(x => x.colorPattern()))];
+        const includedEyeTypes = [...new Set(this.dragons.map(x => x.hasNormalEyes() ? `${x.flight()} Normal Eyes` : `${x.flight()} ${x.eyes()}`))];
+        const includedTags = [...new Set(this.dragons.reduce((a, b) => [...a, ...b.tags()], []))];
+        const includedBreeds = [...new Set(this.dragons.map(x => x.breed()))];
+        const includedBreedTypes = [...new Set(this.dragons.map(x => x.isAncient() ? 'Ancient' : 'Modern'))];
+        const includedPermababy = this.dragons.find(x => x.isPermababy()) ? ['Permababy'] : [];
+        str += [...includedColorPatterns, ...includedEyeTypes, ...includedBreedTypes, ...includedPermababy, ...includedBreeds, ...includedTags].join(', ');
+        str += '[br]';
+
+        const excluded = [...new Set(this.dragons.filter(x => x.eyes() === 'Primal' || x.eyes() === 'Multi-Gaze').map(x => `${x.flight()} ${x.eyes()}`))];
+        if (excluded.length) str += `[b]Exclude:[/b] ${excluded.join(', ')}[br]`;
+
         str += `-Pings auto hidden-[br]`;
         str += `[size=0][size=0][size=0][size=0][size=0][size=0]`;
         this.generalPings.forEach(x => str += x + ' ');
         str += `[/size][/size][/size][/size][/size][/size][br][br]`;
+
         str += `[b]Color and Date specifics:[/b][br]`;
-        this.dragons.forEach(dragon => str += `[b]${dragon.name()} #${dragon.id()}[/b] (${dragon.flight()} ${dragon.eyes()}) (${dragon.primaryColor()}/${dragon.secondaryColor()}/${dragon.tertiaryColor()}) ${dragon.dateOfBirth()}[br]`);
+        this.dragons.forEach((dragon, i) => {
+          str += `[b][url=https://www1.flightrising.com/dragon${dragon.id()}]Dragon ${i + 1} #${dragon.id()}[/url][/b] (${dragon.flight()} ${dragon.eyes()}) (${dragon.primaryColor()}/${dragon.secondaryColor()}/${dragon.tertiaryColor()}) ${dragon.dateOfBirth()}[br]`
+        });
+
         this.datesPings.forEach(x => str += x + ' ');
         this.specificsPings.forEach(x => str += x + ' ');
+
         str += '[br][br]';
         str += '[b]Please do not copy/paste pings from this post. (v3.1)[/b][br]';
         str += '[url=https://www1.flightrising.com/forums/drs/2942468#post_2942468]Click here for the full thread[/url][br]';

@@ -111,14 +111,6 @@ function GeneralPinglistItem(data) {
       if (!this.wantsUnbred(dragon)) return this.dragonCacheFail(dragon, 'BRED');
       if (!this.wantsSilhouette(dragon)) return this.dragonCacheFail(dragon, 'SILHOUETTE');
 
-      if (dragon.eyes() === 'Primal') {
-        if (this.primalBlacklist()[0] === '' || this.primalBlacklist().includes(dragon.flight())) return this.dragonCacheFail(dragon, 'PRIMAL_BLACKLIST');
-      }
-
-      if (dragon.eyes() === 'Multi-Gaze') {
-        if (this.multiGazeBlacklist()[0] === '' || this.multiGazeBlacklist().includes(dragon.flight())) return this.dragonCacheFail(dragon, 'MULTIGAZE_BLACKLIST');
-      }
-
       let wantsDragon = false;
       if (this.wantsEyeType(dragon)) wantsDragon = this.dragonCacheOk(dragon, 'EYES');
       if (this.wantsBreed(dragon)) wantsDragon = this.dragonCacheOk(dragon, 'BREED');

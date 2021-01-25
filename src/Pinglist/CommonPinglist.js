@@ -1,7 +1,9 @@
 const {User} = require('../User');
 const Papa = require('papaparse');
+const FAILS = require('@/data/pinglist_fails');
 
 function PinglistItem() {
+  let failReason = null;
   const dragonCache = {};
   return {
     user() {
@@ -80,28 +82,58 @@ function PinglistItem() {
       if (!this.wantedFlights().length) return true;
       return this.wantedFlights().includes(dragon.flight());
     },
+    multiGazeBlacklist() {
+      return [];
+    },
+    primalBlacklist() {
+      return [];
+    },
+    setFailReason(val) {
+      failReason = val;
+    },
+    failReason() {
+      return failReason;
+    },
   };
 }
 
 function Pinglist() {
   return {
-    itemsForSaleType(saleType) {
-      return this.items().filter(x => x.wantsSaleType(saleType));
-    },
     pingsForSaleType(saleType) {
       this.resetItems();
       const pings = new Set;
-      this.itemsForSaleType(saleType).forEach(x => pings.add(x.toPing()));
+      this.items().filter(x => x.wantsSaleType(saleType)).forEach(x => pings.add(x.toPing()));
       return pings;
-    },
-    itemsForDragon(saleType, dragon) {
-      return this.items().filter(x => x.wantsSaleType(saleType)).filter(x => x.wantsDragon(dragon));
     },
     pingsForDragons(saleType, dragons) {
       this.resetItems();
       const pings = new Set;
-      dragons.forEach(dragon => this.itemsForDragon(saleType, dragon).forEach(x => pings.add(x.toPing())));
-      return pings;
+
+      const primals = dragons.filter(x => x.eyes() === 'Primal').map(x => x.flight());
+      const multiGazes = dragons.filter(x => x.eyes() === 'Multi-Gaze').map(x => x.flight());
+
+      const itemsAfterExclusions = this.items().filter(x => x.wantsSaleType(saleType)).filter(item => {
+        if (item.primalBlacklist().length && primals.length) {
+          if (item.primalBlacklist()[0] === '') item.setFailReason(FAILS.DNP_PRIMAL);
+          else primals.forEach(x => {
+            if (item.primalBlacklist().includes(x)) item.setFailReason(FAILS.DNP_PRIMAL);
+          });
+        }
+
+        return !item.failReason();
+      }).filter(item => {
+        if (item.multiGazeBlacklist().length && multiGazes.length) {
+          if (item.multiGazeBlacklist()[0] === '') item.setFailReason(FAILS.DNP_MULTIGAZE);
+          else multiGazes.forEach(x => {
+            if (item.multiGazeBlacklist().includes(x)) item.setFailReason(FAILS.DNP_MULTIGAZE);
+          });
+        }
+
+        return !item.failReason();
+      });
+
+      dragons.forEach(dragon => itemsAfterExclusions.filter(x => x.wantsDragon(dragon)).forEach(x => pings.add(x.toPing())));
+      return [...pings];
     },
   };
 }
