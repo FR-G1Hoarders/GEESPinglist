@@ -44,6 +44,7 @@
       </select>
       <label v-for="(tag, i) in dragon.tags()" :key="i" @click="dragon.removeTag(i)" class="block m-1 bg-indigo-300 text-indigo-800 p-2 rounded cursor-pointer">
         {{tag}}
+        <span class="float-right">X</span>
       </label>
     </div>
   </div>
