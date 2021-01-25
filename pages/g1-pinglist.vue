@@ -51,6 +51,9 @@
           <td>
             {{ item.user().name() }}
             <hr/>
+            <div class="bg-red-500 text-white p-1">
+              {{ item.dragonCache('PING', 'FAIL').map(x => x.displayName()).join(', ') }}
+            </div>
             <div class="bg-green-500 text-white p-1">
               {{ item.dragonCache('PING', 'OK').map(x => x.displayName()).join(', ') }}
             </div>
@@ -86,16 +89,16 @@
           <td>
             {{ item.wantedColorPatterns().length ? item.wantedColorPatterns().join(', ') : 'Any Pattern' }}
             <hr/>
-            <div class="bg-red-500 text-white p-1">
-              {{ item.dragonCache('COLOR_PATTERN', 'FAIL').map(x => x.displayName()).join(', ') }}
+            <div class="bg-green-500 text-white p-1">
+              {{ item.dragonCache('COLOR_PATTERN', 'OK').map(x => x.displayName()).join(', ') }}
             </div>
           </td>
           <td>
             <div>
               <strong>Desired Eyes:</strong> {{ item.wantedEyeTypes().join(', ') }}
               <hr/>
-              <div class="bg-red-500 text-white p-1">
-                {{ item.dragonCache('EYES', 'FAIL').map(x => x.displayName()).join(', ') }}
+              <div class="bg-green-500 text-white p-1">
+                {{ item.dragonCache('EYES', 'OK').map(x => x.displayName()).join(', ') }}
               </div>
             </div>
             <div v-if="item.multiGazeBlacklist().length">
@@ -116,16 +119,16 @@
           <td>
             {{ item.wantedBreeds().length ? item.wantedBreeds().join(', ') : 'Any Breed' }}
             <hr/>
-            <div class="bg-red-500 text-white p-1">
-              {{ item.dragonCache('BREED', 'FAIL').map(x => x.displayName()).join(', ') }}
+            <div class="bg-green-500 text-white p-1">
+              {{ item.dragonCache('BREED', 'OK').map(x => x.displayName()).join(', ') }}
             </div>
           </td>
           <td>
             <strong>Tags:</strong>
             {{ item.wantedTags().length ? item.wantedTags().join(', ') : 'None' }}
             <hr/>
-            <div class="bg-red-500 text-white p-1">
-              {{ item.dragonCache('TAGS', 'FAIL').map(x => x.displayName()).join(', ') }}
+            <div class="bg-green-500 text-white p-1">
+              {{ item.dragonCache('TAGS', 'OK').map(x => x.displayName()).join(', ') }}
             </div>
           </td>
         </tr>

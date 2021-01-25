@@ -110,7 +110,6 @@ function GeneralPinglistItem(data) {
       if (!this.wantsGender(dragon)) return this.dragonCacheFail(dragon, 'GENDER');
       if (!this.wantsUnbred(dragon)) return this.dragonCacheFail(dragon, 'BRED');
       if (!this.wantsSilhouette(dragon)) return this.dragonCacheFail(dragon, 'SILHOUETTE');
-      if (!this.wantsColorPattern(dragon)) return this.dragonCacheFail(dragon, 'COLOR_PATTERN');
 
       if (dragon.eyes() === 'Primal') {
         if (this.primalBlacklist()[0] === '' || this.primalBlacklist().includes(dragon.flight())) return this.dragonCacheFail(dragon, 'PRIMAL_BLACKLIST');
@@ -120,11 +119,17 @@ function GeneralPinglistItem(data) {
         if (this.multiGazeBlacklist()[0] === '' || this.multiGazeBlacklist().includes(dragon.flight())) return this.dragonCacheFail(dragon, 'MULTIGAZE_BLACKLIST');
       }
 
-      if (!this.wantsEyeType(dragon)) return this.dragonCacheFail(dragon, 'EYES');
-      if (!this.wantsBreed(dragon)) return this.dragonCacheFail(dragon, 'BREED');
-      if (!this.wantsTag(dragon)) return this.dragonCacheFail(dragon, 'TAGS');
+      let wantsDragon = false;
+      if (this.wantsEyeType(dragon)) wantsDragon = this.dragonCacheOk(dragon, 'EYES');
+      if (this.wantsBreed(dragon)) wantsDragon = this.dragonCacheOk(dragon, 'BREED');
+      if (this.wantsTag(dragon)) wantsDragon = this.dragonCacheOk(dragon, 'TAGS');
+      if (this.wantsColorPattern(dragon)) wantsDragon = this.dragonCacheOk(dragon, 'COLOR_PATTERN');
 
-      return this.dragonCacheOk(dragon, 'PING');
+      if (wantsDragon) {
+        return this.dragonCacheOk(dragon, 'PING');
+      } else {
+        return this.dragonCacheFail(dragon, 'PING');
+      }
     },
   }
 }
