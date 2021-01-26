@@ -26,11 +26,11 @@
 
     <div v-if="status === STATUS.GENERATED">
       <h1 class="text-3xl text-indigo-500 font-light">Pinglist for {{ dragons.length }} Dragons [{{ saleType }}]</h1>
-      <textarea v-if="status === STATUS.GENERATED && pings.size"
+      <textarea v-if="status === STATUS.GENERATED && hasPings"
           class="w-full rounded-lg bg-indigo-300 text-indigo-800 text-left p-1 overflow-auto h-32 text-sm cursor-pointer"
           @focus="selectPinglist"
           ref="pinglistTextarea">{{ formattedPinglist }}</textarea>
-      <div v-if="status === STATUS.GENERATED && !pings.size" class="w-full rounded-lg bg-indigo-300 text-indigo-800 p-5">
+      <div v-if="status === STATUS.GENERATED && !hasPings" class="w-full rounded-lg bg-indigo-300 text-indigo-800 p-5">
         Noone to ping.
       </div>
 
@@ -72,9 +72,9 @@
         generalPinglist: null,
         datesPinglist: null,
         specificsPinglist: null,
-        generalPings: new Set,
-        datesPings: new Set,
-        specificsPings: new Set,
+        generalPings: [],
+        datesPings: [],
+        specificsPings: [],
 
         debugTab: DEBUG_TAB.GENERAL,
         DEBUG_TAB,
@@ -95,12 +95,8 @@
       canGenerate() {
         return [STATUS.WAITING, STATUS.GENERATED].includes(this.status);
       },
-      pings() {
-        return new Set([
-          ...this.generalPings,
-          ...this.datesPings,
-          ...this.specificsPings,
-        ]);
+      hasPings() {
+        return this.generalPings.length || this.datesPings.length || this.specificsPings.length;
       },
       formattedPinglist() {
         if (this.status !== STATUS.GENERATED) return '';
@@ -119,20 +115,18 @@
         const excluded = [...new Set(this.dragons.filter(x => x.eyes() === 'Primal' || x.eyes() === 'Multi-Gaze').map(x => `${x.flight()} ${x.eyes()}`))];
         if (excluded.length) str += `[b]Exclude:[/b] ${excluded.join(', ')}[br]`;
 
-        str += `-Pings auto hidden-[br]`;
+        str += `[br]-Pings auto hidden-[br]`;
         str += `[size=0][size=0][size=0][size=0][size=0][size=0]`;
         this.generalPings.forEach(x => str += x + ' ');
         str += `[/size][/size][/size][/size][/size][/size][br][br]`;
 
         str += `[b]Color and Date specifics:[/b][br]`;
         this.dragons.forEach((dragon, i) => {
-          str += `[b][url=https://www1.flightrising.com/dragon${dragon.id()}]Dragon ${i + 1} #${dragon.id()}[/url][/b] (${dragon.flight()} ${dragon.eyes()}) (${dragon.primaryColor()}/${dragon.secondaryColor()}/${dragon.tertiaryColor()}) ${dragon.dateOfBirth()}[br]`
+          str += `[size=2][b][url=https://www1.flightrising.com/dragon/${dragon.id()}]Dragon ${i + 1} #${dragon.id()}[/url][/b] (${dragon.flight()} ${dragon.eyes()}) (${dragon.primaryColor()}/${dragon.secondaryColor()}/${dragon.tertiaryColor()}) ${dragon.dateOfBirth()}[/size][br]`
+          str += '[size=1]Date pings: ' + this.datesPinglist.items().filter(x => x.isStatusPing(dragon)).map(x => x.toPing()).join(' ') + '[br]';
+          str += 'Specific pings: ' + this.specificsPinglist.items().filter(x => x.isStatusPing(dragon)).map(x => x.toPing()).join(' ') + '[/size][br][br]';
         });
 
-        this.datesPings.forEach(x => str += x + ' ');
-        this.specificsPings.forEach(x => str += x + ' ');
-
-        str += '[br][br]';
         str += '[b]Please do not copy/paste pings from this post. (v3.1)[/b][br]';
         str += '[url=https://www1.flightrising.com/forums/drs/2942468#post_2942468]Click here for the full thread[/url][br]';
         str += '[url=https://docs.google.com/spreadsheets/d/15PsHGvicOsOdqOsntk1mZYfQx_C3ePp12JcJLqjh5yI/edit?usp=sharing]Click here for the pinglist generator[/url]';
@@ -153,8 +147,8 @@
           this.specificsPings = this.specificsPinglist.pingsForDragons(this.saleType, this.dragons);
         } else {
           this.generalPings = this.generalPinglist.pingsForSaleType(this.saleType);
-          this.datesPings = this.datesPinglist.pingsForSaleType(this.saleType);
-          this.specificsPings = this.specificsPinglist.pingsForSaleType(this.saleType);
+          this.datesPings = [];
+          this.specificsPings = [];
         }
 
         this.status = STATUS.GENERATED;

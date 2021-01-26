@@ -1,10 +1,12 @@
 const {User} = require('../User');
 const Papa = require('papaparse');
-const FAILS = require('@/data/pinglist_fails');
+const ITEM_STATUS = require('@/data/pinglist_item_status');
 
 function PinglistItem() {
-  let failReason = null;
-  const dragonCache = {};
+  let status = null;
+  const dragon2Status = {};
+  const dnpDragons = [];
+  const pingDragons = [];
   return {
     user() {
       return User({name: this.data[1]});
@@ -36,23 +38,38 @@ function PinglistItem() {
       if (this.wantedSilhouette() === null) return true;
       return this.wantedSilhouette() === dragon.hasSilhouette();
     },
-    dragonCacheOk(dragon, step) {
-      if (!dragonCache[step]) dragonCache[step] = {FAIL: [], OK: []};
-      dragonCache[step]['OK'].push(dragon);
-      return true;
+    setStatus(inStatus, dragon) {
+      if (dragon) {
+        if (inStatus < 2000) pingDragons.push(dragon);
+        else dnpDragons.push(dragon);
+
+        dragon2Status[dragon.id()] = inStatus;
+      } else {
+        status = inStatus;
+      }
+
+      return inStatus < 2000;
     },
-    dragonCacheFail(dragon, step) {
-      if (dragonCache[step] === undefined) dragonCache[step] = {FAIL: [], OK: []};
-      if (dragonCache['PING'] === undefined) dragonCache['PING'] = {FAIL: [], OK: []};
-      dragonCache[step]['FAIL'].push(dragon);
-      dragonCache['PING']['FAIL'].push(dragon);
-      return false;
+    status(dragon) {
+      if (status || !dragon) {
+        return status;
+      }
+
+      return dragon2Status[dragon.id()];
     },
-    dragonCache(step, status) {
-      if (step === undefined && status === undefined) return dragonCache;
-      if (dragonCache[step] === undefined) return [];
-      if (dragonCache[step][status] === undefined) return [];
-      return dragonCache[step][status];
+    pingDragons() {
+      return pingDragons;
+    },
+    dnpDragons() {
+      return dnpDragons;
+    },
+    isStatusDnp(dragon) {
+      const checkStatus = dragon ? dragon2Status[dragon.id()] : status;
+      return checkStatus && checkStatus >= 2000;
+    },
+    isStatusPing(dragon) {
+      const checkStatus = dragon ? dragon2Status[dragon.id()] : status;
+      return checkStatus && checkStatus < 2000;
     },
     wantsEverything() {
       return this.wantedSaleTypes().substr(0, 10) === 'Everything';
@@ -88,12 +105,6 @@ function PinglistItem() {
     primalBlacklist() {
       return [];
     },
-    setFailReason(val) {
-      failReason = val;
-    },
-    failReason() {
-      return failReason;
-    },
   };
 }
 
@@ -114,22 +125,22 @@ function Pinglist() {
 
       const itemsAfterExclusions = this.items().filter(x => x.wantsSaleType(saleType)).filter(item => {
         if (item.primalBlacklist().length && primals.length) {
-          if (item.primalBlacklist()[0] === '') item.setFailReason(FAILS.DNP_PRIMAL);
+          if (item.primalBlacklist()[0] === '') item.setStatus(ITEM_STATUS.DNP_PRIMAL);
           else primals.forEach(x => {
-            if (item.primalBlacklist().includes(x)) item.setFailReason(FAILS.DNP_PRIMAL);
+            if (item.primalBlacklist().includes(x)) item.setStatus(ITEM_STATUS.DNP_PRIMAL);
           });
         }
 
-        return !item.failReason();
+        return !item.isStatusDnp();
       }).filter(item => {
         if (item.multiGazeBlacklist().length && multiGazes.length) {
-          if (item.multiGazeBlacklist()[0] === '') item.setFailReason(FAILS.DNP_MULTIGAZE);
+          if (item.multiGazeBlacklist()[0] === '') item.setStatus(ITEM_STATUS.DNP_MULTIGAZE);
           else multiGazes.forEach(x => {
-            if (item.multiGazeBlacklist().includes(x)) item.setFailReason(FAILS.DNP_MULTIGAZE);
+            if (item.multiGazeBlacklist().includes(x)) item.setStatus(ITEM_STATUS.DNP_MULTIGAZE);
           });
         }
 
-        return !item.failReason();
+        return !item.isStatusDnp();
       });
 
       dragons.forEach(dragon => itemsAfterExclusions.filter(x => x.wantsDragon(dragon)).forEach(x => pings.add(x.toPing())));

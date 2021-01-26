@@ -1,5 +1,6 @@
 const FLIGHTS = ['Arcane', 'Earth', 'Fire', 'Ice', 'Light', 'Lightning', 'Nature', 'Plague', 'Shadow', 'Water', 'Wind'];
 const {parseCsv, Pinglist, PinglistItem} = require('./CommonPinglist');
+const ITEM_STATUS = require('@/data/pinglist_item_status');
 
 function GeneralPinglistItem(data) {
   const wantedEyeTypes = [];
@@ -106,22 +107,18 @@ function GeneralPinglistItem(data) {
       return false;
     },
     wantsDragon(dragon) {
-      if (this.wantsEverything()) return this.dragonCacheOk(dragon, 'PING');
-      if (!this.wantsGender(dragon)) return this.dragonCacheFail(dragon, 'GENDER');
-      if (!this.wantsUnbred(dragon)) return this.dragonCacheFail(dragon, 'BRED');
-      if (!this.wantsSilhouette(dragon)) return this.dragonCacheFail(dragon, 'SILHOUETTE');
+      if (this.wantsEverything()) return this.setStatus(ITEM_STATUS.PING, dragon);
 
-      let wantsDragon = false;
-      if (this.wantsEyeType(dragon)) wantsDragon = this.dragonCacheOk(dragon, 'EYES');
-      if (this.wantsBreed(dragon)) wantsDragon = this.dragonCacheOk(dragon, 'BREED');
-      if (this.wantsTag(dragon)) wantsDragon = this.dragonCacheOk(dragon, 'TAGS');
-      if (this.wantsColorPattern(dragon)) wantsDragon = this.dragonCacheOk(dragon, 'COLOR_PATTERN');
+      if (!this.wantsGender(dragon)) return this.setStatus(ITEM_STATUS.DNP_DRAGON_GENDER, dragon);
+      if (!this.wantsUnbred(dragon)) return this.setStatus(ITEM_STATUS.DNP_DRAGON_BRED, dragon);
+      if (!this.wantsSilhouette(dragon)) return this.setStatus(ITEM_STATUS.DNP_DRAGON_SILHOUETTE, dragon);
 
-      if (wantsDragon) {
-        return this.dragonCacheOk(dragon, 'PING');
-      } else {
-        return this.dragonCacheFail(dragon, 'PING');
-      }
+      if (this.wantsEyeType(dragon)) return this.setStatus(ITEM_STATUS.PING_DRAGON_EYES, dragon);
+      if (this.wantsBreed(dragon)) return this.setStatus(ITEM_STATUS.PING_DRAGON_BREED, dragon);
+      if (this.wantsTag(dragon)) return this.setStatus(ITEM_STATUS.PING_DRAGON_TAGS, dragon);
+      if (this.wantsColorPattern(dragon)) return this.setStatus(ITEM_STATUS.PING_DRAGON_COLOR_PATTERN, dragon);
+
+      return this.setStatus(ITEM_STATUS.DNP, dragon);
     },
   }
 }

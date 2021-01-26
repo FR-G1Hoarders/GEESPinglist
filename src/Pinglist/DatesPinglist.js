@@ -1,6 +1,7 @@
 const moment = require('moment');
 const HOLIDAYS = require('@/data/holidays');
 const {parseCsv, Pinglist, PinglistItem} = require('./CommonPinglist');
+const ITEM_STATUS = require('@/data/pinglist_item_status');
 
 function DatesPinglistItem(data) {
   return {
@@ -53,12 +54,12 @@ function DatesPinglistItem(data) {
       return false;
     },
     wantsDragon(dragon) {
-      if (!this.wantsGender(dragon)) return this.dragonCacheFail(dragon, 'GENDER');
-      if (!this.wantsUnbred(dragon)) return this.dragonCacheFail(dragon, 'BRED');
-      if (!this.wantsSilhouette(dragon)) return this.dragonCacheFail(dragon, 'SILHOUETTE');
-      if (!this.wantsFlight(dragon)) return this.dragonCacheFail(dragon, 'FLIGHT');
-      if (!this.wantsDateOfBirth(dragon)) return this.dragonCacheFail(dragon, 'DATE');
-      return this.dragonCacheOk(dragon, 'PING');
+      if (!this.wantsGender(dragon)) return this.setStatus(ITEM_STATUS.DNP_DRAGON_GENDER, dragon);
+      if (!this.wantsUnbred(dragon)) return this.setStatus(ITEM_STATUS.DNP_DRAGON_BRED, dragon);
+      if (!this.wantsSilhouette(dragon)) return this.setStatus(ITEM_STATUS.DNP_DRAGON_SILHOUETTE, dragon);
+      if (!this.wantsFlight(dragon)) return this.setStatus(ITEM_STATUS.DNP_DRAGON_FLIGHT, dragon);
+      if (!this.wantsDateOfBirth(dragon)) return this.setStatus(ITEM_STATUS.DNP_DRAGON_DATE, dragon);
+      return this.setStatus(ITEM_STATUS.PING, dragon);
     },
   }
 }

@@ -1,4 +1,5 @@
 const {parseCsv, Pinglist, PinglistItem} = require('./CommonPinglist');
+const ITEM_STATUS = require('@/data/pinglist_item_status');
 
 function SpecificsPinglistItem(COLORS, data) {
   let wantedPrimaries = [], wantedSecondaries = [], wantedTertiaries = [];
@@ -84,14 +85,14 @@ function SpecificsPinglistItem(COLORS, data) {
       return wantedFlights;
     },
     wantsDragon(dragon) {
-      if (!this.wantsGender(dragon)) return this.dragonCacheFail(dragon, 'GENDER');
-      if (!this.wantsUnbred(dragon)) return this.dragonCacheFail(dragon, 'BRED');
-      if (!this.wantsFlight(dragon)) return this.dragonCacheFail(dragon, 'FLIGHT');
-      if (!this.wantsColorPattern(dragon)) return this.dragonCacheFail(dragon, 'COLOR_PATTERN');
-      if (!this.wantsPrimary(dragon)) return this.dragonCacheFail(dragon, 'PRIMARY');
-      if (!this.wantsSecondary(dragon)) return this.dragonCacheFail(dragon, 'SECONDARY');
-      if (!this.wantsTertiary(dragon)) return this.dragonCacheFail(dragon, 'TERTIARY');
-      return this.dragonCacheOk(dragon, 'PING');
+      if (!this.wantsGender(dragon)) return this.setStatus(ITEM_STATUS.DNP_DRAGON_GENDER, dragon);
+      if (!this.wantsUnbred(dragon)) return this.setStatus(ITEM_STATUS.DNP_DRAGON_BRED, dragon);
+      if (!this.wantsFlight(dragon)) return this.setStatus(ITEM_STATUS.DNP_DRAGON_FLIGHT, dragon);
+      if (!this.wantsColorPattern(dragon)) return this.setStatus(ITEM_STATUS.DNP_DRAGON_COLOR_PATTERN, dragon);
+      if (!this.wantsPrimary(dragon)) return this.setStatus(ITEM_STATUS.DNP_DRAGON_PRIMARY, dragon);
+      if (!this.wantsSecondary(dragon)) return this.setStatus(ITEM_STATUS.DNP_DRAGON_SECONDARY, dragon);
+      if (!this.wantsTertiary(dragon)) return this.setStatus(ITEM_STATUS.DNP_DRAGON_TERTIARY, dragon);
+      return this.setStatus(ITEM_STATUS.PING, dragon);
     },
   }
 }

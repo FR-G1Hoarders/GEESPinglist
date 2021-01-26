@@ -1,6 +1,0 @@
-module.exports = {
-  SALE_TYPE: 1001,
-  DNP_PRIMAL: 1002,
-  DNP_MULTIGAZE: 1003,
-  DRAGON_MISMATCH: 2001,
-};

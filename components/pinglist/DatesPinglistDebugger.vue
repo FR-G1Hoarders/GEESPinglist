@@ -5,13 +5,13 @@
         {{ item.user().name() }}
         <hr/>
         <div class="bg-green-500 text-white p-1">
-          {{ item.dragonCache('PING', 'OK').map(x => x.displayName()).join(', ') }}
+          {{ item.pingDragons().map(x => x.displayName()).join(', ') }}
         </div>
       </td>
       <td>
         {{ item.wantedSaleTypes() ? item.wantedSaleTypes() : 'Any Sale Type' }}
         <hr/>
-        <div class="bg-red-500 text-white p-1" v-if="item.failReason() === FAILS.SALE_TYPE">
+        <div class="bg-red-500 text-white p-1" v-if="item.status() === ITEM_STATUS.DNP_SALE_TYPE">
           IGNORE
         </div>
       </td>
@@ -19,28 +19,28 @@
         {{ item.wantedGender() || 'Any Gender' }}
         <hr/>
         <div class="bg-red-500 text-white p-1">
-          {{ item.dragonCache('GENDER', 'FAIL').map(x => x.displayName()).join(', ') }}
+          {{ item.dnpDragons().filter(x => item.status(x) === ITEM_STATUS.DNP_DRAGON_GENDER).map(x => x.displayName()).join(', ') }}
         </div>
       </td>
       <td>
         {{ item.wantedUnbred() ? 'Unbred' : 'Bred/Unbred' }}
         <hr/>
         <div class="bg-red-500 text-white p-1">
-          {{ item.dragonCache('BRED', 'FAIL').map(x => x.displayName()).join(', ') }}
+          {{ item.dnpDragons().filter(x => item.status(x) === ITEM_STATUS.DNP_DRAGON_BRED).map(x => x.displayName()).join(', ') }}
         </div>
       </td>
       <td>
         {{ item.wantedSilhouette() === false ? 'No Silhouette' : 'Any Silhouette'}}
         <hr/>
         <div class="bg-red-500 text-white p-1">
-          {{ item.dragonCache('SILHOUETTE', 'FAIL').map(x => x.displayName()).join(', ') }}
+          {{ item.dnpDragons().filter(x => item.status(x) === ITEM_STATUS.DNP_DRAGON_SILHOUETTE).map(x => x.displayName()).join(', ') }}
         </div>
       </td>
       <td>
         {{ item.wantedFlights().length ? item.wantedFlights().join(', ') : 'Any Flight' }}
         <hr/>
         <div class="bg-red-500 text-white p-1">
-          {{ item.dragonCache('FLIGHT', 'FAIL').map(x => x.displayName()).join(', ') }}
+          {{ item.dnpDragons().filter(x => item.status(x) === ITEM_STATUS.DNP_DRAGON_FLIGHT).map(x => x.displayName()).join(', ') }}
         </div>
       </td>
       <td>
@@ -50,7 +50,7 @@
         ({{ item.wantedDateYear() ? 'Year Specific' : 'Any Year' }})
         <hr/>
         <div class="bg-red-500 text-white p-1">
-          {{ item.dragonCache('DATE', 'FAIL').map(x => x.displayName()).join(', ') }}
+          {{ item.dnpDragons().filter(x => item.status(x) === ITEM_STATUS.DNP_DRAGON_DATE).map(x => x.displayName()).join(', ') }}
         </div>
       </td>
     </tr>
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-  import FAILS from '@/data/pinglist_fails';
+  import ITEM_STATUS from '@/data/pinglist_item_status';
   export default {
     props: {
       pinglist: {
@@ -72,7 +72,7 @@
     },
     data() {
       return {
-        FAILS,
+        ITEM_STATUS,
       };
     },
   }
