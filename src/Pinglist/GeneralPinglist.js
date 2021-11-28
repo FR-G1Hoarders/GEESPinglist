@@ -11,7 +11,7 @@ function GeneralPinglistItem(data) {
     });
 
     ['Multi-Gaze', 'Primal'].forEach((eyeType, ii) => {
-      const idxOffset = !ii ? 19 : 31;
+      const idxOffset = !ii ? 19 : 31; //19 is all MG column, 31 is all Primal column
       const wants = data[idxOffset + i].search('specifics') !== -1;
       const wantsMatching = data[idxOffset + i].search('Matching') !== -1;
       if (wants) wantedEyeTypes.push(flight ? `${flight} ${eyeType}` : eyeType);
@@ -44,7 +44,8 @@ function GeneralPinglistItem(data) {
     else if (item) wantedBreeds.push(item);
   });
 
-  const wantedTags = data[45].split(', ').filter(x => x);
+  const wantedTagsPartial = data[45].split(', ').filter(x => x);
+  const wantedTags = wantedTagsPartial.concat(data[47].split(', ').filter(x => x));
 
   return {
     data,

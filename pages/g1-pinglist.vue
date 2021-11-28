@@ -101,7 +101,7 @@
       formattedPinglist() {
         if (this.status !== STATUS.GENERATED) return '';
         let str = '';
-        str = `[b]General pinglists:[/b] Everything, ${this.saleType}[br][b]Ping for:[/b] `;
+        str = `[b]General pinglists:[/b] ${this.saleType}[br][b]Ping for:[/b] `;
 
         const includedColorPatterns = [...new Set(this.dragons.map(x => x.colorPattern()))];
         const includedEyeTypes = [...new Set(this.dragons.map(x => x.hasNormalEyes() ? `${x.flight()} Normal Eyes` : `${x.flight()} ${x.eyes()}`))];
