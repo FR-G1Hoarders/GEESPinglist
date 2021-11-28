@@ -1,0 +1,26 @@
+{
+  "CommonAlert": {
+    "description": "Auto imported from components/common/Alert.vue"
+  },
+  "DragonRow": {
+    "description": "Auto imported from components/dragon/DragonRow.vue"
+  },
+  "PinglistDatesPinglistDebugger": {
+    "description": "Auto imported from components/pinglist/DatesPinglistDebugger.vue"
+  },
+  "PinglistGeneralPinglistDebugger": {
+    "description": "Auto imported from components/pinglist/GeneralPinglistDebugger.vue"
+  },
+  "PinglistSpecificsPinglistDebugger": {
+    "description": "Auto imported from components/pinglist/SpecificsPinglistDebugger.vue"
+  },
+  "DragonSelector": {
+    "description": "Auto imported from components/dragon/DragonSelector/DragonSelector.vue"
+  },
+  "DragonSelectorRichText": {
+    "description": "Auto imported from components/dragon/DragonSelector/DragonSelectorRichText.vue"
+  },
+  "DragonSelectorSource": {
+    "description": "Auto imported from components/dragon/DragonSelector/DragonSelectorSource.vue"
+  }
+}
