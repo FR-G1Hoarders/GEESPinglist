@@ -1,5 +1,9 @@
 module.exports = [
   {
+    name: 'Everything',
+    do_require_dragons: false,
+  },
+  {
     name: 'Flat sale',
     do_require_dragons: true,
   },
@@ -16,7 +20,7 @@ module.exports = [
     do_require_dragons: true,
   },
   {
-    name: 'Mass hatch',
+    name: 'Mass hatches',
     do_require_dragons: false,
   },
   {

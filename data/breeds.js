@@ -36,6 +36,10 @@ module.exports = [
     is_ancient: false,
   },
   {
+    name: 'Obelisk',
+    is_ancient: false,
+  },
+  {
     name: 'Pearlcatcher',
     is_ancient: false,
   },

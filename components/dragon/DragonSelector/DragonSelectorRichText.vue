@@ -6,7 +6,7 @@
       <button class="cursor-pointer bg-indigo-800 text-indigo-300 rounded-lg px-2" @click="() => showTutorial = !showTutorial">?</button>
     </ol>
     <div v-if="showTutorial" class="bg-indigo-500 text-center m-2 p-5 rounded-lg">
-      <img src="/fr-tools/ref/dragon_selector_richtext.png" class="w-100 md:w-1/2 m-auto"/>
+      <img src="/GEESPinglist/ref/dragon_selector_richtext.png" class="w-100 md:w-1/2 m-auto"/>
     </div>
     <div class="flex">
       <textarea ref="dragonImportTextarea" rows="2" class="flex-1 rounded-lg rounded-r-none p-2" @paste="loadDragon" @input="e => e.target.value = ''"></textarea>

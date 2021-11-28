@@ -2,7 +2,7 @@
   <div class="container">
     <div>
       <h1 class="title">
-        fr-tools
+        GEESPinglist
       </h1>
       <div class="links">
         <NuxtLink to="/g1-pinglist">

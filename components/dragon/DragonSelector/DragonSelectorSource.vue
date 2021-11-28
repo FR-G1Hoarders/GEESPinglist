@@ -63,11 +63,11 @@
         if (dragons) {
           this.$emit('loaded', dragons);
           this.$refs.dragonImportTextarea.value = '';
-        } else if (data.substr(0, 12) === 'view-source:') {
+        } else if (pastedText.substr(0, 12) === 'view-source:') {
           this.error = "You have copied a URL instead of the page source.<br/> <b>COPY PASTE THIS URL INTO YOUR ADDRESS BAR</b><br/> Then copy paste the <b>PAGE CONTENTS</b> into this box.";
-        } else if (data.substr(0, 8) === 'https://') {
-          this.error = `You have copied a URL instead of the page source.<br/> Copy this into your address bar: <b>view-source:${data}</b><br/> Then copy paste the <b>PAGE CONTENTS</b> into this box.`;
-        } else if (data.substr(0, 6) === '<html ') {
+        } else if (pastedText.substr(0, 8) === 'https://') {
+          this.error = `You have copied a URL instead of the page source.<br/> Copy this into your address bar: <b>view-source:${pastedText}</b><br/> Then copy paste the <b>PAGE CONTENTS</b> into this box.`;
+        } else if (pastedText.substr(0, 6) === '<html ') {
           this.error = `Sorry, I don't recognise this page! Please use either the dragon's profile page, or a lair/den page.`
         } else {
           this.error = "This does not look like a valid source. Please make sure you've followed the listed directions.";

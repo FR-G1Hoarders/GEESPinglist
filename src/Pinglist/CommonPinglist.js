@@ -114,7 +114,7 @@ function Pinglist() {
       this.resetItems();
       const pings = new Set;
       this.items().filter(x => x.wantsSaleType(saleType)).forEach(x => pings.add(x.toPing()));
-      return pings;
+      return [...pings];
     },
     pingsForDragons(saleType, dragons) {
       this.resetItems();

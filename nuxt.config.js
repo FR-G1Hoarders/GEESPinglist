@@ -7,7 +7,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'fr-tools',
+    title: 'GEESPinglist',
     htmlAttrs: {
       lang: 'en'
     },
@@ -48,6 +48,6 @@ export default {
 
   // set base url prefix
   router: {
-    base: '/fr-tools/'
+    base: '/GEESPinglist/'
   }
 }
