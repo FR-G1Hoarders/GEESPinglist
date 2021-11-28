@@ -100,6 +100,7 @@
       },
       formattedPinglist() {
         if (this.status !== STATUS.GENERATED) return '';
+        if (!SALE_TYPES.find(x => x.name === this.saleType).do_require_dragons && this.dragons) return 'Do not include dragons on this sales type!';
         let str = '';
         str = `[b]General pinglists:[/b] ${this.saleType}[br][b]Ping for:[/b] `;
 

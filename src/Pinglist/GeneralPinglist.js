@@ -61,7 +61,7 @@ function GeneralPinglistItem(data) {
     },
     wantsEyeType(dragon) {
       const wantedEyeTypes = this.wantedEyeTypes();
-      if (!wantedEyeTypes.length) return true;
+      //if (!wantedEyeTypes.length) return true;
 
       const eyeType = `${dragon.flight()} ${dragon.hasNormalEyes() ? 'Normal' : dragon.eyes()}`;
 
@@ -81,7 +81,7 @@ function GeneralPinglistItem(data) {
     },
     wantsBreed(dragon) {
       const wantedBreeds = this.wantedBreeds();
-      if (!wantedBreeds.length) return true;
+      //if (!wantedBreeds.length) return true;
 
       for (let i = 0; i < wantedBreeds.length; i ++) {
         if (dragon.breed() === wantedBreeds[i]) return true;
@@ -99,7 +99,7 @@ function GeneralPinglistItem(data) {
     },
     wantsTag(dragon) {
       const wantedTags = this.wantedTags();
-      if (!wantedTags.length) return true;
+      //if (!wantedTags.length) return true;
 
       for (let i = 0; i < wantedTags.length; i ++) {
         if (dragon.hasTag(wantedTags[i])) return true;

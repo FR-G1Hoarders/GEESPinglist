@@ -86,7 +86,7 @@ function PinglistItem() {
     },
     wantsColorPattern(dragon) {
       const wantedColorPatterns = this.wantedColorPatterns();
-      if (!wantedColorPatterns.length) return true;
+      //if (!wantedColorPatterns.length) return true;
 
       for (let i = 0; i < wantedColorPatterns.length; i ++) {
         if (dragon.colorPattern() === wantedColorPatterns[i]) return true;
