@@ -2,6 +2,7 @@ const cheerio = require('cheerio');
 const moment = require('moment');
 const BREEDS = require('@/data/breeds');
 const NORMAL_EYES = ['Common', 'Dark Sclera', 'Glowing', 'Innocent', 'Swirl', 'Uncommon', 'Unusual'];
+const COLORS = require('@/data/colors');
 
 function Dragon(data) {
   return {
@@ -72,6 +73,10 @@ function Dragon(data) {
     colorPattern() {
       return colorPattern(this.data.primaryColor, this.data.secondaryColor, this.data.tertiaryColor);
     },
+    isNearMiss() {
+      if (this.colorPattern() !== 'XYZ') return false;
+      return isNearMiss(this.data.primaryColor, this.data.secondaryColor, this.data.tertiaryColor);
+    },
     digits() {
       return Math.ceil(Math.log(this.data.id) / Math.log(10));
     },
@@ -83,12 +88,29 @@ function Dragon(data) {
     },
     pushTag(tag) {
       if (!this.data.tags) this.data.tags = [];
-      this.data.tags.push(tag);
+      if (this.data.tags.includes(tag))
+		return false;
+	  else {
+		this.data.tags.push(tag);
+		return true;
+	  }
     },
     removeTag(idx) {
       if (this.data.tags) this.data.tags = [...this.data.tags.slice(0, idx), ...this.data.tags.slice(idx+1)];
     },
   };
+}
+
+function colorPattern(prim, sec, tert) {
+  if (prim === sec && prim === tert) return 'XXX';
+  if (prim === sec && prim !== tert) return 'XXY';
+  if (prim !== sec && sec === tert) return 'XYY';
+  if (prim === tert && prim !== sec) return 'XYX';
+  return 'XYZ';
+}
+
+function isNearMiss(prim, sec, tert) {
+	return (Math.abs(COLORS[prim] - COLORS[sec]) < 3 || Math.abs(COLORS[prim] - COLORS[tert]) < 3 || Math.abs(COLORS[sec] - COLORS[tert]) < 3);
 }
 
 function importDragonFromDragonBlob($) {
@@ -132,9 +154,16 @@ function importDragonFromDragonBlob($) {
   if (dragon.name().length < 3) {
     dragon.pushTag('2 Letter names');
   }
+  
+  //Check near miss logic here
+  if (dragon.isNearMiss()) {
+	  dragon.pushTag("Near miss");
+  }
 
   return dragon;
 }
+
+/**Functions to use source, to be decided another day. Haven't been worked on again **/
 
 function importDragonsFromLairBlob($) {
   return $('.lair-page-dragon').map((i) => importDragonFromLairBlob($, $('.lair-page-dragon').eq(i))).toArray();
@@ -174,13 +203,7 @@ function importDragonFromLairBlob($, det) {
   return dragon;
 };
 
-function colorPattern(prim, sec, tert) {
-  if (prim === sec && prim === tert) return 'XXX';
-  if (prim === sec && prim !== tert) return 'XXY';
-  if (prim !== sec && sec === tert) return 'XYY';
-  if (prim === tert && prim !== sec) return 'XYX';
-  return 'XYZ';
-}
+/** end of import from source **/
 
 module.exports = {
   Dragon,

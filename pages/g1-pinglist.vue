@@ -1,7 +1,17 @@
 <template>
   <div>
-    <h1 class="text-3xl text-indigo-500 font-light">G1 Pinglist</h1>
+    <h1 class="text-3xl text-indigo-500 font-light pb-4">G1 Pinglist</h1>
 
+    <div v-if="isDescriptionShow" class="w-full rounded-lg bg-red-200 text-gray-700 p-6 my-5 text-left text-xl font-medium">
+    <h1 class="font-semibold text-3xl">Description: Welcome to Hell!</h1>
+    <br>
+    <h2 class="text-2xl font-semibold">Rules:
+    <center><b>YES</b></center></h2>
+    <br>
+    jk Everything in this box will be filled with actual content soon(tm)<br>
+    <a v-if="isDescriptionShow" @click="() => isDescriptionShow = !isDescriptionShow" class="cursor-pointer float-right bg-red-500 text-white p-3 rounded-br-lg text-base font-semibold">Perish</a>
+    <br>
+    </div>
     <div class="w-full rounded-lg bg-indigo-300 text-indigo-800 p-3 my-3 text-left">
       <h2 class="text-2xl font-light">Select sale type:</h2>
       <select v-model="saleType" class="w-full rounded-lg text-lg p-5 mt-3 cursor-pointer">
@@ -84,6 +94,8 @@
 
         saleType: SALE_TYPES[0].name,
         SALE_TYPES,
+        
+        isDescriptionShow: true,
       };
     },
     watch: {
