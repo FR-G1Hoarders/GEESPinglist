@@ -110,7 +110,7 @@ function colorPattern(prim, sec, tert) {
 }
 
 function isNearMiss(prim, sec, tert) {
-	return (Math.abs(COLORS[prim] - COLORS[sec]) < 3 || Math.abs(COLORS[prim] - COLORS[tert]) < 3 || Math.abs(COLORS[sec] - COLORS[tert]) < 3);
+	return (Math.abs(COLORS[prim] - COLORS[sec]) < 3 || Math.abs(COLORS[prim] - COLORS[tert]) < 3 || Math.abs(COLORS[sec] - COLORS[tert]) < 3 || Math.abs(COLORS[prim] - COLORS[sec]) > 174 || Math.abs(COLORS[prim] - COLORS[tert]) > 174 || Math.abs(COLORS[sec] - COLORS[tert]) > 174);
 }
 
 function importDragonFromDragonBlob($) {
