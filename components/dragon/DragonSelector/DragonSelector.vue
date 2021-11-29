@@ -1,6 +1,6 @@
 <template>
   <div>	
-    <DragonSelectorRichText @loaded="e => this.$emit('loaded', e)" v-if="!isSourceSelectorMode"></DragonSelectorRichText>
+    <DragonSelectorRichText @loaded="e => this.$emit('loaded', e)" v-if="!isSourceSelectorMode" ref="dsrt"></DragonSelectorRichText>
     <DragonSelectorSource @loaded="e => this.$emit('loaded', e)" v-if="isSourceSelectorMode" @swapSelectorMode="() => isSourceSelectorMode = false"></DragonSelectorSource>
   </div>
 </template>

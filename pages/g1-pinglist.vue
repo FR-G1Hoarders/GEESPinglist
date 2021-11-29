@@ -9,6 +9,7 @@
     <center><b>YES</b></center></h2>
     <br>
     jk Everything in this box will be filled with actual content soon(tm)<br>
+    <span class="text-yellow-500 font-semibold">This is a fine yellow</span><br>
     <a v-if="isDescriptionShow" @click="() => isDescriptionShow = !isDescriptionShow" class="cursor-pointer float-right bg-red-500 text-white p-3 rounded-br-lg text-base font-semibold">Perish</a>
     <br>
     </div>
@@ -19,7 +20,7 @@
       </select>
     </div>
 
-    <DragonSelector @loaded="addDragons"></DragonSelector>
+    <DragonSelector @loaded="addDragons" ref="ds"></DragonSelector>
     <DragonRow v-for="(dragon, i) in dragons" :key="i" :dragon="dragon" @remove="removeDragon(i)"></DragonRow>
 
     <div v-if="status === STATUS.LOADING" class="w-full rounded-lg bg-indigo-800 text-indigo-300 p-5 my-3 text-lg">
@@ -155,6 +156,7 @@
         dragons.filter(x => !this.dragons.map(x => x.id()).includes(x.id())).forEach(x => this.dragons.push(x));
       },
       removeDragon(i) {
+		  this.$refs.ds.$refs.dsrt.removeThis(this.dragons[i].id());
 		  this.dragons = [...this.dragons.slice(0, i), ...this.dragons.slice(i+1)];
 		  this.status = STATUS.WAITING;
 	  },

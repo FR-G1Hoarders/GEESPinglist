@@ -1,11 +1,11 @@
 <template>
   <div class="bg-indigo-300 rounded-lg  p-3 text-left ring-4 ring-indigo-300">
     <h1 class="text-2xl text-indigo-800 font-light">Select Dragons</h1>
-    <div class="list-decimal ml-5 my-3">
+    <ol class="list-decimal ml-5 my-3">
       Copy your dragon's profile and paste it into the box below.
       <button class="cursor-pointer bg-indigo-800 text-indigo-300 rounded-lg px-2" @click="() => showTutorial = !showTutorial">?</button>
       <a v-if="latestInfo" class="cursor-pointer float-right bg-blue-200 text-blue-800 p-1 rounded-lg text-base font-semibold">{{ latestInfo }}</a>
-    </div>
+    </ol>
     <div v-if="showTutorial" class="bg-indigo-500 text-center m-2 p-5 rounded-lg">
       <img src="/GEESPinglist/ref/dragon_selector_richtext.png" class="w-100 md:w-1/2 m-auto"/>
     </div>
@@ -58,7 +58,10 @@
           this.error = ERRORS.GENERAL;
         }
 
-      }
+      },
+      removeThis(id) {
+		  this.latestInfo = "#".concat(id, " has been removed!");
+	  }
     }
   }
 </script>
