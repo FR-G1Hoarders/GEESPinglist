@@ -44,8 +44,7 @@ function GeneralPinglistItem(data) {
     else if (item) wantedBreeds.push(item);
   });
 
-  const wantedTagsPartial = data[45].split(', ').filter(x => x);
-  const wantedTags = wantedTagsPartial.concat(data[47].split(', ').filter(x => x));
+  const wantedTags = data[45].split(', ').filter(x => x).concat(data[46].split(', ').filter(x => x), data[47].split(', ').filter(x => x));
 
   return {
     data,

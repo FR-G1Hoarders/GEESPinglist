@@ -10,7 +10,7 @@
     </div>
 
     <DragonSelector @loaded="addDragons"></DragonSelector>
-    <DragonRow v-for="(dragon, i) in dragons" :key="i" :dragon="dragon" @remove="() => dragons = [...dragons.slice(0, i), ...dragons.slice(i+1)]"></DragonRow>
+    <DragonRow v-for="(dragon, i) in dragons" :key="i" :dragon="dragon" @remove="removeDragon(i)"></DragonRow>
 
     <div v-if="status === STATUS.LOADING" class="w-full rounded-lg bg-indigo-800 text-indigo-300 p-5 my-3 text-lg">
       <span class="animate-spin inline-block font-bold mr-5">.</span>
@@ -20,7 +20,7 @@
       <span class="animate-spin inline-block font-bold mr-5">.</span>
       Generating
     </div>
-    <button @click="generate" v-if="canGenerate" class="w-full rounded-lg bg-indigo-800 text-indigo-300 p-5 my-3 text-lg">
+    <button @click="generate" v-if="canGenerate" v-bind:class="[saleType === SALE_TYPES[0].name ? 'w-full rounded-lg bg-blue-300 text-indigo-200 p-5 my-3 text-lg' : 'w-full rounded-lg bg-indigo-800 text-indigo-300 p-5 my-3 text-lg']" :disabled="buttonDisabled">
       Generate Pinglist
     </button>
 
@@ -92,6 +92,9 @@
       }
     },
     computed: {
+	  buttonDisabled() {
+		  return (this.saleType === SALE_TYPES[0].name);
+	  },
       canGenerate() {
         return [STATUS.WAITING, STATUS.GENERATED].includes(this.status);
       },
@@ -100,7 +103,7 @@
       },
       formattedPinglist() {
         if (this.status !== STATUS.GENERATED) return '';
-        if (!SALE_TYPES.find(x => x.name === this.saleType).do_require_dragons && this.dragons) return 'Do not include dragons on this sales type!';
+        if (!SALE_TYPES.find(x => x.name === this.saleType).do_require_dragons && this.dragons.length) return 'Do not include dragons on this sales type!';
         let str = '';
         str = `[b]General pinglists:[/b] ${this.saleType}[br][b]Ping for:[/b] `;
 
@@ -139,6 +142,10 @@
         if (this.status === STATUS.GENERATED) this.status = STATUS.WAITING;
         dragons.filter(x => !this.dragons.map(x => x.id()).includes(x.id())).forEach(x => this.dragons.push(x));
       },
+      removeDragon(i) {
+		  this.dragons = [...this.dragons.slice(0, i), ...this.dragons.slice(i+1)];
+		  this.status = STATUS.WAITING;
+	  },
       generate() {
         this.status = STATUS.GENERATING;
 

@@ -1,5 +1,9 @@
 module.exports = [
   {
+    name: 'Select a sale type',
+    do_require_dragons: false,
+  },
+  {
     name: 'Everything',
     do_require_dragons: false,
   },
