@@ -28,13 +28,13 @@
     <div class="px-3 mt-2 sm:my-2">
       <input type="text" placeholder="YYYY-MM-DD" v-model="dragon.data.dateOfBirth" class="p-2 block w-full"/>
       <label class="block m-1 bg-indigo-300 text-indigo-800 p-1 px-2 rounded cursor-pointer">
-        <input type="checkbox" v-model="dragon.data.isBred" /> Bred
+        <input type="checkbox" v-model="dragon.data.isBred" disabled /> Bred
       </label>
       <label class="block m-1 bg-indigo-300 text-indigo-800 p-1 px-2 rounded cursor-pointer">
-        <input type="checkbox" v-model="dragon.data.hasSilhouette" /> Silhouette
+        <input type="checkbox" v-model="dragon.data.hasSilhouette" disabled /> Silhouette
       </label>
       <label class="block m-1 bg-indigo-300 text-indigo-800 p-1 px-2 rounded cursor-pointer">
-        <input type="checkbox" v-model="dragon.data.isPermababy" /> Permabab
+        <input type="checkbox" v-model="dragon.data.isPermababy" disabled /> Permabab
       </label>
     </div>
     <div class="p-3">

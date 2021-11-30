@@ -2,6 +2,7 @@
   <div>
     <h1 class="text-3xl text-indigo-500 font-light pb-4">G1 Pinglist</h1>
 
+    <transition name="perish">
     <div v-if="isDescriptionShow" class="w-full rounded-lg bg-red-200 text-gray-700 p-6 my-5 text-left text-xl font-medium">
     <h1 class="font-semibold text-3xl">Description: Welcome to Hell!</h1>
     <br>
@@ -13,6 +14,8 @@
     <a v-if="isDescriptionShow" @click="() => isDescriptionShow = !isDescriptionShow" class="cursor-pointer float-right bg-red-500 text-white p-3 rounded-br-lg text-base font-semibold">Perish</a>
     <br>
     </div>
+    </transition>
+    
     <div class="w-full rounded-lg bg-indigo-300 text-indigo-800 p-3 my-3 text-left">
       <h2 class="text-2xl font-light">Select sale type:</h2>
       <select v-model="saleType" class="w-full rounded-lg text-lg p-5 mt-3 cursor-pointer">
@@ -156,7 +159,7 @@
         dragons.filter(x => !this.dragons.map(x => x.id()).includes(x.id())).forEach(x => this.dragons.push(x));
       },
       removeDragon(i) {
-		  this.$refs.ds.$refs.dsrt.removeThis(this.dragons[i].id());
+		  this.$refs.ds.$refs.dsrt.removeThis(this.dragons[i].id(), this.dragons[i].name());
 		  this.dragons = [...this.dragons.slice(0, i), ...this.dragons.slice(i+1)];
 		  this.status = STATUS.WAITING;
 	  },
@@ -191,3 +194,12 @@
 
   }
 </script>
+
+<style>
+.perish-leave-active {
+	transition: opacity 0.5s;
+}
+.perish-leave-to {
+	opacity: 0;
+}
+</style>

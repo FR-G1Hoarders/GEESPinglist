@@ -10,7 +10,7 @@
       <img src="/GEESPinglist/ref/dragon_selector_richtext.png" class="w-100 md:w-1/2 m-auto"/>
     </div>
     <div class="flex">
-      <textarea ref="dragonImportTextarea" rows="2" class="flex-1 rounded-lg rounded-r-none p-2" @paste="loadDragon" @input="e => e.target.value = ''"></textarea>
+      <textarea ref="dragonImportTextarea" rows="2" class="flex-1 rounded-lg p-2" @paste="loadDragon" @input="e => e.target.value = ''" style="resize:none;"></textarea>
     </div>
     <div v-if="error" class="rounded-lg bg-pink-300 text-pink-800 p-3 mt-2 border-4 border-pink-400" v-html="error"></div>
   </div>
@@ -52,15 +52,15 @@
           } else {
             this.$emit('loaded', [dragon]);
             this.$refs.dragonImportTextarea.value = '';
-            this.latestInfo = "#".concat(dragon.id(), " has been added!");
+            this.latestInfo = "#".concat(dragon.id(), " (", dragon.name(), ") has been added!");
           }
         } catch(e) {
           this.error = ERRORS.GENERAL;
         }
 
       },
-      removeThis(id) {
-		  this.latestInfo = "#".concat(id, " has been removed!");
+      removeThis(id, name) {
+		  this.latestInfo = "#".concat(id, " (", name, ") has been removed!");
 	  }
     }
   }
