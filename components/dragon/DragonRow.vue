@@ -34,7 +34,7 @@
         <input type="checkbox" v-model="dragon.data.hasSilhouette" disabled /> Silhouette
       </label>
       <label class="block m-1 bg-indigo-300 text-indigo-800 p-1 px-2 rounded cursor-pointer">
-        <input type="checkbox" v-model="dragon.data.isPermababy" disabled /> Permabab
+        <input type="checkbox" v-model="dragon.data.isPermababy" disabled /> Permababy
       </label>
     </div>
     <div class="p-3">
