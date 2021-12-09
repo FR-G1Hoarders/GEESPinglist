@@ -34,18 +34,27 @@ function Dragon(data) {
     primaryColor() {
       return this.data.primaryColor;
     },
+    primaryHex() {
+		return COLORS[this.primaryColor()].hex;
+	},
     primaryGene() {
       return this.data.primaryGene;
     },
     secondaryColor() {
       return this.data.secondaryColor;
     },
+    secondaryHex() {
+		return COLORS[this.secondaryColor()].hex;
+	},
     secondaryGene() {
       return this.data.secondaryGene;
     },
     tertiaryColor() {
       return this.data.tertiaryColor;
     },
+    tertiaryHex() {
+		return COLORS[this.tertiaryColor()].hex;
+	},
     tertiaryGene() {
       return this.data.tertiaryGene;
     },
@@ -110,7 +119,7 @@ function colorPattern(prim, sec, tert) {
 }
 
 function isNearMiss(prim, sec, tert) {
-	return (Math.abs(COLORS[prim] - COLORS[sec]) < 3 || Math.abs(COLORS[prim] - COLORS[tert]) < 3 || Math.abs(COLORS[sec] - COLORS[tert]) < 3 || Math.abs(COLORS[prim] - COLORS[sec]) > 174 || Math.abs(COLORS[prim] - COLORS[tert]) > 174 || Math.abs(COLORS[sec] - COLORS[tert]) > 174);
+	return (Math.abs(COLORS[prim].id - COLORS[sec].id) < 3 || Math.abs(COLORS[prim].id - COLORS[tert].id) < 3 || Math.abs(COLORS[sec].id - COLORS[tert].id) < 3 || Math.abs(COLORS[prim].id - COLORS[sec].id) > 174 || Math.abs(COLORS[prim].id - COLORS[tert].id) > 174 || Math.abs(COLORS[sec].id - COLORS[tert].id) > 174);
 }
 
 function importDragonFromDragonBlob($) {

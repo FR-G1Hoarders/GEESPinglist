@@ -15,14 +15,18 @@
         <img :src="dragon.thumbnailImageUrl()"/>
       </div>
     </div>
-    <div class="px-4 lg:p-4 flex items-center">
+    <div class="px-4 lg:pt-10 flex-col items-center">
       {{ dragon.gender() }} {{ dragon.breed() }}<br/>
       {{ dragon.flight() }} {{ dragon.eyes() }}<br/>
       {{ dragon.colorPattern() }} {{ dragon.digits() }} Digits<br/>
+      <img v-bind:src="'/GEESPinglist/ref/' + dragon.flight() + '.png'" />
     </div>
-    <div class="px-4 lg:p-4 flex items-center">
+    <div class="px-4 lg:pt-10 flex-col items-center">
+      <span :style="{backgroundColor:dragon.primaryHex()}">&nbsp;&nbsp;</span>&nbsp;
       {{ dragon.primaryColor() }} {{ dragon.primaryGene() }}<br/>
+      <span :style="{backgroundColor:dragon.secondaryHex()}">&nbsp;&nbsp;</span>&nbsp;
       {{ dragon.secondaryColor() }} {{ dragon.secondaryGene() }}<br/>
+      <span :style="{backgroundColor:dragon.tertiaryHex()}">&nbsp;&nbsp;</span>&nbsp;
       {{ dragon.tertiaryColor() }} {{ dragon.tertiaryGene() }}<br/>
     </div>
     <div class="px-3 mt-2 sm:my-2">
