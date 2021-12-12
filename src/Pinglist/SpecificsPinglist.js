@@ -1,5 +1,6 @@
 const {parseCsv, Pinglist, PinglistItem} = require('./CommonPinglist');
 const ITEM_STATUS = require('@/data/pinglist_item_status');
+const SHEETDATA = require('@/data/columnIndexes');
 
 function SpecificsPinglistItem(COLORS, data) {
   let wantedPrimaries = [], wantedSecondaries = [], wantedTertiaries = [];
@@ -7,9 +8,9 @@ function SpecificsPinglistItem(COLORS, data) {
   /************************************************************
    * load whether we want to check prim/sec/tert at all from columns 6, 7, 8
    ************************************************************/
-  const doSpecificPrimaries = data[6] !== 'All colours/No specific preference';
-  const doSpecificSecondaries = data[7] !== 'All colours/No specific preference';
-  const doSpecificTertiaries = data[8] !== 'All colours/No specific preference';
+  const doSpecificPrimaries = data[SHEETDATA.CC_Primary] !== 'All colours/No specific preference';
+  const doSpecificSecondaries = data[SHEETDATA.CC_Secondary] !== 'All colours/No specific preference';
+  const doSpecificTertiaries = data[SHEETDATA.CC_Tertiary] !== 'All colours/No specific preference';
 
   /************************************************************
    * prefill what primary/secondary/tert colors this user wants
@@ -45,13 +46,13 @@ function SpecificsPinglistItem(COLORS, data) {
    * in the case that there is no preference, wantedColorPatterns will be an empty array
    * this means that the check against color pattern will be ignored later
    ************************************************************/
-  let wantedColorPatterns = data[195].split(', ').filter(x => x);
+  let wantedColorPatterns = data[SHEETDATA.CC_Pattern].split(', ').filter(x => x);
   if (wantedColorPatterns[0] === 'All/No preference') wantedColorPatterns = [];
 
   /************************************************************
    * load wanted color patterns from column 196
    ************************************************************/
-  let wantedFlights = data[196].split(', ').filter(x => x);
+  let wantedFlights = data[SHEETDATA.CC_Flights].split(', ').filter(x => x);
   if (wantedFlights[0] === 'All/No preference') wantedFlights = [];
 
   return {
@@ -105,7 +106,7 @@ function SpecificsPinglist(blob) {
    * load a list of colors & color groups out of the header row
    ************************************************************/
   const COLORS = [];
-  for (let i = 9; i <= 194; i ++) {
+  for (let i = SHEETDATA.CC_Greyscale; i < SHEETDATA.CC_Pattern; i ++) { //begins on index 9 which starts on Greyscale, ends right before the Pattern column
     const [_, colorGroup, color] = csv[0][i].match(/(.*) \[(.*)\]/); // don't mind the regex
     if (colorGroup && color) {
       COLORS.push({color, colorGroup, index: i});

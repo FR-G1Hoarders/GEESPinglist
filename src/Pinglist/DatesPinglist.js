@@ -2,22 +2,23 @@ const moment = require('moment');
 const HOLIDAYS = require('@/data/holidays');
 const {parseCsv, Pinglist, PinglistItem} = require('./CommonPinglist');
 const ITEM_STATUS = require('@/data/pinglist_item_status');
+const SHEETDATA = require('@/data/columnIndexes');
 
 function DatesPinglistItem(data) {
   return {
     data,
     ...PinglistItem(),
     wantedHolidays() {
-      return this.data[7].split(', ').filter(x => x);
+      return this.data[SHEETDATA.CD_Holidays].split(', ').filter(x => x);
     },
     wantedDateYear() {
-      return this.data[8].substr(0, 3) === 'Yes';
+      return this.data[SHEETDATA.CD_SpecificYesno].substr(0, 3) === 'Yes';
     },
     wantedDate() {
-      return this.data[9] ? moment(this.data[9]) : null;
+      return this.data[SHEETDATA.CD_Date] ? moment(this.data[SHEETDATA.CD_Date], "MM-DD-YYYY") : null;
     },
     wantedFlights() {
-      const wantedFlights = this.data[10].split(', ').filter(x => x);
+      const wantedFlights = this.data[SHEETDATA.CD_Flights].split(', ').filter(x => x);
       if (wantedFlights[0] === 'All/no preference') return [];
       return wantedFlights;
     },

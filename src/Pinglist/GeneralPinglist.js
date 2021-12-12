@@ -1,17 +1,18 @@
 const FLIGHTS = ['Arcane', 'Earth', 'Fire', 'Ice', 'Light', 'Lightning', 'Nature', 'Plague', 'Shadow', 'Water', 'Wind'];
 const {parseCsv, Pinglist, PinglistItem} = require('./CommonPinglist');
 const ITEM_STATUS = require('@/data/pinglist_item_status');
+const SHEETDATA = require('@/data/columnIndexes');
 
 function GeneralPinglistItem(data) {
   const wantedEyeTypes = [];
   ['', ...FLIGHTS].forEach((flight, i) => {
-    data[7 + i].split(', ').filter(x => x).forEach((eyeType, ii) => {
+    data[SHEETDATA.CG_Eyetypes + i].split(', ').filter(x => x).forEach((eyeType, ii) => {
       eyeType = eyeType.search('Normal') !== -1 ? 'Normal' : eyeType;
       wantedEyeTypes.push(flight ? `${flight} ${eyeType}` : eyeType);
     });
 
     ['Multi-Gaze', 'Primal'].forEach((eyeType, ii) => {
-      const idxOffset = !ii ? 19 : 31; //19 is all MG column, 31 is all Primal column
+      const idxOffset = !ii ? SHEETDATA.CG_Multigaze : SHEETDATA.CG_Primal; //This code works provided Multigaze and Primal columns are in the same certain order
       const wants = data[idxOffset + i].search('specifics') !== -1;
       const wantsMatching = data[idxOffset + i].search('Matching') !== -1;
       if (wants) wantedEyeTypes.push(flight ? `${flight} ${eyeType}` : eyeType);
@@ -21,30 +22,30 @@ function GeneralPinglistItem(data) {
 
   const multiGazeBlacklist = [];
   ['', ...FLIGHTS].forEach((flight, i) => {
-    if (data[19 + i].search('Do not ping') !== -1) multiGazeBlacklist.push(flight);
+    if (data[SHEETDATA.CG_Multigaze + i].search('Do not ping') !== -1) multiGazeBlacklist.push(flight);
   });
 
   const primalBlacklist = [];
   ['', ...FLIGHTS].forEach((flight, i) => {
-    if (data[31 + i].search('Do not ping') !== -1) primalBlacklist.push(flight);
+    if (data[SHEETDATA.CG_Primal + i].search('Do not ping') !== -1) primalBlacklist.push(flight);
   });
 
   let wantedColorPatterns = [];
-  data[43].split(', ').forEach(item => {
+  data[SHEETDATA.CG_Pattern].split(', ').forEach(item => {
     if (item === 'Triples (XXX)') wantedColorPatterns.push('XXX');
     else if (item === 'All doubles (XXY/XYY/XYX)') wantedColorPatterns = wantedColorPatterns.concat(['XXY', 'XYX', 'XYY']);
     else if(item) wantedColorPatterns.push(item);
   });
 
   const wantedBreeds = [];
-  data[44].split(', ').forEach(item  => {
+  data[SHEETDATA.CG_Breeds].split(', ').forEach(item  => {
     if (item === 'All moderns') wantedBreeds.push('Modern');
     else if (item === 'All ancients') wantedBreeds.push('Ancient');
     else if (item === 'New breed') wantedBreeds.push('New');
     else if (item) wantedBreeds.push(item);
   });
 
-  const wantedTags = data[45].split(', ').filter(x => x).concat(data[46].split(', ').filter(x => x), data[47].split(', ').filter(x => x));
+  const wantedTags = data[SHEETDATA.CG_ColorRanges].split(', ').filter(x => x).concat(data[SHEETDATA.CG_FlightReps].split(', ').filter(x => x), data[SHEETDATA.CG_Specials].split(', ').filter(x => x));
 
   return {
     data,

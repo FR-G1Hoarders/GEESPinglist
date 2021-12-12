@@ -1,6 +1,7 @@
 const {User} = require('../User');
 const Papa = require('papaparse');
 const ITEM_STATUS = require('@/data/pinglist_item_status');
+const SHEETDATA = require('@/data/columnIndexes');
 
 function PinglistItem() {
   let status = null;
@@ -9,11 +10,11 @@ function PinglistItem() {
   const pingDragons = [];
   return {
     user() {
-      return User({name: this.data[1]});
+      return User({name: this.data[SHEETDATA.CI_Username]});
     },
     wantedGender() {
-      if (this.data[4] === 'Female only') return 'Female';
-      if (this.data[4] === 'Male only') return 'Male';
+      if (this.data[SHEETDATA.CI_Gender] === 'Female only') return 'Female';
+      if (this.data[SHEETDATA.CI_Gender] === 'Male only') return 'Male';
       return null;
     },
     wantsGender(dragon) {
@@ -21,7 +22,7 @@ function PinglistItem() {
       return this.wantedGender() === dragon.gender();
     },
     wantedUnbred() {
-      if (this.data[5] === 'Unbred only') return true;
+      if (this.data[SHEETDATA.CI_BredYesno] === 'Unbred only') return true;
       return null;
     },
     wantsUnbred(dragon) {
@@ -31,7 +32,7 @@ function PinglistItem() {
       return false;
     },
     wantedSilhouette() {
-      if (this.data[6] === 'No pose change applied') return false;
+      if (this.data[SHEETDATA.CG_PoseChange] === 'No pose change applied') return false;
       return null;
     },
     wantsSilhouette(dragon) {
@@ -75,7 +76,7 @@ function PinglistItem() {
       return this.wantedSaleTypes().substr(0, 10) === 'Everything';
     },
     wantedSaleTypes() {
-      return this.data[3];
+      return this.data[SHEETDATA.CI_SalesType];
     },
     wantsSaleType(saleType) {
       if (this.wantsEverything()) return true;
@@ -153,6 +154,9 @@ function parseCsv(data, takeHeader = false) {
   const parsedCsv = Papa.parse(data).data;
   return takeHeader ? parsedCsv : parsedCsv.slice(1);
 }
+
+//It is technically possible to load the header, and from there, automatically search which column contains which data
+//But because of how multigaze and primal blacklists are coded right now, I fear an impact on speed performance if those columns were to not be together
 
 module.exports = {
   parseCsv,
