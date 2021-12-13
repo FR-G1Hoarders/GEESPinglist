@@ -91,7 +91,7 @@
   export default {
     props: {
       pinglist: {
-        type: Array,
+        //type: Array,
         required: true,
       },
       dragons: {

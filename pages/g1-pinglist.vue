@@ -44,14 +44,14 @@
       </h2>
       <div class="w-full flex flex-col items-center">
         <select v-model="saleType"  class="w-full rounded-lg text-lg p-5 m-3 cursor-pointer">
-          <option :key="0" disabled hidden>Select a sale type</option>
+          <option :key="0" disabled hidden>{{ defaultOption }}</option>
           <option v-for="(saleType, i) in SALE_TYPES.map(x => x.name)" :key="i+1">{{saleType}}</option>
         </select>
         <div v-if="seeDetails" class="w-full p-3 bg-blue-100 rounded-lg text-base">{{ showSaleDesc }}</div>
       </div>
     </div>
 
-    <DragonSelector @loaded="addDragons" ref="ds"></DragonSelector>
+    <DragonSelector @loaded="addDragons" @unlock="unlockDebug" ref="ds"></DragonSelector>
     <DragonRow v-for="(dragon, i) in dragons" :key="i" :dragon="dragon" @remove="removeDragon(i)"></DragonRow>
 
     <div v-if="status === STATUS.LOADING" class="w-full rounded-lg bg-indigo-800 text-indigo-300 p-5 my-3 text-lg">
@@ -62,7 +62,7 @@
       <span class="animate-spin inline-block font-bold mr-5">.</span>
       Generating
     </div>
-    <button @click="generate" v-if="canGenerate" v-bind:class="[saleType === SALE_TYPES[0].name ? 'w-full rounded-lg bg-blue-300 text-indigo-200 p-5 my-3 text-lg' : 'w-full rounded-lg bg-indigo-800 text-indigo-300 p-5 my-3 text-lg']" :disabled="buttonDisabled">
+    <button @click="generate" v-if="canGenerate" v-bind:class="[saleType === defaultOption ? 'w-full rounded-lg bg-blue-300 text-indigo-200 p-5 my-3 text-lg' : 'w-full rounded-lg bg-indigo-800 text-indigo-300 p-5 my-3 text-lg']" :disabled="buttonDisabled">
       Generate Pinglist
     </button>
 
@@ -76,7 +76,7 @@
         Noone to ping.
       </div>
 
-      <label class="block w-full rounded-lg bg-indigo-100 text-indigo-500 p-2 mt-5 text-sm cursor-pointer">
+      <label v-if="unlockDebugMode" class="block w-full rounded-lg bg-indigo-100 text-indigo-500 p-2 mt-5 text-sm cursor-pointer">
         <input type="checkbox" v-model="isDebugMode"/> Debug Mode [LAG WARNING]
       </label>
 
@@ -110,6 +110,7 @@
     data() {
       return {
         dragons: [],
+        unlockDebugMode: false,
         isDebugMode: false,
         generalPinglist: null,
         datesPinglist: null,
@@ -124,6 +125,7 @@
         status: STATUS.LOADING,
         STATUS,
 
+        defaultOption: 'Select a sale type',
         saleType: 'Select a sale type',
         SALE_TYPES,
         seeDetails: false,
@@ -139,7 +141,7 @@
     },
     computed: {
 	  buttonDisabled() {
-		  return (this.saleType === SALE_TYPES[0].name);
+		  return (this.saleType === this.defaultOption);
 	  },
       canGenerate() {
         return [STATUS.WAITING, STATUS.GENERATED].includes(this.status);
@@ -222,6 +224,7 @@
       selectPinglist() {
         this.$refs.pinglistTextarea.select();
         document.execCommand('copy');
+        this.$refs.ds.$refs.dsrt.latestInfo = "Pinglist text copied!";
       },
       toggleDesc() {
         if (this.isDescriptionShow) {
@@ -230,7 +233,10 @@
 			this.buttonText = "Perish";
 		}
 		this.isDescriptionShow = !this.isDescriptionShow;
-      }
+      },
+      unlockDebug() {
+		  this.unlockDebugMode = true;
+	  }
     },
     mounted() {
       Promise.all([PinglistLoader.generalPinglist(), PinglistLoader.datesPinglist(), PinglistLoader.specificsPinglist()]).then(([generalPingList, datesPinglist, specificsPinglist]) => {

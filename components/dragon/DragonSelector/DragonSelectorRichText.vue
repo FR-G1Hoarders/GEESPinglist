@@ -35,28 +35,34 @@
     methods: {
       loadDragon(e) {
         this.error = '';
+        
+        if (e.clipboardData.getData('text') === ":crogge:") {
+			this.$emit('unlock');
+			this.error = "Debug mode has been unlocked.";
+		} else {
+			
+			let pastedText = '';
+			try {
+			  if (window.clipboardData && window.clipboardData.getData) { // IE
+				pastedText = window.clipboardData.getData('Text');
+			  } else if (e.clipboardData && e.clipboardData.getData) {
+				pastedText = e.clipboardData.getData('text/html');
+			  }
 
-        let pastedText = '';
-        try {
-          if (window.clipboardData && window.clipboardData.getData) { // IE
-            pastedText = window.clipboardData.getData('Text');
-          } else if (e.clipboardData && e.clipboardData.getData) {
-            pastedText = e.clipboardData.getData('text/html');
-          }
-
-          const [dragon] = dragonLookup(pastedText);
-          if (!dragon) {
-            this.error = ERRORS.GENERAL;
-          } else if (!dragon.isFirstGen()) {
-            this.error = ERRORS.G1;
-          } else {
-            this.$emit('loaded', [dragon]);
-            this.$refs.dragonImportTextarea.value = '';
-            this.latestInfo = dragon.name().concat(" (#", dragon.id(), ") has been added!");
-          }
-        } catch(e) {
-          this.error = ERRORS.GENERAL;
-        }
+			  const [dragon] = dragonLookup(pastedText);
+			  if (!dragon) {
+				this.error = ERRORS.GENERAL;
+			  } else if (!dragon.isFirstGen()) {
+				this.error = ERRORS.G1;
+			  } else {
+				this.$emit('loaded', [dragon]);
+				this.$refs.dragonImportTextarea.value = '';
+				this.latestInfo = dragon.name().concat(" (#", dragon.id(), ") has been added!");
+			  }
+			} catch(e) {
+			  this.error = ERRORS.GENERAL;
+			}
+		}
 
       },
       removeThis(id, name) {
