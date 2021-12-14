@@ -6,5 +6,5 @@ Brought to you by the G1 Hoarders admin team. For any issues, [please contact a 
 
 ## Credits
 
--linnet (#86) for the original code framework
--BlueLatios (#565671) for the continued coding support
+-linnet (#86) for the original code framework<br>
+-BlueLatios (#565671) for the continued coding support<br>
