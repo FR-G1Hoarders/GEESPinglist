@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-indigo-300 rounded-lg  p-3 text-left ring-4 ring-indigo-300">
+  <div class="bg-indigo-300 rounded-lg p-3 text-left ring-4 ring-indigo-300">
     <h1 class="text-2xl text-indigo-800 font-light">Select Dragons</h1>
-    <ol class="list-decimal ml-5 my-3">
+    <ol class="list-decimal ml-5 my-3 text-indigo-800">
       Copy your dragon's profile and paste it into the box below.
       <button class="cursor-pointer bg-indigo-800 text-indigo-300 rounded-lg px-2" @click="() => showTutorial = !showTutorial">?</button>
     </ol>
@@ -30,12 +30,14 @@
         error: '',
         showTutorial: false,
         latestInfo: '',
+        
+        infoTimer: null,
+        errorTimer: null,
       };
     },
     methods: {
       loadDragon(e) {
         this.error = '';
-        
         if (e.clipboardData.getData('text') === ":crogge:") {
 			this.$emit('unlock');
 			this.error = "Debug mode has been unlocked.";
@@ -63,11 +65,24 @@
 			  this.error = ERRORS.GENERAL;
 			}
 		}
-
       },
       removeThis(id, name) {
 		  this.latestInfo = "#".concat(id, " (", name, ") has been removed!");
-	  }
-    }
+	  },
+    },
+    watch: {
+		latestInfo: function() {
+			if (this.infoTimer) clearTimeout(this.infoTimer);
+			this.infoTimer = setTimeout(() => {
+				this.latestInfo = '';
+			}, 8000);
+		},
+		error: function() {
+			if (this.errorTimer) clearTimeout(this.errorTimer);
+			this.errorTimer = setTimeout(() => {
+				this.error = '';
+			}, 8000);
+		},
+	},
   }
 </script>
