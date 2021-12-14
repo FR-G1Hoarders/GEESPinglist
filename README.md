@@ -1,24 +1,10 @@
-# GEESPinglist
+# G1 Pinglist
 
 ## Description
 
-A WIP.
+Brought to you by the G1 Hoarders admin team. For any issues, [please contact a member of the team here](https://www1.flightrising.com/forums/drs/2942468#post_45554302).
 
-## Build Setup
+##Credits
 
-```bash
-# install dependencies
-$ npm install
-
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+linnet (#86) for the original code framework
+BlueLatios (#565671) for the continued coding support
