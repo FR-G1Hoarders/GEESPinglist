@@ -2,23 +2,17 @@
   <div>
     <h1 class="text-5xl text-indigo-500 font-light p-4">G1 Pinglist</h1>
     
-    <div class="w-full text-yellow-600 p-6 my-5 text-xl flex justify-center">
+    <div class="w-full text-indigo-800 p-2 text-xl flex justify-center">
       <div class="topLink">
-      <a href="https://www1.flightrising.com/forums/drs/2942468#post_2942468">Main Thread</a>
-      </div>
-      <div class="topLink">
-      <a href="https://www1.flightrising.com/forums/drs/2942468#post_45554302">Admin Team</a>
-      </div>
-      <div class="topLink">
-      <a href="https://www1.flightrising.com/forums/drs/2942468#post_45554269">Submission Forms</a>
+      <a href="https://www1.flightrising.com/forums/drs/2942468#post_2942468" target="_blank">Main Thread</a>
       </div>
       <div class="topLinkRight">
-      <a href="https://www1.flightrising.com/forums/gde/2944215/1#post_2944215">Colour Criteria Masterpost</a>
+      <a href="https://www1.flightrising.com/forums/gde/2944215/1#post_2944215" target="_blank">Colour Criteria Masterpost</a>
       </div>
     </div>
 
     <div class="w-full rounded-lg bg-indigo-300 text-indigo-800 p-6 my-5 text-left text-base">
-    <h1 class="text-2xl font-light">Rules: <a @click="toggleDesc" class="cursor-pointer float-right bg-indigo-800 text-indigo-300 p-3 rounded-tr-lg rounded-br-lg text-base font-semibold">{{ buttonText }}</a> </h1>
+    <h1 class="text-2xl font-light">Rules: <a @click="toggleDesc" class="cursor-pointer float-right bg-indigo-800 text-indigo-300 p-2 rounded-tr-lg rounded-br-lg text-base font-semibold">{{ buttonText }}</a> </h1>
     <transition name="perish">
     <div v-if="isDescriptionShow"><ul><li>
     The G1 Pinglists are only to be used for the sales/trades of 
@@ -33,9 +27,9 @@
     please reach out to a member of the admin team.
     </li><li>
     For a video tutorial on how to use the website, please see 
-    <a href="https://cdn.discordapp.com/emojis/858102423759749191.png?size=44" class="underline">here</a> 
+    <a href="https://youtu.be/ScHUHxNwMOw" target="_blank" class="underline">here</a> 
     for the desktop version and 
-    <a href="https://cdn.discordapp.com/emojis/858102423759749191.png?size=44" class="underline">here</a> 
+    <a href="https://youtu.be/eJ54oCRnjS8" target="_blank" class="underline">here</a> 
     for the mobile version. 
     Please note that there are expected to be some small differences between browsers, 
     but the overall functionality should remain the same.
@@ -114,8 +108,8 @@
       <SpecificsPinglistDebugger :pinglist="specificsPinglist" :dragons="dragons" v-if="isDebugMode && debugTab === DEBUG_TAB.SPECIFICS"></SpecificsPinglistDebugger>
     </div>
     <div class="text-xs text-indigo-500 font-light">
-    Credits to linnet (#86) for the original code framework and BlueLatios (#565671) for the continued coding support<br>
-    Brought to you by the G1 Hoarders admin team. For any issues, <a href="https://www1.flightrising.com/forums/drs/2942468#post_45554302" class="underline">please contact a member of the team here</a>.
+    Credits to linnet (#86) for the original code framework and BlueLatios (#565671) for the continued coding support.<br>
+    Brought to you by the G1 Hoarders admin team. For any issues, <a href="https://www1.flightrising.com/forums/drs/2942468#post_45554302" target="_blank" class="underline">please contact a member of the team here</a>.
     </div>
   </div>
 </template>
