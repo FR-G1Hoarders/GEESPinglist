@@ -87,7 +87,7 @@ function PinglistItem() {
     },
     wantsColorPattern(dragon) {
       const wantedColorPatterns = this.wantedColorPatterns();
-      //if (!wantedColorPatterns.length) return true;
+      //if (!wantedColorPatterns.length) return true; //could be altered to suit SpecificsPinglist.js
 
       for (let i = 0; i < wantedColorPatterns.length; i ++) {
         if (dragon.colorPattern() === wantedColorPatterns[i]) return true;
@@ -97,7 +97,7 @@ function PinglistItem() {
       return false ;
     },
     wantsFlight(dragon) {
-      if (!this.wantedFlights().length) return true;
+      if (this.wantedFlights()[0] === "All") return true;
       return this.wantedFlights().includes(dragon.flight());
     },
     multiGazeBlacklist() {

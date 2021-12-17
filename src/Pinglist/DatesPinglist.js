@@ -3,6 +3,7 @@ const HOLIDAYS = require('@/data/holidays');
 const {parseCsv, Pinglist, PinglistItem} = require('./CommonPinglist');
 const ITEM_STATUS = require('@/data/pinglist_item_status');
 const SHEETDATA = require('@/data/columnIndexes');
+const FLIGHTS = require('@/data/flights');
 
 function DatesPinglistItem(data) {
   return {
@@ -19,7 +20,7 @@ function DatesPinglistItem(data) {
     },
     wantedFlights() {
       const wantedFlights = this.data[SHEETDATA.CD_Flights].split(', ').filter(x => x);
-      if (wantedFlights[0] === 'All/no preference') return [];
+      if (wantedFlights[0] === 'All/no preference') return ["All"];
       return wantedFlights;
     },
     wantsDateOfBirth(dragon) {

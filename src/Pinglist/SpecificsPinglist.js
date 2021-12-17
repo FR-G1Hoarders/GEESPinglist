@@ -1,6 +1,7 @@
 const {parseCsv, Pinglist, PinglistItem} = require('./CommonPinglist');
 const ITEM_STATUS = require('@/data/pinglist_item_status');
 const SHEETDATA = require('@/data/columnIndexes');
+const FLIGHTS = require('@/data/flights');
 
 function SpecificsPinglistItem(COLORS, data) {
   let wantedPrimaries = [], wantedSecondaries = [], wantedTertiaries = [];
@@ -47,13 +48,13 @@ function SpecificsPinglistItem(COLORS, data) {
    * this means that the check against color pattern will be ignored later
    ************************************************************/
   let wantedColorPatterns = data[SHEETDATA.CC_Pattern].split(', ').filter(x => x);
-  if (wantedColorPatterns[0] === 'All/No preference') wantedColorPatterns = [];
+  if (wantedColorPatterns[0] === 'All/No preference') wantedColorPatterns = ["XXX","XXY","XYX","XYY","XYZ"];
 
   /************************************************************
    * load wanted color patterns from column 196
    ************************************************************/
   let wantedFlights = data[SHEETDATA.CC_Flights].split(', ').filter(x => x);
-  if (wantedFlights[0] === 'All/No preference') wantedFlights = [];
+  if (wantedFlights[0] === 'All/No preference') wantedFlights = ["All"];
 
   return {
     data,
@@ -108,7 +109,7 @@ function SpecificsPinglist(blob) {
   const COLORS = [];
   for (let i = SHEETDATA.CC_Greyscale; i < SHEETDATA.CC_Pattern; i ++) { //begins on index 9 which starts on Greyscale, ends right before the Pattern column
     const [_, colorGroup, color] = csv[0][i].match(/(.*) \[(.*)\]/); // don't mind the regex
-    if (colorGroup && color) {
+    if (colorGroup && color) { //colorGroup will be whatever's in front, color will be whatever's in [] brackets
       COLORS.push({color, colorGroup, index: i});
     }
   }

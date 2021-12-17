@@ -1,4 +1,4 @@
-const FLIGHTS = ['Arcane', 'Earth', 'Fire', 'Ice', 'Light', 'Lightning', 'Nature', 'Plague', 'Shadow', 'Water', 'Wind'];
+const FLIGHTS = require('@/data/flights');
 const {parseCsv, Pinglist, PinglistItem} = require('./CommonPinglist');
 const ITEM_STATUS = require('@/data/pinglist_item_status');
 const SHEETDATA = require('@/data/columnIndexes');
@@ -34,7 +34,7 @@ function GeneralPinglistItem(data) {
   data[SHEETDATA.CG_Pattern].split(', ').forEach(item => {
     if (item === 'Triples (XXX)') wantedColorPatterns.push('XXX');
     else if (item === 'All doubles (XXY/XYY/XYX)') wantedColorPatterns = wantedColorPatterns.concat(['XXY', 'XYX', 'XYY']);
-    else if(item) wantedColorPatterns.push(item);
+    else if (item && !wantedColorPatterns.includes(item)) wantedColorPatterns.push(item);
   });
 
   const wantedBreeds = [];

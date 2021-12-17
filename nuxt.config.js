@@ -7,7 +7,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'GEESPinglist',
+    title: 'G1 Pinglist',
     htmlAttrs: {
       lang: 'en'
     },

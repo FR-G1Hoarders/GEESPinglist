@@ -1,16 +1,16 @@
 <template>
-  <div class="bg-indigo-300 rounded-lg p-3 text-left ring-4 ring-indigo-300">
-    <h1 class="text-2xl text-indigo-800 font-light">Select Dragons</h1>
-    <ol class="list-decimal ml-5 my-3 text-indigo-800">
+  <div class="rounded-lg p-3 text-left" :class="textTheme">
+    <h1 class="text-2xl font-light">Select Dragons</h1>
+    <ol class="list-decimal ml-5 my-3">
       Copy your dragon's profile and paste it into the box below.
-      <button class="cursor-pointer bg-indigo-800 text-indigo-300 rounded-lg px-2" @click="() => showTutorial = !showTutorial">?</button>
+      <button class="cursor-pointer rounded-lg px-2" :class="buttonTheme" @click="() => showTutorial = !showTutorial">?</button>
     </ol>
-    <div v-if="showTutorial" class="bg-indigo-500 text-center m-2 p-5 rounded-lg">
+    <div v-if="showTutorial" class="text-center m-2 p-5 rounded-lg" :class="highlightTheme">
       <img src="/GEESPinglist/ref/dragon_selector_richtext.png" class="w-100 md:w-1/2 m-auto"/>
     </div>
     <div class="flex flex-col">
-      <textarea ref="dragonImportTextarea" rows="2" class="flex-1 rounded-lg p-2" @paste="loadDragon" @input="e => e.target.value = ''" style="resize:none;"></textarea>
-      <div v-if="latestInfo" class="float-right bg-blue-100 text-indigo-800 p-2 mt-2 rounded-lg text-base">{{ latestInfo }}</div>
+      <textarea :class="selectTheme" ref="dragonImportTextarea" rows="2" class="flex-1 rounded-lg p-2" @paste="loadDragon" @input="e => e.target.value = ''" style="resize:none;"></textarea>
+      <div v-if="latestInfo" class="float-right p-2 mt-2 rounded-lg text-base" :class="highlightTheme">{{ latestInfo }}</div>
     </div>
     <div v-if="error" class="rounded-lg bg-pink-300 text-pink-800 p-3 mt-2 border-4 border-pink-400" v-html="error"></div>
   </div>
@@ -18,6 +18,7 @@
 
 <script>
   import {dragonLookup} from "@/src/Dragon";
+  import THEMES from "@/data/themes";
   const ERRORS = {
     GENERAL: "This does not look like a valid source. Please make sure you've followed the listed directions.<br/> It is possible you have not selected enough of the page - please click the question mark above for a guide.<br/> You can also copy paste the entire dragon's page.",
     G1: "This isn't a g1 :(",
@@ -25,6 +26,12 @@
 
   export default {
     name: 'DragonSelectorRichText',
+    props: {
+		theme: {
+			type: String,
+			required: true,
+		},
+	},
     data() {
       return {
         error: '',
@@ -35,6 +42,24 @@
         errorTimer: null,
       };
     },
+    computed: {
+		buttonTheme() {
+			if (this.theme === "Light") return THEMES["Light"].button;
+			else if (this.theme === "Dark") return THEMES["Dark"].button;
+		},
+		textTheme() {
+			if (this.theme === "Light") return THEMES["Light"].text;
+			else if (this.theme === "Dark") return THEMES["Dark"].text;
+		},
+		highlightTheme() {
+			if (this.theme === "Light") return THEMES["Light"].highlightText;
+			else if (this.theme === "Dark") return THEMES["Dark"].highlightText;
+		},
+		selectTheme() {
+		  if (this.theme === "Light") return THEMES["Light"].select;
+		  else if (this.theme === "Dark") return THEMES["Dark"].select;
+	    },
+	},
     methods: {
       loadDragon(e) {
         this.error = '';

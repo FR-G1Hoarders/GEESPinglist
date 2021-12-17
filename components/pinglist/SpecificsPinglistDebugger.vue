@@ -29,14 +29,14 @@
       </div>
     </td>
     <td>
-      {{ item.wantedFlights().length ? item.wantedFlights().join(', ') : 'Any Flight' }}
+      {{ item.wantedFlights()[0] !== "All" ? item.wantedFlights().join(', ') : 'Any Flight' }}
       <hr/>
       <div class="bg-red-500 text-white p-1">
         {{ item.dnpDragons().filter(x => item.status(x) === ITEM_STATUS.DNP_DRAGON_FLIGHT).map(x => x.displayName()).join(', ') }}
       </div>
     </td>
     <td>
-      {{ item.wantedColorPatterns().length ? item.wantedColorPatterns().join(', ') : 'Any Color Pattern' }}
+      {{ item.wantedColorPatterns().length !== 5 ? item.wantedColorPatterns().join(', ') : 'Any Color Pattern' }}
       <hr/>
       <div class="bg-red-500 text-white p-1">
         {{ item.dnpDragons().filter(x => item.status(x) === ITEM_STATUS.DNP_DRAGON_COLOR_PATTERN).map(x => x.displayName()).join(', ') }}
@@ -72,7 +72,7 @@
   export default {
     props: {
       pinglist: {
-        type: Array,
+        //type: Array,
         required: true,
       },
       dragons: {
