@@ -9,7 +9,7 @@
       <div class="topLink">
       <button class="cursor-pointer p-2 rounded-lg text-sm font-light" :class="buttonTheme" href="https://www1.flightrising.com/forums/gde/2944215/1#post_2944215" target="_blank">Colour Criteria Masterpost</button>
       </div>
-      <div class="topLinkRight">
+      <div v-if="false" class="topLink">
       <button @click="toggleTheme" class="cursor-pointer p-2 rounded-lg text-sm font-light" :class="buttonTheme">{{ themeToggleText }}</button>
       </div>
     </div>
@@ -332,7 +332,7 @@ ul {
 li {
 	margin-top: 7px;
 }
-.topLink, .topLinkRight {
+.topLink {
 	padding-left: 9px;
 	padding-right: 9px;
 }
