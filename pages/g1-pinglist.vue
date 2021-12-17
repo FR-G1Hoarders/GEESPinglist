@@ -1,15 +1,15 @@
-<template>
+<template @apply>
   <div>
     <h1 class="text-5xl font-light p-1" :class="outTextTheme">G1 Pinglist</h1>
     
     <div class="w-full text-indigo-800 p-2 my-2 text-xl flex justify-center">
       <div class="topLink">
-      <button class="cursor-pointer p-2 rounded-lg text-sm font-light" :class="buttonTheme" href="https://www1.flightrising.com/forums/drs/2942468#post_2942468" target="_blank">Main Thread</button>
+      <button class="cursor-pointer p-2 rounded-lg text-sm font-light" :class="buttonTheme"><a href="https://www1.flightrising.com/forums/drs/2942468#post_2942468" target="_blank" :class="buttonTheme">Main Thread</a></button>
       </div>
       <div class="topLink">
-      <button class="cursor-pointer p-2 rounded-lg text-sm font-light" :class="buttonTheme" href="https://www1.flightrising.com/forums/gde/2944215/1#post_2944215" target="_blank">Colour Criteria Masterpost</button>
+      <button class="cursor-pointer p-2 rounded-lg text-sm font-light" :class="buttonTheme"><a href="https://www1.flightrising.com/forums/gde/2944215/1#post_2944215" target="_blank" :class="buttonTheme">Colour Criteria Masterpost</a></button>
       </div>
-      <div v-if="false" class="topLink">
+      <div class="topLink">
       <button @click="toggleTheme" class="cursor-pointer p-2 rounded-lg text-sm font-light" :class="buttonTheme">{{ themeToggleText }}</button>
       </div>
     </div>
