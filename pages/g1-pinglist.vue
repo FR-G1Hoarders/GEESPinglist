@@ -25,6 +25,16 @@
     Please do not use a pinglist from a previous post. 
     Names are being constantly added/removed so this is the only source of up-to-date names.
     </li><li>
+    Please be mindful of other users and 
+    <b>avoid pinging the lists more than three times within a 24 hour period</b>. 
+    If you have multiple dragons that you wish to ping for, please consider 
+    grouping them into one single thread where possible.
+    </li><li>
+    There is <b>no limit on the number of dragons</b> that can be added to an individual pinglist. 
+    However, we would recommend restricting to pinging for 20-30 highlighted dragons 
+    rather than 100+ at once as it can make the forum post lengthy and thus 
+    more likely to be skipped over.
+    </li><li>
     If you have issues with generating a pinglist from the website or 
     problems with the dragons you are being pinged for, 
     please reach out to a member of the admin team.
@@ -36,15 +46,6 @@
     for the mobile version. 
     Please note that there are expected to be some small differences between browsers, 
     but the overall functionality should remain the same.
-    </li><li>
-    There is <b>no limit on the number of dragons</b> that can be added to an individual pinglist. 
-    However, we would recommend restricting to pinging for 20-30 highlighted dragons 
-    rather than 100+ at once as it can make the forum post lengthy and thus 
-    more likely to be skipped over.
-    </li><li>
-    There is <b>no limit on the frequency</b> between which you can ping the lists 
-    but we ask that you please be mindful of other users and 
-    <b>exercise your own judgement on what could be deemed as spam</b>.
     </li><li>
     You are free to add tags that meet the criteria for the dragons, 
     but please make sure to check the appropriateness of the tags you select to avoid unwanted pings. 
