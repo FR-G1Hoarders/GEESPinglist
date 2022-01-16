@@ -216,8 +216,7 @@ function onlyUnique(value, index, self) {
         });
 
         str += '[center][b]Please do not copy/paste pings from this post. (V4.1)[/b][br]';
-        str += 'Click [url=https://www1.flightrising.com/forums/drs/2942468#post_2942468]here for the full thread[/url] and [url=https://fr-g1hoarders.github.io/GEESPinglist/g1-pinglist/]here for the website[/url][br][br]';
-        str += '[b]Please note that we have recently transitioned to the new website meaning that the pinglist is running on new code. Please let us know in the thread if you experience any issues or incorrect pings[/b][/center]';
+        str += 'Click [url=https://www1.flightrising.com/forums/drs/2942468#post_2942468]here for the full thread[/url] and [url=https://fr-g1hoarders.github.io/GEESPinglist/g1-pinglist/]here for the website[/url][br][br][/center]';
         return str;
       },
 	  showSaleDesc() {
