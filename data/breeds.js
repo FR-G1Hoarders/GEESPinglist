@@ -1,5 +1,9 @@
 module.exports = [
   {
+    name: 'Aberration',
+    is_ancient: true,
+  },
+  {
     name: 'Banescale',
     is_ancient: true,
   },

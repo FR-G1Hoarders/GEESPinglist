@@ -21,11 +21,11 @@ module.exports = {
 	},
 	"Ice": {
 		id: 5,
-		hex: "#DAE0F3"
+		hex: "#EBEFFF"
 	},
 	"Orca": {
 		id: 6,
-		hex: "#E1DFFF"
+		hex: "#E0DFFF"
 	},
 	"Platinum": {
 		id: 7,
@@ -37,7 +37,7 @@ module.exports = {
 	},
 	"Dust": {
 		id: 9,
-		hex: "#9D9D9F"
+		hex: "#9C9C9E"
 	},
 	"Grey": {
 		id: 10,
@@ -49,23 +49,23 @@ module.exports = {
 	},
 	"Gloom": {
 		id: 12,
-		hex: "#545365"
+		hex: "#535264"
 	},
 	"Lead": {
 		id: 13,
-		hex: "#413C40"
+		hex: "#413C3F"
 	},
 	"Shale": {
 		id: 14,
-		hex: "#4D484F"
+		hex: "#4D4850"
 	},
 	"Flint": {
 		id: 15,
-		hex: "#636268"
+		hex: "#626268"
 	},
 	"Charcoal": {
 		id: 16,
-		hex: "#555555"
+		hex: "#545454"
 	},
 	"Coal": {
 		id: 17,
@@ -73,7 +73,7 @@ module.exports = {
 	},
 	"Oilslick": {
 		id: 18,
-		hex: "#352B25"
+		hex: "#342B25"
 	},
 	"Black": {
 		id: 19,
@@ -89,15 +89,15 @@ module.exports = {
 	},
 	"Midnight": {
 		id: 22,
-		hex: "#292B38"
+		hex: "#252735"
 	},
 	"Shadow": {
 		id: 23,
-		hex: "#3B2F45"
+		hex: "#3A2E44"
 	},
 	"Blackberry": {
 		id: 24,
-		hex: "#4C2A4F"
+		hex: "#4B294F"
 	},
 	"Mulberry": {
 		id: 25,
@@ -105,15 +105,15 @@ module.exports = {
 	},
 	"Plum": {
 		id: 26,
-		hex: "#863290"
+		hex: "#853390"
 	},
 	"Wisteria": {
 		id: 27,
-		hex: "#724D79"
+		hex: "#724E7B"
 	},
 	"Thistle": {
 		id: 28,
-		hex: "#8F7D8B"
+		hex: "#8F7C8B"
 	},
 	"Fog": {
 		id: 29,
@@ -137,7 +137,7 @@ module.exports = {
 	},
 	"Orchid": {
 		id: 34,
-		hex: "#D951FF"
+		hex: "#D950FF"
 	},
 	"Amethyst": {
 		id: 35,
@@ -145,19 +145,19 @@ module.exports = {
 	},
 	"Nightshade": {
 		id: 36,
-		hex: "#792FB2"
+		hex: "#782EB2"
 	},
 	"Violet": {
 		id: 37,
-		hex: "#653F9C"
+		hex: "#643F9C"
 	},
 	"Grape": {
 		id: 38,
-		hex: "#560FBE"
+		hex: "#570FC0"
 	},
 	"Royal": {
 		id: 39,
-		hex: "#4D2D89"
+		hex: "#4D2C89"
 	},
 	"Eggplant": {
 		id: 40,
@@ -173,11 +173,11 @@ module.exports = {
 	},
 	"Twilight": {
 		id: 43,
-		hex: "#474BA0"
+		hex: "#474AA0"
 	},
 	"Indigo": {
 		id: 44,
-		hex: "#2D237B"
+		hex: "#2D237A"
 	},
 	"Sapphire": {
 		id: 45,
@@ -189,11 +189,11 @@ module.exports = {
 	},
 	"Cobalt": {
 		id: 47,
-		hex: "#003584"
+		hex: "#003484"
 	},
 	"Ultramarine": {
 		id: 48,
-		hex: "#1D51E7"
+		hex: "#1C51E7"
 	},
 	"Blue": {
 		id: 49,
@@ -201,15 +201,15 @@ module.exports = {
 	},
 	"Periwinkle": {
 		id: 50,
-		hex: "#4967D5"
+		hex: "#4866D5"
 	},
 	"Lapis": {
 		id: 51,
-		hex: "#287CEF"
+		hex: "#2B84FF"
 	},
 	"Splash": {
 		id: 52,
-		hex: "#6394DD"
+		hex: "#6392DF"
 	},
 	"Cornflower": {
 		id: 53,
@@ -221,11 +221,11 @@ module.exports = {
 	},
 	"Stonewash": {
 		id: 55,
-		hex: "#7995C1"
+		hex: "#7895C1"
 	},
 	"Overcast": {
 		id: 56,
-		hex: "#454F69"
+		hex: "#444F69"
 	},
 	"Steel": {
 		id: 57,
@@ -237,11 +237,11 @@ module.exports = {
 	},
 	"Abyss": {
 		id: 59,
-		hex: "#0B1F25"
+		hex: "#0D1E24"
 	},
 	"Phthalo": {
 		id: 60,
-		hex: "#0B2D47"
+		hex: "#0B2D46"
 	},
 	"Azure": {
 		id: 61,
@@ -257,7 +257,7 @@ module.exports = {
 	},
 	"Cerulean": {
 		id: 64,
-		hex: "#00B3D5"
+		hex: "#00B4D6"
 	},
 	"Cyan": {
 		id: 65,
@@ -269,11 +269,11 @@ module.exports = {
 	},
 	"Aqua": {
 		id: 67,
-		hex: "#73C4C4"
+		hex: "#72C4C4"
 	},
 	"Turquoise": {
 		id: 68,
-		hex: "#3BA0A1"
+		hex: "#3AA0A1"
 	},
 	"Spruce": {
 		id: 69,
@@ -297,11 +297,11 @@ module.exports = {
 	},
 	"Spearmint": {
 		id: 74,
-		hex: "#158E67"
+		hex: "#148E67"
 	},
 	"Thicket": {
 		id: 75,
-		hex: "#005F49"
+		hex: "#005E48"
 	},
 	"Peacock": {
 		id: 76,
@@ -309,7 +309,7 @@ module.exports = {
 	},
 	"Emerald": {
 		id: 77,
-		hex: "#21613F"
+		hex: "#20603F"
 	},
 	"Shamrock": {
 		id: 78,
@@ -329,7 +329,7 @@ module.exports = {
 	},
 	"Camo": {
 		id: 82,
-		hex: "#51694D"
+		hex: "#51684C"
 	},
 	"Algae": {
 		id: 83,
@@ -341,7 +341,7 @@ module.exports = {
 	},
 	"Avocado": {
 		id: 85,
-		hex: "#567D34"
+		hex: "#567C34"
 	},
 	"Green": {
 		id: 86,
@@ -349,7 +349,7 @@ module.exports = {
 	},
 	"Fern": {
 		id: 87,
-		hex: "#7FCE73"
+		hex: "#7ECE73"
 	},
 	"Mantis": {
 		id: 88,
@@ -369,7 +369,7 @@ module.exports = {
 	},
 	"Honeydew": {
 		id: 92,
-		hex: "#D0E673"
+		hex: "#D0E672"
 	},
 	"Peridot": {
 		id: 93,
@@ -377,11 +377,11 @@ module.exports = {
 	},
 	"Chartreuse": {
 		id: 94,
-		hex: "#B4CD3D"
+		hex: "#B4CD3C"
 	},
 	"Spring": {
 		id: 95,
-		hex: "#9DA932"
+		hex: "#A9A832"
 	},
 	"Crocodile": {
 		id: 96,
@@ -393,11 +393,11 @@ module.exports = {
 	},
 	"Murk": {
 		id: 98,
-		hex: "#4B4521"
+		hex: "#4B4420"
 	},
 	"Moss": {
 		id: 99,
-		hex: "#7F7745"
+		hex: "#7E7745"
 	},
 	"Goldenrod": {
 		id: 100,
@@ -449,7 +449,7 @@ module.exports = {
 	},
 	"Metals": {
 		id: 112,
-		hex: "#D1B047"
+		hex: "#D1B046"
 	},
 	"Marigold": {
 		id: 113,
@@ -465,11 +465,11 @@ module.exports = {
 	},
 	"Sunset": {
 		id: 116,
-		hex: "#FFA249"
+		hex: "#FFA248"
 	},
 	"Peach": {
 		id: 117,
-		hex: "#FFB577"
+		hex: "#FFB576"
 	},
 	"Cantaloupe": {
 		id: 118,
@@ -481,7 +481,7 @@ module.exports = {
 	},
 	"Bronze": {
 		id: 120,
-		hex: "#B2570D"
+		hex: "#B2560D"
 	},
 	"Terracotta": {
 		id: 121,
@@ -497,7 +497,7 @@ module.exports = {
 	},
 	"Pumpkin": {
 		id: 124,
-		hex: "#FF6941"
+		hex: "#FF6840"
 	},
 	"Tangerine": {
 		id: 125,
@@ -505,11 +505,11 @@ module.exports = {
 	},
 	"Cinnamon": {
 		id: 126,
-		hex: "#C05B39"
+		hex: "#C05A39"
 	},
 	"Caramel": {
 		id: 127,
-		hex: "#C67147"
+		hex: "#C67047"
 	},
 	"Sand": {
 		id: 128,
@@ -517,7 +517,7 @@ module.exports = {
 	},
 	"Tan": {
 		id: 129,
-		hex: "#C49A71"
+		hex: "#C49A70"
 	},
 	"Beige": {
 		id: 130,
@@ -529,7 +529,7 @@ module.exports = {
 	},
 	"Taupe": {
 		id: 132,
-		hex: "#6D675B"
+		hex: "#6D665A"
 	},
 	"Slate": {
 		id: 133,
@@ -537,27 +537,27 @@ module.exports = {
 	},
 	"Driftwood": {
 		id: 134,
-		hex: "#776359"
+		hex: "#766359"
 	},
 	"Latte": {
 		id: 135,
-		hex: "#977B6D"
+		hex: "#977B6C"
 	},
 	"Dirt": {
 		id: 136,
-		hex: "#77493F"
+		hex: "#76483F"
 	},
 	"Clay": {
 		id: 137,
-		hex: "#613F3D"
+		hex: "#603F3D"
 	},
 	"Sable": {
 		id: 138,
-		hex: "#57372D"
+		hex: "#57372C"
 	},
 	"Umber": {
 		id: 139,
-		hex: "#2F1F1B"
+		hex: "#2F1E1A"
 	},
 	"Soil": {
 		id: 140,
@@ -565,11 +565,11 @@ module.exports = {
 	},
 	"Hickory": {
 		id: 141,
-		hex: "#735739"
+		hex: "#725639"
 	},
 	"Tarnish": {
 		id: 142,
-		hex: "#855D33"
+		hex: "#855C32"
 	},
 	"Ginger": {
 		id: 143,
@@ -577,7 +577,7 @@ module.exports = {
 	},
 	"Brown": {
 		id: 144,
-		hex: "#8D5B3E"
+		hex: "#8E5B3F"
 	},
 	"Chocolate": {
 		id: 145,
@@ -585,15 +585,15 @@ module.exports = {
 	},
 	"Auburn": {
 		id: 146,
-		hex: "#7B3D1D"
+		hex: "#7B3C1D"
 	},
 	"Copper": {
 		id: 147,
-		hex: "#A44B29"
+		hex: "#A44B28"
 	},
 	"Rust": {
 		id: 148,
-		hex: "#8A3220"
+		hex: "#8B3220"
 	},
 	"Tomato": {
 		id: 149,
@@ -605,11 +605,11 @@ module.exports = {
 	},
 	"Ruby": {
 		id: 151,
-		hex: "#CD000F"
+		hex: "#CD000E"
 	},
 	"Cherry": {
 		id: 152,
-		hex: "#AA0025"
+		hex: "#AA0024"
 	},
 	"Crimson": {
 		id: 153,
@@ -617,11 +617,11 @@ module.exports = {
 	},
 	"Garnet": {
 		id: 154,
-		hex: "#5B0F15"
+		hex: "#5B0F14"
 	},
 	"Sanguine": {
 		id: 155,
-		hex: "#2F0003"
+		hex: "#2E0002"
 	},
 	"Blood": {
 		id: 156,
@@ -633,7 +633,7 @@ module.exports = {
 	},
 	"Berry": {
 		id: 158,
-		hex: "#8B272D"
+		hex: "#8B272C"
 	},
 	"Red": {
 		id: 159,
@@ -641,7 +641,7 @@ module.exports = {
 	},
 	"Strawberry": {
 		id: 160,
-		hex: "#DE3335"
+		hex: "#DE3235"
 	},
 	"Cerise": {
 		id: 161,
@@ -681,15 +681,15 @@ module.exports = {
 	},
 	"Raspberry": {
 		id: 170,
-		hex: "#8A0349"
+		hex: "#8A0249"
 	},
 	"Wine": {
 		id: 171,
-		hex: "#4D0F29"
+		hex: "#4D0F28"
 	},
 	"Mauve": {
 		id: 172,
-		hex: "#9C4975"
+		hex: "#9C4875"
 	},
 	"Pink": {
 		id: 173,
@@ -705,8 +705,9 @@ module.exports = {
 	},
 	"Pearl": {
 		id: 176,
-		hex: "#FBEDF9"
+		hex: "#FBE9F8"
 	},
 }
 
 //Color hex data taken from https://www1.flightrising.com/forums/gde/1939735 to save time, credits to the posters
+//updated based on https://www1.flightrising.com/forums/gde/1939735/5#post_47748431
