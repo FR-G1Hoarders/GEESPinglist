@@ -85,3 +85,6 @@ sw.*
 
 # Vim swap files
 *.swp
+
+#folder
+dist
