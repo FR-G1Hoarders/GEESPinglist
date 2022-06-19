@@ -76,8 +76,12 @@ function Dragon(data) {
     isPermababy() {
       return this.data.isPermababy;
     },
+    isBaby() {
+		return this.data.isBaby;
+	},
     thumbnailImageUrl() {
-      return `https://www1.flightrising.com/rendern/avatars/${Math.ceil(this.data.id / 100)}/${this.data.id}.png`;
+      //return `https://www1.flightrising.com/rendern/avatars/${Math.ceil(this.data.id / 100)}/${this.data.id}.png`;
+      return '/GEESPinglist/ref/' + this.data.breed + '_' + (this.isBaby() ? 'Hatchling' : this.gender()) + '.png';
     },
     colorPattern() {
       return colorPattern(this.data.primaryColor, this.data.secondaryColor, this.data.tertiaryColor);
@@ -137,6 +141,7 @@ function importDragonFromDragonBlob($) {
     isBred: !!$('.dragon-profile-lineage-offspring a')[0],
     hasSilhouette: !!$('[data-tooltip-source="#dragon-profile-icon-silhouette-tooltip"]')[0],
     isPermababy: !!$('[data-tooltip-source="#dragon-profile-icon-eternal-youth-tooltip"]')[0],
+    isBaby: (stat(4, true) != 'Adult'),
     primaryColor: stat(0, true),
     primaryGene: stat(0, false),
     secondaryColor: stat(1, true),

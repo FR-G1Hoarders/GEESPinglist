@@ -11,7 +11,7 @@
           X
         </button>
       </div>
-      <div class="p-1 hidden lg:inline-block">
+      <div class="p-1 py-3 hidden lg:inline-block">
         <img :src="dragon.thumbnailImageUrl()"/>
       </div>
     </div>
