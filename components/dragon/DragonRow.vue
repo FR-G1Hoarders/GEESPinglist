@@ -4,7 +4,7 @@
       <div class="flex block rounded-lg rounded-b-none items-stretch mb-2 lg:rounded-tr-none lg:rounded-br-lg" :class="textTheme">
         <div class="p-1 flex-1 flex items-center">
           <span class="w-full text-center">
-            {{ dragon.name() }} #{{ dragon.id() }}
+            <a :href="('https://www1.flightrising.com/dragon/' + dragon.id())">{{ dragon.name() }} #{{ dragon.id() }}</a>
           </span>
         </div>
         <button @click="$emit('remove')" class="rounded-tr-lg p-1 px-5 text-center lg:rounded-tr-none lg:rounded-br-lg lg:p-0 lg:px-2" :class="buttonTheme">
@@ -12,7 +12,7 @@
         </button>
       </div>
       <div class="p-1 py-3 hidden lg:inline-block">
-        <img :src="dragon.thumbnailImageUrl()"/>
+        <a :href="('https://www1.flightrising.com/dragon/' + dragon.id())"><img :src="dragon.thumbnailImageUrl()"/></a>
       </div>
     </div>
     <div class="px-4 lg:pt-10 flex-col items-center">
