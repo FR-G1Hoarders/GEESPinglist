@@ -92,7 +92,7 @@
 		}
       },
       removeThis(id, name) {
-		  this.latestInfo = "#".concat(id, " (", name, ") has been removed!");
+		  this.latestInfo = name.concat(" (#", id, ") has been removed!");
 	  },
     },
     watch: {
