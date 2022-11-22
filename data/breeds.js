@@ -68,6 +68,10 @@ module.exports = [
     is_ancient: false,
   },
   {
+    name: 'Undertide',
+    is_ancient: true,
+  },
+  {
     name: 'Veilspun',
     is_ancient: true,
   },
