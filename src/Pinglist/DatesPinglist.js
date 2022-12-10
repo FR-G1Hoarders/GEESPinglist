@@ -16,7 +16,7 @@ function DatesPinglistItem(data) {
       return this.data[SHEETDATA.CD_SpecificYesno].substr(0, 3) === 'Yes';
     },
     wantedDate() {
-      return this.data[SHEETDATA.CD_Date] ? moment(this.data[SHEETDATA.CD_Date], "MM-DD-YYYY") : null;
+      return this.data[SHEETDATA.CD_Date] ? moment(this.data[SHEETDATA.CD_Date], "DD-MM-YYYY") : null;
     },
     wantedFlights() {
       const wantedFlights = this.data[SHEETDATA.CD_Flights].split(', ').filter(x => x);
