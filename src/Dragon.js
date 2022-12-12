@@ -126,6 +126,10 @@ function isNearMiss(prim, sec, tert) {
 	return (Math.abs(COLORS[prim].id - COLORS[sec].id) < 3 || Math.abs(COLORS[prim].id - COLORS[tert].id) < 3 || Math.abs(COLORS[sec].id - COLORS[tert].id) < 3 || Math.abs(COLORS[prim].id - COLORS[sec].id) > 174 || Math.abs(COLORS[prim].id - COLORS[tert].id) > 174 || Math.abs(COLORS[sec].id - COLORS[tert].id) > 174);
 }
 
+function removeAncientBreedDescriptor(gene) {
+	return gene.split(" (")[0];
+}
+
 function importDragonFromDragonBlob($) {
   const stat = (index, take_first) => {
     const item = $('.dragon-profile-stat-icon-value')[index];
@@ -143,11 +147,11 @@ function importDragonFromDragonBlob($) {
     isPermababy: !!$('[data-tooltip-source="#dragon-profile-icon-eternal-youth-tooltip"]')[0],
     isBaby: (stat(4, true) != 'Adult'),
     primaryColor: stat(0, true),
-    primaryGene: stat(0, false),
+    primaryGene: removeAncientBreedDescriptor(stat(0, false)),
     secondaryColor: stat(1, true),
-    secondaryGene: stat(1, false),
+    secondaryGene: removeAncientBreedDescriptor(stat(1, false)),
     tertiaryColor: stat(2, true),
-    tertiaryGene: stat(2, false),
+    tertiaryGene: removeAncientBreedDescriptor(stat(2, false)),
     breed: stat(4, false),
     flight: stat(5, true),
     eyes: stat(5, false),

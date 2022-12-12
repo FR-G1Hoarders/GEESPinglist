@@ -114,7 +114,8 @@
     <div class="text-xs font-light" :class="outTextTheme">
     <br>
     Credits to linnet (#86) for the original code framework and BlueLatios (#565671) for the continued coding support.<br>
-    Brought to you by the G1 Hoarders admin team. For any issues, <a href="https://www1.flightrising.com/forums/drs/2942468#post_45554302" target="_blank" class="underline">please contact a member of the team here</a>.
+    Brought to you by the G1 Hoarders admin team. For any issues, <a href="https://www1.flightrising.com/forums/drs/2942468#post_45554302" target="_blank" class="underline">please contact a member of the team here</a>.<br>
+    <a href="www1.flightrising.com" target="_blank" rel=noopener class="italic">Flight Rising</a> is © by Stormlight Workshop, LLC.
     </div>
   </div>
 </template>

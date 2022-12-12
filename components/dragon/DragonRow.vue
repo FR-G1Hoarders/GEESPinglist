@@ -4,7 +4,7 @@
       <div class="flex block rounded-lg rounded-b-none items-stretch mb-2 lg:rounded-tr-none lg:rounded-br-lg" :class="textTheme">
         <div class="p-1 flex-1 flex items-center">
           <span class="w-full text-center">
-            <a :href="('https://www1.flightrising.com/dragon/' + dragon.id())">{{ dragon.name() }} #{{ dragon.id() }}</a>
+            <a :href="('https://www1.flightrising.com/dragon/' + dragon.id())" target="_blank" rel=noopener>{{ dragon.name() }} #{{ dragon.id() }}</a>
           </span>
         </div>
         <button @click="$emit('remove')" class="rounded-tr-lg p-1 px-5 text-center lg:rounded-tr-none lg:rounded-br-lg lg:p-0 lg:px-2" :class="buttonTheme">
@@ -12,16 +12,16 @@
         </button>
       </div>
       <div class="p-1 py-3 hidden lg:inline-block">
-        <a :href="('https://www1.flightrising.com/dragon/' + dragon.id())"><img :src="dragon.thumbnailImageUrl()"/></a>
+        <a :href="('https://www1.flightrising.com/dragon/' + dragon.id())" target="_blank" rel=noopener><img :src="dragon.thumbnailImageUrl()"/></a>
       </div>
     </div>
-    <div class="px-4 lg:pt-10 flex-col items-center">
+    <div class="pl-4 lg:pt-10 flex-col items-center">
       {{ dragon.gender() }} {{ dragon.breed() }}<br/>
       {{ dragon.flight() }} {{ dragon.eyes() }}<br/>
       {{ dragon.colorPattern() }} {{ dragon.digits() }} Digits<br/>
       <img v-bind:src="'/GEESPinglist/ref/' + dragon.flight() + '.png'" />
     </div>
-    <div class="px-4 lg:pt-10 flex-col items-center">
+    <div class="px-0 lg:pt-10 flex-col items-center">
       <span :style="{backgroundColor:dragon.primaryHex()}">&nbsp;&nbsp;</span>&nbsp;
       {{ dragon.primaryColor() }} {{ dragon.primaryGene() }}<br/>
       <span :style="{backgroundColor:dragon.secondaryHex()}">&nbsp;&nbsp;</span>&nbsp;
@@ -31,13 +31,13 @@
     </div>
     <div class="px-3 mt-2 sm:my-2">
       <input type="text" placeholder="YYYY-MM-DD" v-model="dragon.data.dateOfBirth" class="p-2 block w-full" :class="selectTheme" disabled />
-      <label class="block my-1 p-1 px-2 rounded cursor-pointer" :class="textTheme">
+      <label class="block my-1 p-1 px-2 rounded" :class="textTheme">
         <input type="checkbox" v-model="dragon.data.isBred" disabled /> Bred
       </label>
-      <label class="block my-1 p-1 px-2 rounded cursor-pointer" :class="textTheme">
+      <label class="block my-1 p-1 px-2 rounded" :class="textTheme">
         <input type="checkbox" v-model="dragon.data.hasSilhouette" disabled /> Silhouette
       </label>
-      <label class="block my-1 p-1 px-2 rounded cursor-pointer" :class="textTheme">
+      <label class="block my-1 p-1 px-2 rounded" :class="textTheme">
         <input type="checkbox" v-model="dragon.data.isPermababy" disabled /> Permababy
       </label>
     </div>
