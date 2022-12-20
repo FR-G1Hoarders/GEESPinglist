@@ -59,7 +59,7 @@
     
     <div class="w-full rounded-lg p-3 my-3 text-left" :class="textTheme">
       <h2 class="text-2xl font-light">Select sale type:
-      <a @click="() => seeDetails = !seeDetails" class="cursor-pointer float-right p-2 rounded-lg text-base font-semibold" :class="buttonTheme">Details</a>
+      
       </h2>
       <div class="w-full flex flex-col items-center">
         <select v-model="saleType"  class="w-full rounded-lg text-lg p-5 m-3 cursor-pointer" :class="selectTheme">
@@ -159,7 +159,7 @@ function onlyUnique(value, index, self) {
         defaultOption: 'Select a sale type',
         saleType: 'Select a sale type',
         SALE_TYPES,
-        seeDetails: false,
+        seeDetails: true,
         
         isDescriptionShow: true,
         buttonText: "Hide",
