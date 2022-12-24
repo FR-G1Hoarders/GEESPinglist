@@ -70,8 +70,11 @@
       </div>
     </div>
 
-    <DragonSelector @loaded="addDragons" @unlock="unlockDebug" ref="ds" :theme="theme"></DragonSelector>
+    <DragonSelector id="DragonSelector" @loaded="addDragons" @unlock="unlockDebug" ref="ds" :theme="theme"></DragonSelector>
     <DragonRow v-for="(dragon, i) in dragons" :key="i" :dragon="dragon" :theme="theme" @remove="removeDragon(i)" ref="dr"></DragonRow>
+    <button v-if="this.dragons.length > 0" @click="removeAll" class="rounded p-1 px-5 my-5 text-center bg-pink-300 text-pink-800 border-pink-400">
+		Clear All
+	</button>
 
     <div v-if="status === STATUS.LOADING" class="w-full rounded-lg p-5 my-3 text-lg" :class="buttonTheme">
       <span class="animate-spin inline-block font-bold mr-5">.</span>
@@ -264,6 +267,13 @@ function onlyUnique(value, index, self) {
 		  this.dragons = [...this.dragons.slice(0, i), ...this.dragons.slice(i+1)];
 		  this.status = STATUS.WAITING;
 	  },
+	  removeAll() {
+		  if (confirm("This will remove all dragons entered.") == true) {
+			  this.$refs.ds.$refs.dsrt.removeAll();
+			  this.dragons = [];
+			  this.status = STATUS.WAITING;
+		  }
+	  },
       generate() {
         this.status = STATUS.GENERATING;
 
@@ -282,8 +292,14 @@ function onlyUnique(value, index, self) {
       selectPinglist() {
         this.$refs.pinglistTextarea.select();
         document.execCommand('copy');
-        this.$refs.ds.$refs.dsrt.latestInfo = "Pinglist text copied!";
+        //this.$refs.ds.$refs.dsrt.latestInfo = "Pinglist text copied to clipboard!";
+        alert("Pinglist text copied to clipboard!");
       },
+      scrollToDragonAdd() {
+		const infobox = document.getElementById("DragonSelector").getBoundingClientRect().top;
+        console.log(infobox + window.pageYOffset)
+        window.scrollTo(0, infobox + window.pageYOffset);  
+	  },
       toggleDesc() {
         if (this.isDescriptionShow) {
 			this.buttonText = "Unhide";

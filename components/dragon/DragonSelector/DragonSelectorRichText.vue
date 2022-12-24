@@ -75,25 +75,40 @@
 			  } else if (e.clipboardData && e.clipboardData.getData) {
 				pastedText = e.clipboardData.getData('text/html');
 			  }
-
-			  const [dragon] = dragonLookup(pastedText);
-			  if (!dragon) {
-				this.error = ERRORS.GENERAL;
-			  } else if (!dragon.isFirstGen()) {
-				this.error = ERRORS.G1;
-			  } else {
-				this.$emit('loaded', [dragon]);
-				this.$refs.dragonImportTextarea.value = '';
-				this.latestInfo = dragon.name().concat(" (#", dragon.id(), ") has been added!");
-			  }
+			  
+			  this.processInput(pastedText);
 			} catch(e) {
 			  this.error = ERRORS.GENERAL;
 			}
 		}
       },
+      processInput(t) {
+        this.error = '';
+		try {
+			const [dragon] = dragonLookup(t);
+			if (!dragon) {
+				this.error = ERRORS.GENERAL;
+			} else if (!dragon.isFirstGen()) {
+				this.error = ERRORS.G1;
+			} else {
+				this.$emit('loaded', [dragon]);
+				this.$refs.dragonImportTextarea.value = '';
+				this.latestInfo = dragon.name().concat(" (#", dragon.id(), ") has been added!");
+				sessionStorage.setItem(dragon.id(), t);
+				//console.log(dragon.id(), t);
+			}
+		} catch(e) {
+			this.error = ERRORS.GENERAL;
+		}
+      },
       removeThis(id, name) {
 		  this.latestInfo = name.concat(" (#", id, ") has been removed!");
+		  sessionStorage.removeItem(id);
 	  },
+	  removeAll() {
+		  this.latestInfo = "All dragons have been removed!";
+		  sessionStorage.clear();
+	  }
     },
     watch: {
 		latestInfo: function() {
@@ -109,5 +124,12 @@
 			}, 8000);
 		},
 	},
+	mounted() {
+		for (let i = 0; i < sessionStorage.length; i++) {
+			const key = sessionStorage.key(i);
+			//console.log(`${key}: ${sessionStorage.getItem(key)}`);
+			this.processInput(sessionStorage.getItem(key));
+		}
+	}
   }
 </script>

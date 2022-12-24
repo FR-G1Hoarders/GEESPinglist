@@ -1,7 +1,7 @@
 <template>
-  <div class="mt-3 text-left rounded-lg grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5" :class="highlightTheme">
+  <div class="mt-3 text-left rounded-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 border-4" :class="highlightTheme">
     <div class="justify-around flex-col w-full text-center sm:col-span-2 lg:col-span-1">
-      <div class="flex block rounded-lg rounded-b-none items-stretch mb-2 lg:rounded-tr-none lg:rounded-br-lg" :class="textTheme">
+      <div class="flex block rounded-md rounded-b-none items-stretch mb-2 lg:rounded-tr-none lg:rounded-br-lg" :class="textTheme">
         <div class="p-1 flex-1 flex items-center">
           <span class="w-full text-center">
             <a :href="('https://www1.flightrising.com/dragon/' + dragon.id())" target="_blank" rel=noopener>{{ dragon.name() }} #{{ dragon.id() }}</a>
@@ -15,13 +15,13 @@
         <a :href="('https://www1.flightrising.com/dragon/' + dragon.id())" target="_blank" rel=noopener><img :src="dragon.thumbnailImageUrl()"/></a>
       </div>
     </div>
-    <div class="pl-4 lg:pt-10 flex-col items-center">
+    <div class="pl-4 xl:pt-10 py-1 lg:pt-16 flex-col items-center">
       {{ dragon.gender() }} {{ dragon.breed() }}<br/>
       {{ dragon.flight() }} {{ dragon.eyes() }}<br/>
       {{ dragon.colorPattern() }} {{ dragon.digits() }} Digits<br/>
       <img v-bind:src="'/GEESPinglist/ref/' + dragon.flight() + '.png'" />
     </div>
-    <div class="px-0 lg:pt-10 flex-col items-center">
+    <div class="lg:pl-0 pl-4 py-1 xl:pt-10 lg:pt-16 flex-col items-center">
       <span :style="{backgroundColor:dragon.primaryHex()}">&nbsp;&nbsp;</span>&nbsp;
       {{ dragon.primaryColor() }} {{ dragon.primaryGene() }}<br/>
       <span :style="{backgroundColor:dragon.secondaryHex()}">&nbsp;&nbsp;</span>&nbsp;
@@ -30,7 +30,7 @@
       {{ dragon.tertiaryColor() }} {{ dragon.tertiaryGene() }}<br/>
     </div>
     <div class="px-3 mt-2 sm:my-2">
-      <input type="text" placeholder="YYYY-MM-DD" v-model="dragon.data.dateOfBirth" class="p-2 block w-full" :class="selectTheme" disabled />
+      <input type="text" placeholder="YYYY-MM-DD" v-model="dragon.data.dateOfBirth" class="p-2 block w-full text-center" :class="selectTheme" disabled />
       <label class="block my-1 p-1 px-2 rounded" :class="textTheme">
         <input type="checkbox" v-model="dragon.data.isBred" disabled /> Bred
       </label>
@@ -46,7 +46,7 @@
         <option>Add Tag</option>
         <option v-for="(tag, i) in tags" :key="i">{{tag}}</option>
       </select>
-      <label v-for="(tag, i) in dragon.tags()" :key="i" @click="dragon.removeTag(i)" class="block m-1 p-2 rounded cursor-pointer" :class="textTheme">
+      <label v-for="(tag, i) in dragon.tags()" :key="i" @click="dragon.removeTag(i)" class="block m-1 px-1 text-sm rounded cursor-pointer" :class="textTheme">
         {{tag}}
         <span class="float-right">X</span>
       </label>
