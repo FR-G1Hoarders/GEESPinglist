@@ -1,13 +1,13 @@
 <template>
   <div class="mt-3 text-left rounded-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 border-4" :class="highlightTheme">
     <div class="justify-around flex-col w-full text-center sm:col-span-2 lg:col-span-1">
-      <div class="flex block rounded-md rounded-b-none items-stretch mb-2 lg:rounded-tr-none lg:rounded-br-lg" :class="textTheme">
+      <div class="flex block rounded-md rounded-b-none items-stretch mb-2 lg:rounded-tr-none lg:rounded-br-lg border-4" :class="textTheme">
         <div class="p-1 flex-1 flex items-center">
           <span class="w-full text-center">
             <a :href="('https://www1.flightrising.com/dragon/' + dragon.id())" target="_blank" rel=noopener>{{ dragon.name() }} #{{ dragon.id() }}</a>
           </span>
         </div>
-        <button @click="$emit('remove')" class="rounded-tr-lg p-1 px-5 text-center lg:rounded-tr-none lg:rounded-br-lg lg:p-0 lg:px-2" :class="buttonTheme">
+        <button @click="$emit('remove')" class="rounded-tr-lg p-1 px-5 text-center lg:rounded-tr-none lg:rounded-br-md lg:p-0 lg:px-2" :class="buttonTheme">
           X
         </button>
       </div>
