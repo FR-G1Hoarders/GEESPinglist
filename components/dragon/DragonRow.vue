@@ -1,27 +1,27 @@
 <template>
   <div class="mt-3 text-left rounded-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 border-4" :class="highlightTheme">
     <div class="justify-around flex-col w-full text-center sm:col-span-2 lg:col-span-1">
-      <div class="flex block rounded-md rounded-b-none items-stretch mb-2 lg:rounded-tr-none lg:rounded-br-lg border-4" :class="textTheme">
+      <div class="flex block rounded-xl items-stretch border-4" :class="textTheme">
         <div class="p-1 flex-1 flex items-center">
           <span class="w-full text-center">
             <a :href="('https://www1.flightrising.com/dragon/' + dragon.id())" target="_blank" rel=noopener>{{ dragon.name() }} #{{ dragon.id() }}</a>
           </span>
         </div>
-        <button @click="$emit('remove')" class="rounded-tr-lg p-1 px-5 text-center lg:rounded-tr-none lg:rounded-br-md lg:p-0 lg:px-2" :class="buttonTheme">
+        <button @click="$emit('remove')" class="rounded-r-lg p-1 px-4 text-center lg:p-1 lg:px-2" :class="buttonTheme">
           X
         </button>
       </div>
-      <div class="p-1 py-3 hidden lg:inline-block">
+      <div class="p-1 py-2 hidden lg:inline-block">
         <a :href="('https://www1.flightrising.com/dragon/' + dragon.id())" target="_blank" rel=noopener><img :src="dragon.thumbnailImageUrl()"/></a>
       </div>
     </div>
-    <div class="pl-4 xl:pt-10 py-1 lg:pt-16 flex-col items-center">
+    <div class="pl-4 xl:pt-10 py-1 lg:pt-12 flex-col items-center">
       {{ dragon.gender() }} {{ dragon.breed() }}<br/>
       {{ dragon.flight() }} {{ dragon.eyes() }}<br/>
       {{ dragon.colorPattern() }} {{ dragon.digits() }} Digits<br/>
       <img v-bind:src="'/GEESPinglist/ref/' + dragon.flight() + '.png'" />
     </div>
-    <div class="lg:pl-0 pl-4 py-1 xl:pt-10 lg:pt-16 flex-col items-center">
+    <div class="lg:pl-0 pl-4 py-1 xl:pt-10 lg:pt-12 flex-col items-center">
       <span :style="{backgroundColor:dragon.primaryHex()}">&nbsp;&nbsp;</span>&nbsp;
       {{ dragon.primaryColor() }} {{ dragon.primaryGene() }}<br/>
       <span :style="{backgroundColor:dragon.secondaryHex()}">&nbsp;&nbsp;</span>&nbsp;
