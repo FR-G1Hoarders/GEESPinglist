@@ -293,6 +293,7 @@ function onlyUnique(value, index, self) {
         this.$refs.pinglistTextarea.select();
         document.execCommand('copy');
         //this.$refs.ds.$refs.dsrt.latestInfo = "Pinglist text copied to clipboard!";
+        this.$refs.pinglistTextarea.blur();
         alert("Pinglist text copied to clipboard!");
       },
       scrollToDragonAdd() {
