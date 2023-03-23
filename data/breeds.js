@@ -4,6 +4,10 @@ module.exports = [
     is_ancient: true,
   },
   {
+    name: 'Aether',
+    is_ancient: true,
+  },
+  {
     name: 'Banescale',
     is_ancient: true,
   },
