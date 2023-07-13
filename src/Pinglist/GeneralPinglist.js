@@ -79,18 +79,37 @@ function GeneralPinglistItem(data) {
     wantedBreeds() {
       return wantedBreeds;
     },
-    wantsBreed(dragon) {
+    wantsBreed(dragon, breeds) {
       const wantedBreeds = this.wantedBreeds();
       //if (!wantedBreeds.length) return true;
+      
+      let isAncient = breeds.filter(x => x[0] === dragon.breed())[0][1];
 
       for (let i = 0; i < wantedBreeds.length; i ++) {
         if (dragon.breed() === wantedBreeds[i]) return true;
-        else if (wantedBreeds[i] === 'Modern' && !dragon.isAncient()) return true;
-        else if (wantedBreeds[i] === 'Ancient' && dragon.isAncient()) return true;
-        else if (wantedBreeds[i] === 'Permababy' && dragon.isPermababy()) return true;
-        else if (wantedBreeds[i] === 'Imperial (bred)' && dragon.breed() === 'Imperial' && dragon.isBred()) return true;
-        else if (wantedBreeds[i] === 'Imperial (unbred)' && dragon.breed() === 'Imperial' && !dragon.isBred()) return true;
+        else if (wantedBreeds[i] === 'Modern' && isAncient === 'N') {
+			console.log("wantsModern");
+			return true;
+		}
+        else if (wantedBreeds[i] === 'Ancient' && isAncient === 'Y') {
+			console.log("wantsAncient");
+			return true;
+		}
+        else if (wantedBreeds[i] === 'Permababy' && dragon.isPermababy()) {
+			//console.log("wantsBaby");
+			return true;
+		}
+        else if (wantedBreeds[i] === 'Imperial (bred)' && dragon.breed() === 'Imperial' && dragon.isBred()) {
+			//console.log("wantsBredImp");
+			return true;
+		}
+        else if (wantedBreeds[i] === 'Imperial (unbred)' && dragon.breed() === 'Imperial' && !dragon.isBred()) {
+			//console.log("wantsUnbredImp");
+			return true;
+		}
       }
+      
+      console.log("No");
 
       return false;
     },
@@ -107,7 +126,7 @@ function GeneralPinglistItem(data) {
 
       return false;
     },
-    wantsDragon(dragon) {
+    wantsDragonG(dragon, breeds) {
       if (this.wantsEverything()) return this.setStatus(ITEM_STATUS.PING, dragon);
 
       if (!this.wantsGender(dragon)) return this.setStatus(ITEM_STATUS.DNP_DRAGON_GENDER, dragon);
@@ -115,9 +134,18 @@ function GeneralPinglistItem(data) {
       if (!this.wantsSilhouette(dragon)) return this.setStatus(ITEM_STATUS.DNP_DRAGON_SILHOUETTE, dragon);
 
       if (this.wantsEyeType(dragon)) return this.setStatus(ITEM_STATUS.PING_DRAGON_EYES, dragon);
-      if (this.wantsBreed(dragon)) return this.setStatus(ITEM_STATUS.PING_DRAGON_BREED, dragon);
-      if (this.wantsTag(dragon)) return this.setStatus(ITEM_STATUS.PING_DRAGON_TAGS, dragon);
-      if (this.wantsColorPattern(dragon)) return this.setStatus(ITEM_STATUS.PING_DRAGON_COLOR_PATTERN, dragon);
+      if (this.wantsBreed(dragon, breeds)) {
+		  console.log("S-WB");
+		  return this.setStatus(ITEM_STATUS.PING_DRAGON_BREED, dragon);
+	  }
+      if (this.wantsTag(dragon)) {
+		  console.log("S-WT");
+		  return this.setStatus(ITEM_STATUS.PING_DRAGON_TAGS, dragon);
+	  }
+      if (this.wantsColorPattern(dragon)) {
+		  console.log("S-WC");
+		  return this.setStatus(ITEM_STATUS.PING_DRAGON_COLOR_PATTERN, dragon);
+	  }
 
       return this.setStatus(ITEM_STATUS.DNP, dragon);
     },

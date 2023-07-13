@@ -115,15 +115,17 @@ function Pinglist() {
       this.resetItems();
       const pings = new Set;
       this.items().filter(x => x.wantsSaleType(saleType)).forEach(x => pings.add(x.toPing()));
+      this.items().filter(x => !x.wantsSaleType(saleType)).forEach(item => item.setStatus(ITEM_STATUS.DNP_SALE_TYPE));
       return [...pings];
     },
-    pingsForDragons(saleType, dragons) {
+    pingsForDragons(saleType, dragons, breeds=null) {
       this.resetItems();
       const pings = new Set;
 
       const primals = dragons.filter(x => x.eyes() === 'Primal').map(x => x.flight());
       const multiGazes = dragons.filter(x => x.eyes() === 'Multi-Gaze').map(x => x.flight());
-
+      
+      this.items().filter(x => !x.wantsSaleType(saleType)).forEach(item => item.setStatus(ITEM_STATUS.DNP_SALE_TYPE));
       const itemsAfterExclusions = this.items().filter(x => x.wantsSaleType(saleType)).filter(item => {
         if (item.primalBlacklist().length && primals.length) {
           if (item.primalBlacklist()[0] === '') item.setStatus(ITEM_STATUS.DNP_PRIMAL);
@@ -143,8 +145,11 @@ function Pinglist() {
 
         return !item.isStatusDnp();
       });
-
-      dragons.forEach(dragon => itemsAfterExclusions.filter(x => x.wantsDragon(dragon)).forEach(x => pings.add(x.toPing())));
+      
+      if (!breeds)
+		dragons.forEach(dragon => itemsAfterExclusions.filter(x => x.wantsDragon(dragon)).forEach(x => pings.add(x.toPing())));
+	  else
+	    dragons.forEach(dragon => itemsAfterExclusions.filter(x => x.wantsDragonG(dragon, breeds)).forEach(x => pings.add(x.toPing())));
       return [...pings];
     },
   };

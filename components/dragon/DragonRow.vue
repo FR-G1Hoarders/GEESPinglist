@@ -12,7 +12,7 @@
         </button>
       </div>
       <div class="p-1 py-2 hidden lg:inline-block">
-        <a :href="('https://www1.flightrising.com/dragon/' + dragon.id())" target="_blank" rel=noopener><img :src="dragon.thumbnailImageUrl()"/></a>
+        <a :href="('https://www1.flightrising.com/dragon/' + dragon.id())" target="_blank" rel=noopener><img :src="dragonImage"/></a>
       </div>
     </div>
     <div class="pl-4 xl:pt-10 py-1 lg:pt-12 flex-col items-center">
@@ -66,6 +66,9 @@
       },
       theme: {
 		type: String,
+		required: true,
+	  },
+	  dragonImage: {
 		required: true,
 	  },
     },

@@ -71,7 +71,7 @@
     </div>
 
     <DragonSelector id="DragonSelector" @loaded="addDragons" @unlock="unlockDebug" ref="ds" :theme="theme"></DragonSelector>
-    <DragonRow v-for="(dragon, i) in dragons" :key="i" :dragon="dragon" :theme="theme" @remove="removeDragon(i)" ref="dr"></DragonRow>
+    <DragonRow v-for="(dragon, i) in dragons" :key="i" :dragon="dragon" :theme="theme" :dragonImage="dragonImages[i]" @remove="removeDragon(i)" ref="dr"></DragonRow>
     <button v-if="this.dragons.length > 0" @click="removeAll" class="rounded p-1 px-5 my-5 text-center bg-pink-300 text-pink-800 border-pink-400">
 		Clear All
 	</button>
@@ -144,6 +144,7 @@ function onlyUnique(value, index, self) {
     data() {
       return {
         dragons: [],
+        dragonImages: [],
         unlockDebugMode: false,
         isDebugMode: false,
         generalPinglist: null,
@@ -152,6 +153,7 @@ function onlyUnique(value, index, self) {
         generalPings: [],
         datesPings: [],
         specificsPings: [],
+        breeds: [],
 
         debugTab: DEBUG_TAB.GENERAL,
         DEBUG_TAB,
@@ -199,7 +201,10 @@ function onlyUnique(value, index, self) {
         const includedEyeTypes = [...new Set(this.dragons.map(x => x.hasNormalEyes() ? `${x.flight()} Normal Eyes` : `${x.flight()} ${x.eyes()}`))];
         const includedTags = [...new Set(this.dragons.reduce((a, b) => [...a, ...b.tags()], []))];
         const includedBreeds = [...new Set(this.dragons.map(x => x.breed()))];
-        const includedBreedTypes = [...new Set(this.dragons.map(x => x.isAncient() ? 'Ancient' : 'Modern'))];
+        const includedBreedTypes = [...new Set(this.dragons.map(x => {
+			let isAncient = this.breeds.filter(a => a[0] === x.breed())[0][1];
+			return isAncient === 'Y' ? 'Ancient' : 'Modern';
+		}))];
         const includedPermababy = this.dragons.find(x => x.isPermababy()) ? ['Permababy'] : [];
         str += [...includedColorPatterns, ...includedEyeTypes, ...includedBreedTypes, ...includedPermababy, ...includedBreeds, ...includedTags].join(', ');
         str += '[br]';
@@ -260,11 +265,16 @@ function onlyUnique(value, index, self) {
     methods: {
       addDragons(dragons) {
         if (this.status === STATUS.GENERATED) this.status = STATUS.WAITING;
-        dragons.filter(x => !this.dragons.map(x => x.id()).includes(x.id())).forEach(x => this.dragons.push(x));
+        dragons.filter(x => !this.dragons.map(x => x.id()).includes(x.id())).forEach(x => {
+			this.dragons.push(x);
+			let b = this.breeds.filter(k => k[0] === x.breed())[0];
+			this.dragonImages.push(x.isBaby() ? b[4] : (x.gender() == "Male" ? b[2] : b[3]));
+		});
       },
       removeDragon(i) {
 		  this.$refs.ds.$refs.dsrt.removeThis(this.dragons[i].id(), this.dragons[i].name());
 		  this.dragons = [...this.dragons.slice(0, i), ...this.dragons.slice(i+1)];
+		  this.dragonImages = [...this.dragonImages.slice(0, i), ...this.dragonImages.slice(i+1)];
 		  this.status = STATUS.WAITING;
 	  },
 	  removeAll() {
@@ -278,7 +288,7 @@ function onlyUnique(value, index, self) {
         this.status = STATUS.GENERATING;
 
         if (SALE_TYPES.find(x => x.name === this.saleType).do_require_dragons) {
-          this.generalPings = this.generalPinglist.pingsForDragons(this.saleType, this.dragons);
+          this.generalPings = this.generalPinglist.pingsForDragons(this.saleType, this.dragons, this.breeds);
           this.datesPings = this.datesPinglist.pingsForDragons(this.saleType, this.dragons);
           this.specificsPings = this.specificsPinglist.pingsForDragons(this.saleType, this.dragons);
         } else {
@@ -324,10 +334,11 @@ function onlyUnique(value, index, self) {
 	  },
     },
     mounted() {
-      Promise.all([PinglistLoader.generalPinglist(), PinglistLoader.datesPinglist(), PinglistLoader.specificsPinglist()]).then(([generalPingList, datesPinglist, specificsPinglist]) => {
+      Promise.all([PinglistLoader.generalPinglist(), PinglistLoader.datesPinglist(), PinglistLoader.specificsPinglist(), PinglistLoader.breedsData()]).then(([generalPingList, datesPinglist, specificsPinglist, breedsData]) => {
         this.generalPinglist = generalPingList;
         this.datesPinglist = datesPinglist;
         this.specificsPinglist = specificsPinglist;
+        this.breeds = breedsData;
         this.status = STATUS.WAITING;
       });
     },

@@ -1,6 +1,6 @@
 const cheerio = require('cheerio');
 const moment = require('moment');
-const BREEDS = require('@/data/breeds');
+const {Breeds} = require('@/src/Pinglist/Breeds');
 const NORMAL_EYES = ['Common', 'Dark Sclera', 'Glowing', 'Innocent', 'Swirl', 'Uncommon', 'Unusual'];
 const COLORS = require('@/data/colors');
 
@@ -66,10 +66,7 @@ function Dragon(data) {
     },
     isBred() {
       return this.data.isBred;
-    },
-    isAncient() {
-      return BREEDS.find(x => x.name === this.breed()).is_ancient;
-    },
+    },    
     hasSilhouette() {
       return this.data.hasSilhouette;
     },
@@ -78,11 +75,7 @@ function Dragon(data) {
     },
     isBaby() {
 		return this.data.isBaby;
-	},
-    thumbnailImageUrl() {
-      //return `https://www1.flightrising.com/rendern/avatars/${Math.ceil(this.data.id / 100)}/${this.data.id}.png`;
-      return '/GEESPinglist/ref/' + this.data.breed + '_' + (this.isBaby() ? 'Hatchling' : this.gender()) + '.png';
-    },
+	},    
     colorPattern() {
       return colorPattern(this.data.primaryColor, this.data.secondaryColor, this.data.tertiaryColor);
     },
