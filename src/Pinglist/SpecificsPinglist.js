@@ -127,7 +127,7 @@ function SpecificsPinglist(blob) {
   };
 }
 
-module.exports = {
+export default {
   SpecificsPinglist,
   SpecificsPinglistItem,
 };

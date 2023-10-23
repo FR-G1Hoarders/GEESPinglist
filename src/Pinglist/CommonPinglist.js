@@ -163,7 +163,7 @@ function parseCsv(data, takeHeader = false) {
 //It is technically possible to load the header, and from there, automatically search which column contains which data
 //But because of how multigaze and primal blacklists are coded right now, I fear an impact on speed performance if those columns were to not be together
 
-module.exports = {
+export default {
   parseCsv,
   PinglistItem,
   Pinglist,

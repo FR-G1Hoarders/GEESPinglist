@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   'Christmas': '12-25',
   'Halloween': '10-31',
   '4th of July': '07-04',

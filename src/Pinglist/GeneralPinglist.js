@@ -165,7 +165,7 @@ function GeneralPinglist(blob) {
   };
 }
 
-module.exports = {
+export default {
   GeneralPinglist,
   GeneralPinglistItem,
 };

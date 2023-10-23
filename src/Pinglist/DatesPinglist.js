@@ -79,7 +79,7 @@ function DatesPinglist(blob) {
   };
 }
 
-module.exports = {
+export default {
   DatesPinglist,
   DatesPinglistItem,
 };

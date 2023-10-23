@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	CI_Username: 1,
 	CI_ID: 2,
 	CI_SalesType: 3,
@@ -36,4 +36,4 @@ module.exports = {
 	CD_SpecificYesno: 8,
 	CD_Date: 9,
 	CD_Flights: 10,
-}
+};

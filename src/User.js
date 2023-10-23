@@ -10,4 +10,4 @@ function User(data) {
   };
 }
 
-module.exports = {User};
+export default {User};

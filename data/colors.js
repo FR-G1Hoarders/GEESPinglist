@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	"Maize": {
 		id: 0,
 		hex: "#FFFDEA"
@@ -707,7 +707,7 @@ module.exports = {
 		id: 176,
 		hex: "#FBE9F8"
 	},
-}
+};
 
 //Color hex data taken from https://www1.flightrising.com/forums/gde/1939735 to save time, credits to the posters
 //updated based on https://www1.flightrising.com/forums/gde/1939735/5#post_47748431

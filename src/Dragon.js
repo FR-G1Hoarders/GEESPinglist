@@ -216,7 +216,7 @@ function importDragonFromLairBlob($, det) {
 
 /** end of import from source **/
 
-module.exports = {
+export default {
   Dragon,
   dragonLookup: (payload) => {
     try {

@@ -5,6 +5,6 @@ function Breeds(blob) {
   return items;
 }
 
-module.exports = {
+export default {
   Breeds,
 };

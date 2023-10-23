@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   PING: 1000,
   PING_DRAGON_COLOR_PATTERN: 1001,
   PING_DRAGON_EYES: 1002,

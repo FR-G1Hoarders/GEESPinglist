@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   {
     name: 'Everything',
     do_require_dragons: false,

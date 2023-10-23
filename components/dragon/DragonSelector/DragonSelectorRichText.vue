@@ -6,7 +6,7 @@
       <button class="cursor-pointer rounded-lg px-2" :class="buttonTheme" @click="() => showTutorial = !showTutorial">?</button>
     </ol>
     <div v-if="showTutorial" class="text-center m-2 p-5 rounded-lg" :class="highlightTheme">
-      <img src="/GEESPinglist/ref/dragon_selector_richtext.png" class="w-100 md:w-1/2 m-auto"/>
+      <img src="@/static/ref/dragon_selector_richtext.png" class="w-100 md:w-1/2 m-auto"/>
     </div>
     <div class="flex flex-col">
       <textarea :class="selectTheme" ref="dragonImportTextarea" rows="2" class="flex-1 rounded-lg p-2" @paste="loadDragon" @input="e => e.target.value = ''" style="resize:none;"></textarea>
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import {dragonLookup} from "@/src/Dragon";
+  import Dragon from "@/src/Dragon";
   import THEMES from "@/data/themes";
   const ERRORS = {
     GENERAL: "This does not look like a valid source. Please make sure you've followed the listed directions.<br/> It is possible you have not selected enough of the page - please click the question mark above for a guide.<br/> You can also copy paste the entire dragon's page.",
@@ -88,7 +88,7 @@
       processInput(t) {
         this.error = '';
 		try {
-			const [dragon] = dragonLookup(t);
+			const [dragon] = Dragon.dragonLookup(t);
 			if (!dragon) {
 				this.error = ERRORS.GENERAL;
 			} else if (!dragon.isFirstGen()) {

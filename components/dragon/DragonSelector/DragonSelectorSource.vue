@@ -40,7 +40,7 @@
 
 <script>
   import Alert from "@/components/common/Alert";
-  import {dragonLookup} from "@/src/Dragon";
+  import Dragon from "@/src/Dragon";
   export default {
     name: 'DragonSelectorSource',
     components: {Alert},
@@ -59,7 +59,7 @@
         }
 
         this.error = '';
-        const dragons = dragonLookup(pastedText);
+        const dragons = Dragon.dragonLookup(pastedText);
         if (dragons) {
           this.$emit('loaded', dragons);
           this.$refs.dragonImportTextarea.value = '';

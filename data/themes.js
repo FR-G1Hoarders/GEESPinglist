@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   "Light": {
 	background: '#ebf8ff',
 	button: 'bg-gray-800 text-gray-100',
@@ -17,4 +17,4 @@ module.exports = {
 	invalid: 'bg-gray-700 text-gray-800',
 	select: 'bg-gray-300 text-gray-900',
   },
-}
+};
