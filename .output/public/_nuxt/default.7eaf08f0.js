@@ -1,0 +1,1 @@
+import{_ as t,A as o,c as n,b as _,o as c}from"./entry.b234ccc8.js";const s={},a={class:"container"};function r(l,d){const e=o("Nuxt");return c(),n("div",a,[_(e)])}const f=t(s,[["render",r]]);export{f as default};
