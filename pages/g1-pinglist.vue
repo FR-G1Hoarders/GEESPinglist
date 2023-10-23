@@ -170,7 +170,7 @@ function onlyUnique(value, index, self) {
         buttonText: "Hide",
         
         theme: 'Light',
-        
+        isMounted: false,
       };
     },
     created() {
@@ -267,7 +267,7 @@ function onlyUnique(value, index, self) {
         if (this.status === STATUS.GENERATED) this.status = STATUS.WAITING;
         dragons.filter(x => !this.dragons.map(x => x.id()).includes(x.id())).forEach(x => {
 			this.dragons.push(x);
-			let b = this.breeds.filter(k => k[0] === x.breed())[0];
+			let b = this.breeds.find(k => k[0] === x.breed());
 			this.dragonImages.push(x.isBaby() ? b[4] : (x.gender() == "Male" ? b[2] : b[3]));
 		});
       },
@@ -334,13 +334,21 @@ function onlyUnique(value, index, self) {
 	  },
     },
     mounted() {
-      Promise.all([PinglistLoader.generalPinglist(), PinglistLoader.datesPinglist(), PinglistLoader.specificsPinglist(), PinglistLoader.breedsData()]).then(([generalPingList, datesPinglist, specificsPinglist, breedsData]) => {
+      Promise.all([PinglistLoader.generalPinglist(), PinglistLoader.datesPinglist(), PinglistLoader.specificsPinglist(), PinglistLoader.breedsData()])
+      .then(([generalPingList, datesPinglist, specificsPinglist, breedsData]) => {
         this.generalPinglist = generalPingList;
         this.datesPinglist = datesPinglist;
         this.specificsPinglist = specificsPinglist;
         this.breeds = breedsData;
         this.status = STATUS.WAITING;
-      });
+      }).then(() => {
+		  for (let i = 0; i < sessionStorage.length; i++) {
+			const key = sessionStorage.key(i);
+			//console.log(`${key}: ${sessionStorage.getItem(key)}`);
+			this.$refs.ds.$refs.dsrt.processInput(sessionStorage.getItem(key));
+		  }
+		  this.isMounted = true;
+		});
     },
 
   }

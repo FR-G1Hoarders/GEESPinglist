@@ -40,6 +40,7 @@
         
         infoTimer: null,
         errorTimer: null,
+        ready: false,
       };
     },
     computed: {
@@ -66,6 +67,8 @@
         if (e.clipboardData.getData('text') === ":crogge:") {
 			this.$emit('unlock');
 			this.error = "Debug mode has been unlocked.";
+		} else if (!this.ready) {
+			this.error = "Still loading!";
 		} else {
 			
 			let pastedText = '';
@@ -123,12 +126,12 @@
 				this.error = '';
 			}, 8000);
 		},
-	},
-	mounted() {
-		for (let i = 0; i < sessionStorage.length; i++) {
-			const key = sessionStorage.key(i);
-			//console.log(`${key}: ${sessionStorage.getItem(key)}`);
-			this.processInput(sessionStorage.getItem(key));
+		'$parent.$parent.isMounted': function(newVal) {
+			if (newVal) {
+				this.ready = true;
+			} else {
+				this.ready = false;
+			}
 		}
 	}
   }
