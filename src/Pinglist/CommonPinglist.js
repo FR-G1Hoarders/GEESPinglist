@@ -146,7 +146,7 @@ function Pinglist() {
         return !item.isStatusDnp();
       });
       
-      if (!breeds)
+      if (!breeds) //so never?
 		dragons.forEach(dragon => itemsAfterExclusions.filter(x => x.wantsDragon(dragon)).forEach(x => pings.add(x.toPing())));
 	  else
 	    dragons.forEach(dragon => itemsAfterExclusions.filter(x => x.wantsDragonG(dragon, breeds)).forEach(x => pings.add(x.toPing())));

@@ -66,8 +66,8 @@ function GeneralPinglistItem(data) {
       const eyeType = `${dragon.flight()} ${dragon.hasNormalEyes() ? 'Normal' : dragon.eyes()}`;
 
       for (let i = 0; i < wantedEyeTypes.length; i++) {
-        if (wantedEyeTypes[i] === 'Matching eyes' && dragon.hasTag('Matching Eyes')) return true;
-        else if (wantedEyeTypes[i].search('Matching eyes') !== -1 && dragon.hasTag('Matching Eyes') && wantedEyeTypes[i].split(' ')[0] === dragon.flight()) return true;
+        if (wantedEyeTypes[i] === 'Matching eyes' && dragon.hasTag('Matching eyes')) return true;
+        else if (wantedEyeTypes[i].search('Matching eyes') !== -1 && dragon.hasTag('Matching eyes') && wantedEyeTypes[i].split(' ')[0] === dragon.flight()) return true;
         else if (eyeType.search(wantedEyeTypes[i]) !== -1) return true;
       }
 
@@ -88,11 +88,11 @@ function GeneralPinglistItem(data) {
       for (let i = 0; i < wantedBreeds.length; i ++) {
         if (dragon.breed() === wantedBreeds[i]) return true;
         else if (wantedBreeds[i] === 'Modern' && isAncient === 'N') {
-			console.log("wantsModern");
+			//console.log("wantsModern");
 			return true;
 		}
         else if (wantedBreeds[i] === 'Ancient' && isAncient === 'Y') {
-			console.log("wantsAncient");
+			//console.log("wantsAncient");
 			return true;
 		}
         else if (wantedBreeds[i] === 'Permababy' && dragon.isPermababy()) {
@@ -109,7 +109,7 @@ function GeneralPinglistItem(data) {
 		}
       }
       
-      console.log("No");
+      //console.log("No");
 
       return false;
     },
@@ -135,15 +135,15 @@ function GeneralPinglistItem(data) {
 
       if (this.wantsEyeType(dragon)) return this.setStatus(ITEM_STATUS.PING_DRAGON_EYES, dragon);
       if (this.wantsBreed(dragon, breeds)) {
-		  console.log("S-WB");
+		  //console.log("S-WB");
 		  return this.setStatus(ITEM_STATUS.PING_DRAGON_BREED, dragon);
 	  }
       if (this.wantsTag(dragon)) {
-		  console.log("S-WT");
+		  //console.log("S-WT");
 		  return this.setStatus(ITEM_STATUS.PING_DRAGON_TAGS, dragon);
 	  }
       if (this.wantsColorPattern(dragon)) {
-		  console.log("S-WC");
+		  //console.log("S-WC");
 		  return this.setStatus(ITEM_STATUS.PING_DRAGON_COLOR_PATTERN, dragon);
 	  }
 
