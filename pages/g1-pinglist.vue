@@ -118,7 +118,7 @@
     <br>
     Webtool maintained by BlueLatios (#565671), and brought to you by the G1 Hoarders admin team.<br>
     For any issues, <a href="https://www1.flightrising.com/forums/drs/2942468#post_45554302" target="_blank" class="underline">please contact a member of the team here</a>.<br>
-    <a href="www1.flightrising.com" target="_blank" rel=noopener class="italic">Flight Rising</a> is © by Stormlight Workshop, LLC.
+    <a href="https://www1.flightrising.com" target="_blank" rel=noopener class="italic">Flight Rising</a> is © by Stormlight Workshop, LLC.
     </div>
   </div>
 </template>
