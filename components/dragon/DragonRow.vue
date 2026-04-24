@@ -22,11 +22,11 @@
       <img v-bind:src="'/GEESPinglist/ref/' + dragon.flight() + '.png'" />
     </div>
     <div class="lg:pl-0 pl-4 py-1 xl:pt-10 lg:pt-12 flex-col items-center">
-      <span :style="{backgroundColor:dragon.primaryHex()}">&nbsp;&nbsp;</span>&nbsp;
+      <span class="border border-black rounded" :style="{backgroundColor:dragon.primaryHex()}">&nbsp;&nbsp;</span>&nbsp;
       {{ dragon.primaryColor() }} {{ dragon.primaryGene() }}<br/>
-      <span :style="{backgroundColor:dragon.secondaryHex()}">&nbsp;&nbsp;</span>&nbsp;
+      <span class="border border-black rounded" :style="{backgroundColor:dragon.secondaryHex()}">&nbsp;&nbsp;</span>&nbsp;
       {{ dragon.secondaryColor() }} {{ dragon.secondaryGene() }}<br/>
-      <span :style="{backgroundColor:dragon.tertiaryHex()}">&nbsp;&nbsp;</span>&nbsp;
+      <span class="border border-black rounded" :style="{backgroundColor:dragon.tertiaryHex()}">&nbsp;&nbsp;</span>&nbsp;
       {{ dragon.tertiaryColor() }} {{ dragon.tertiaryGene() }}<br/>
     </div>
     <div class="px-3 mt-2 sm:my-2">
