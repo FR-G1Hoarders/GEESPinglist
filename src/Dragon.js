@@ -1,8 +1,8 @@
 const cheerio = require('cheerio');
-const moment = require('moment');
-const {Breeds} = require('@/src/Pinglist/Breeds');
+import moment from 'moment';
+import {Breeds} from '@/src/Pinglist/Breeds';
+import COLORS from '@/data/colors';
 const NORMAL_EYES = ['Common', 'Dark Sclera', 'Glowing', 'Innocent', 'Swirl', 'Uncommon', 'Unusual'];
-const COLORS = require('@/data/colors');
 
 function Dragon(data) {
   return {
@@ -129,11 +129,13 @@ function importDragonFromDragonBlob($) {
     return take_first ? $(item).html().split('<')[0].trim() : $('strong', item).html();
   };
 
-  const idSelector = $('.dragon-profile-header-number').html();
+  const header = $('.responsive-page-header-title').text();
+  const idMatch = header.match(/\(#(\d+)\)/);
+  const genderText = $('#dragon-profile-icon-sex-tooltip').text();
   const dragon = Dragon({
-    id: parseInt(idSelector.substr(0, idSelector.length - 1).substr(2)),
-    name: $('.dragon-profile-header-name').html(),
-    gender: $('[data-tooltip-source="#dragon-profile-icon-sex-tooltip"] img').attr('src').search('female') === -1 ? 'Male' : 'Female',
+    id: (idMatch ? parseInt(idMatch[1]) : null),
+    name: header.split('(#')[0].trim(),
+    gender: genderText.includes('Female') ? 'Female' : 'Male',
     isFirstGen: !$('.dragon-profile-lineage-parents a')[0],
     isBred: !!$('.dragon-profile-lineage-offspring a')[0],
     hasSilhouette: !!$('[data-tooltip-source="#dragon-profile-icon-silhouette-tooltip"]')[0],
@@ -170,6 +172,8 @@ function importDragonFromDragonBlob($) {
   if (dragon.isNearMiss()) {
 	  dragon.pushTag("Near miss");
   }
+  
+  console.log(dragon);
 
   return dragon;
 }
@@ -216,29 +220,30 @@ function importDragonFromLairBlob($, det) {
 
 /** end of import from source **/
 
-export default {
-  Dragon,
-  dragonLookup: (payload) => {
+function dragonLookup(payload) {
     try {
       const $ = cheerio.load(payload);
 
       let dragons = [];
 
       if ($('#error-404')[0]) {
-        return null;
-      } else if ($('meta[property="og:url"]')[0] && $('meta[property="og:url"]').attr('content').substr(0, 37) === 'https://www1.flightrising.com/dragon/') {
-        dragons.push(importDragonFromDragonBlob($));
+        return dragons;
+      //} else if ($('meta[property="og:url"]')[0] && $('meta[property="og:url"]').attr('content').substr(0, 37) === 'https://www1.flightrising.com/dragon/') {
+      //  dragons.push(importDragonFromDragonBlob($));
       } else if ($('#lair-view-page')[0]) {
         dragons = dragons.concat(importDragonsFromLairBlob($));
-      } else if ($('.dragon-profile-header-title')[0] && $('.dragon-profile-lineage-offspring')[0]) {
+      } else if ($('.dragon-profile-lineage-offspring')[0]) {
         dragons.push(importDragonFromDragonBlob($));
-      }  else {
-        return null;
+      } else {
+        return dragons;
       }
-
       return dragons;
-    } catch (e) {}
+    } catch (e) {
+      //console.error(e.stack);
+    }
+}
 
-    return null;
-  },
-};
+export default {
+  Dragon,
+  dragonLookup,
+}

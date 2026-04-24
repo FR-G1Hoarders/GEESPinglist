@@ -1,9 +1,9 @@
-const axios = require('axios');
-const PING_LISTS = require('@/data/pinglists');
-const {DatesPinglist} = require('./DatesPinglist');
-const {GeneralPinglist} = require('./GeneralPinglist');
-const {SpecificsPinglist} = require('./SpecificsPinglist');
-const {Breeds} = require('./Breeds');
+import axios from 'axios';
+import PING_LISTS from '@/data/pinglists';
+import {DatesPinglist} from './DatesPinglist';
+import {GeneralPinglist} from './GeneralPinglist';
+import {SpecificsPinglist} from './SpecificsPinglist';
+import {Breeds} from './Breeds';
 
 export default {
   generalPinglist: () => axios(PING_LISTS.GENERAL).then(data => data.data).then(blob => GeneralPinglist(blob)),

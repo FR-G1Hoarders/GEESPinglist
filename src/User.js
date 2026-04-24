@@ -1,4 +1,4 @@
-function User(data) {
+export function User(data) {
   return {
     data,
     name() {
@@ -9,5 +9,3 @@ function User(data) {
     },
   };
 }
-
-export default {User};

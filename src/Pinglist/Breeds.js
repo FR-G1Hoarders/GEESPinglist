@@ -1,10 +1,7 @@
-const {parseCsv} = require('./CommonPinglist');
+import {parseCsv} from './CommonPinglist';
 
-function Breeds(blob) {
+export function Breeds(blob) {
   let items = parseCsv(blob);
   return items;
 }
 
-export default {
-  Breeds,
-};

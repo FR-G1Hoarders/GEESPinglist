@@ -1,9 +1,9 @@
-const {User} = require('../User');
-const Papa = require('papaparse');
-const ITEM_STATUS = require('@/data/pinglist_item_status');
-const SHEETDATA = require('@/data/columnIndexes');
+import {User} from '../User';
+import Papa from 'papaparse';
+import ITEM_STATUS from '@/data/pinglist_item_status';
+import SHEETDATA from '@/data/columnIndexes';
 
-function PinglistItem() {
+export function PinglistItem() {
   let status = null;
   const dragon2Status = {};
   const dnpDragons = [];
@@ -109,7 +109,7 @@ function PinglistItem() {
   };
 }
 
-function Pinglist() {
+export function Pinglist() {
   return {
     pingsForSaleType(saleType) {
       this.resetItems();
@@ -155,7 +155,7 @@ function Pinglist() {
   };
 }
 
-function parseCsv(data, takeHeader = false) {
+export function parseCsv(data, takeHeader = false) {
   const parsedCsv = Papa.parse(data).data;
   return takeHeader ? parsedCsv : parsedCsv.slice(1);
 }
@@ -163,8 +163,3 @@ function parseCsv(data, takeHeader = false) {
 //It is technically possible to load the header, and from there, automatically search which column contains which data
 //But because of how multigaze and primal blacklists are coded right now, I fear an impact on speed performance if those columns were to not be together
 
-export default {
-  parseCsv,
-  PinglistItem,
-  Pinglist,
-};

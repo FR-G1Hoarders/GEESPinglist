@@ -1,9 +1,9 @@
-const {parseCsv, Pinglist, PinglistItem} = require('./CommonPinglist');
-const ITEM_STATUS = require('@/data/pinglist_item_status');
-const SHEETDATA = require('@/data/columnIndexes');
-const FLIGHTS = require('@/data/flights');
+import {parseCsv, Pinglist, PinglistItem} from './CommonPinglist';
+import ITEM_STATUS from '@/data/pinglist_item_status';
+import SHEETDATA from '@/data/columnIndexes';
+import FLIGHTS from '@/data/flights';
 
-function SpecificsPinglistItem(COLORS, data) {
+export function SpecificsPinglistItem(COLORS, data) {
   let wantedPrimaries = [], wantedSecondaries = [], wantedTertiaries = [];
 
   /************************************************************
@@ -99,7 +99,7 @@ function SpecificsPinglistItem(COLORS, data) {
   }
 }
 
-function SpecificsPinglist(blob) {
+export function SpecificsPinglist(blob) {
   let items;
   const csv = parseCsv(blob, true);
 
@@ -126,8 +126,3 @@ function SpecificsPinglist(blob) {
     },
   };
 }
-
-export default {
-  SpecificsPinglist,
-  SpecificsPinglistItem,
-};

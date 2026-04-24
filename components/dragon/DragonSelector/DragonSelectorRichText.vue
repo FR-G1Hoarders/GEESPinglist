@@ -88,6 +88,7 @@
       processInput(t) {
         this.error = '';
 		try {
+		  console.log(Dragon.dragonLookup(t));
 			const [dragon] = Dragon.dragonLookup(t);
 			if (!dragon) {
 				this.error = ERRORS.GENERAL;

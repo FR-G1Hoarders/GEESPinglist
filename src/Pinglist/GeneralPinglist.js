@@ -1,9 +1,9 @@
-const FLIGHTS = require('@/data/flights');
-const {parseCsv, Pinglist, PinglistItem} = require('./CommonPinglist');
-const ITEM_STATUS = require('@/data/pinglist_item_status');
-const SHEETDATA = require('@/data/columnIndexes');
+import FLIGHTS from '@/data/flights';
+import {parseCsv, Pinglist, PinglistItem} from './CommonPinglist';
+import ITEM_STATUS from '@/data/pinglist_item_status';
+import SHEETDATA from '@/data/columnIndexes';
 
-function GeneralPinglistItem(data) {
+export function GeneralPinglistItem(data) {
   const wantedEyeTypes = [];
   ['', ...FLIGHTS].forEach((flight, i) => {
     data[SHEETDATA.CG_Eyetypes + i].split(', ').filter(x => x).forEach((eyeType, ii) => {
@@ -152,7 +152,7 @@ function GeneralPinglistItem(data) {
   }
 }
 
-function GeneralPinglist(blob) {
+export function GeneralPinglist(blob) {
   let items;
   return {
     ...Pinglist(),
@@ -164,8 +164,3 @@ function GeneralPinglist(blob) {
     },
   };
 }
-
-export default {
-  GeneralPinglist,
-  GeneralPinglistItem,
-};

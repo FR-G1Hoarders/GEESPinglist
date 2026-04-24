@@ -1,11 +1,11 @@
-const moment = require('moment');
-const HOLIDAYS = require('@/data/holidays');
-const {parseCsv, Pinglist, PinglistItem} = require('./CommonPinglist');
-const ITEM_STATUS = require('@/data/pinglist_item_status');
-const SHEETDATA = require('@/data/columnIndexes');
-const FLIGHTS = require('@/data/flights');
+import moment from 'moment';
+import HOLIDAYS from '@/data/holidays';
+import {parseCsv, Pinglist, PinglistItem} from './CommonPinglist';
+import ITEM_STATUS from '@/data/pinglist_item_status';
+import SHEETDATA from '@/data/columnIndexes';
+import FLIGHTS from '@/data/flights';
 
-function DatesPinglistItem(data) {
+export function DatesPinglistItem(data) {
   return {
     data,
     ...PinglistItem(),
@@ -66,7 +66,7 @@ function DatesPinglistItem(data) {
   }
 }
 
-function DatesPinglist(blob) {
+export function DatesPinglist(blob) {
   let items;
   return {
     ...Pinglist(),
@@ -79,7 +79,3 @@ function DatesPinglist(blob) {
   };
 }
 
-export default {
-  DatesPinglist,
-  DatesPinglistItem,
-};

@@ -44,6 +44,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    transpile: ['htmlparser2', 'parse5']
   },
 
   // set base url prefix
