@@ -131,7 +131,8 @@ function importDragonFromDragonBlob($) {
 
   const header = $('.responsive-page-header-title').text();
   const idMatch = header.match(/\(#(\d+)\)/);
-  const genderText = $('#dragon-profile-icon-sex-tooltip').text();
+  const genderText = $('[data-tooltip-source="#dragon-profile-icon-sex-tooltip"] img').attr('alt');
+  console.log(genderText);
   const dragon = Dragon({
     id: (idMatch ? parseInt(idMatch[1]) : null),
     name: header.split('(#')[0].trim(),
